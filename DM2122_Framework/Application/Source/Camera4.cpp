@@ -1,6 +1,7 @@
 #include "Camera4.h"
 #include "Application.h"
 #include "Mtx44.h"
+#include "Application.h"
 
 Camera4::Camera4()
 {
@@ -26,8 +27,20 @@ void Camera4::Update(double dt)
 {
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
-
 	static const float CAMERA_SPEED = 50.f;
+
+	Mtx44 rotateX, rotateY;
+	std::cout << Application::yaw_ << " : " << Application::pitch_ << std::endl;
+	rotateX.SetToRotation(Application::yaw_, 0, -1, 0);
+	rotateY.SetToRotation(Application::pitch_, right.x, 0, right.z);
+	//set view target up
+	view = rotateX* rotateY* view;
+	target = position + view;
+	up = rotateX* rotateY * up;
+
+	Application::pitch_ = 0;
+	Application::yaw_ = 0;
+
 
 	//Camera Controls
 	if (Application::IsKeyPressed('A'))
