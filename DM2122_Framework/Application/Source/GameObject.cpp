@@ -1,20 +1,21 @@
 #include "GameObject.h"
 
-GameObject::GameObject()
+GameObject::GameObject() : name_(""), position_(0)
+{
+
+}
+
+GameObject::GameObject(const string &name) : name_(name)
+{
+
+}
+
+GameObject::GameObject(const string &name, Vector3 &position) : name_(name), position_(position)
 {
 
 }
 
 GameObject::~GameObject()
-{
-
-}
-
-GameObject::GameObject(const string& name) : name_(name)
-{
-}
-
-GameObject::GameObject(const string& name, Vector3 position) : name_(name), position_(position)
 {
 
 }

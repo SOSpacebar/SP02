@@ -9,6 +9,7 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
+#include "Characters.h"
 
 SP02::SP02()
 {
@@ -33,6 +34,8 @@ void SP02::Init()
 	// Init VBO here
 	FPS = 0;
 	lightsOn = true;
+
+	Characters* john = new GameObject();
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 

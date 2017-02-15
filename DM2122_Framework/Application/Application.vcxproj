@@ -86,6 +86,7 @@
     <ClCompile Include="Source\Assignment03.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Camera4.cpp" />
+    <ClCompile Include="Source\Characters.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Source\Assignment03.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Camera4.h" />
+    <ClInclude Include="Source\Characters.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />

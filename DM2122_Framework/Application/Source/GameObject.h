@@ -13,7 +13,7 @@ class GameObject
 public:
 	GameObject();
 	GameObject(const string &name);
-	GameObject(const string &name, Vector3 position);
+	GameObject(const string &name, Vector3 &position);
 	virtual ~GameObject();
 
 	virtual Vector3 getPosition();
