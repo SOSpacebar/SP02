@@ -1,9 +1,45 @@
-﻿Build started 15/2/2017 2:40:52 PM.
+﻿Build started 15/2/2017 2:50:27 PM.
      1>Project "C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Application\Application.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\\Common\Source" /I"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\\glfw\include" /I"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\\glew\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\Assignment03.cpp Source\Camera4.cpp Source\SP02.cpp Source\SceneManager.cpp
+         SP02.cpp
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\sp02.cpp(27): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\sp02.cpp(254): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\sp02.cpp(311): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Camera4.cpp
+         Generating Code...
+         Compiling...
+         Application.cpp
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(47): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(48): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(50): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(51): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(55): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\jan raph\documents\github\sp02\dm2122_framework\application\source\application.cpp(56): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         SceneManager.cpp
+         Assignment03.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Debug" /LIBPATH:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\\glfw\lib-msvc120" /LIBPATH:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\\glew\lib" glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
+         Debug\Assignment03.obj
+         Debug\Camera.obj
+         Debug\Camera4.obj
+         Debug\GameObject.obj
+         Debug\LoadOBJ.obj
+         Debug\LoadTGA.obj
+         Debug\main.obj
+         Debug\Mesh.obj
+         Debug\MeshBuilder.obj
+         Debug\SceneManager.obj
+         Debug\SceneUI.obj
+         Debug\shader.obj
+         Debug\SP02.obj
+         Debug\Utility.obj
+         Debug\Vertex.obj
          Application.vcxproj -> C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Debug\Application.exe
      1>Done Building Project "C:\Users\Jan Raph\Documents\GitHub\SP02\DM2122_Framework\Application\Application.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.26
+Time Elapsed 00:00:02.66
