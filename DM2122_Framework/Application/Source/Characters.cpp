@@ -29,10 +29,40 @@ Characters::~Characters()
 
 }
 
-//void Characters::setDefault()
-//{
-//	maxHealth_ = 100;
-//	maxStamina_ = 50;
-//	health_ = maxHealth_;
-//	stamina_ = maxStamina_;
-//}
+void Characters::setDefault()
+{
+	this->maxHealth_ = 100;
+	this->maxStamina_ = 50;
+	this->health_ = maxHealth_;
+	this->stamina_ = maxStamina_;
+}
+
+const unsigned Characters::getCurrentHealth()
+{
+	return this->health_;
+}
+
+const unsigned Characters::getMaxHealth()
+{
+	return this->maxHealth_;
+}
+
+const unsigned Characters::getCurrentStamina()
+{
+	return this->stamina_;
+}
+
+const unsigned Characters::getMaxStamina()
+{
+	return this->maxStamina_;
+}
+
+void Characters::setMaxHealth(const unsigned newMaxHealth)
+{
+	this->maxHealth_ = newMaxHealth;
+}
+
+void Characters::setMaxStamina(const unsigned newMaxStamina)
+{
+	this->maxStamina_ = newMaxStamina;
+}
