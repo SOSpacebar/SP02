@@ -74,6 +74,17 @@ static void cursorPositionCallback(GLFWwindow*window, double xPos, double yPos)
 	Application::yaw_ = yaw;
 }
 
+static void mouseButtonCallback(GLFWwindow*window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		std::cout << "Fire" << std::endl;
+	}
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		std::cout << "Clicked" << std::endl;
+	}
+}
 
 bool Application::IsKeyPressed(unsigned short key)
 {
@@ -131,6 +142,7 @@ void Application::Init()
 	glfwMakeContextCurrent(m_window);
 	//mouse stuff
 	glfwSetCursorPosCallback(m_window, cursorPositionCallback);
+	glfwSetMouseButtonCallback(m_window, mouseButtonCallback);
 	//Sets the key callback
 	//glfwSetKeyCallback(m_window, key_callback);
 

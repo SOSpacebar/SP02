@@ -127,5 +127,8 @@
     <ClInclude Include="Source\Characters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
