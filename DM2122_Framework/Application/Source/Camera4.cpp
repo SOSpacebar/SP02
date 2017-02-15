@@ -1,7 +1,6 @@
 #include "Camera4.h"
 #include "Application.h"
 #include "Mtx44.h"
-#include "Application.h"
 
 Camera4::Camera4()
 {
@@ -30,7 +29,6 @@ void Camera4::Update(double dt)
 	static const float CAMERA_SPEED = 50.f;
 
 	Mtx44 rotateX, rotateY;
-	std::cout << Application::yaw_ << " : " << Application::pitch_ << std::endl;
 	rotateX.SetToRotation(Application::yaw_, 0, -1, 0);
 	rotateY.SetToRotation(Application::pitch_, right.x, 0, right.z);
 	//set view target up
@@ -48,18 +46,18 @@ void Camera4::Update(double dt)
 		position = position - right;
 		target = position + view;
 	}
-	else if (Application::IsKeyPressed('D'))
+	 if (Application::IsKeyPressed('D'))
 	{
 		position = position + right;
 		target = position + view;
 	}
-	else if (Application::IsKeyPressed('W'))
+	 if (Application::IsKeyPressed('W'))
 	{
 		position.x = position.x + view.x;
 		position.z = position.z + view.z;
 		target = position + view;
 	}
-	else if (Application::IsKeyPressed('S'))
+	 if (Application::IsKeyPressed('S'))
 	{
 		position.x = position.x - view.x;
 		position.z = position.z - view.z;
