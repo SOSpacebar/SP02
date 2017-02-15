@@ -105,6 +105,7 @@
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Camera4.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

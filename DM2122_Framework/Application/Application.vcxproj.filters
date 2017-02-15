@@ -115,5 +115,8 @@
     <ClInclude Include="Source\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
