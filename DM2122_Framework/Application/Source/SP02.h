@@ -30,6 +30,9 @@ class SP02 : public Scene
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
+		GEO_SPACE,
+		GEO_SUN,
+		GEO_MOON,
 		NUM_GEOMETRY,
 	};
 
@@ -97,6 +100,12 @@ private:
 	Light light[2];
 
 	float FPS;
+
+	float dailycycle;
+	int randomx;
+	int randomz;
+	int RandXArray[10];
+	int RandZArray[10];
 
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);
