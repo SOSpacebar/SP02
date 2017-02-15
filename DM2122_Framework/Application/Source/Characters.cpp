@@ -29,10 +29,10 @@ Characters::~Characters()
 
 }
 
-void Characters::setDefault()
-{
-	maxHealth_ = 100;
-	maxStamina_ = 50;
-	health_ = maxHealth_;
-	stamina_ = maxStamina_;
-}
+//void Characters::setDefault()
+//{
+//	maxHealth_ = 100;
+//	maxStamina_ = 50;
+//	health_ = maxHealth_;
+//	stamina_ = maxStamina_;
+//}
