@@ -53,14 +53,25 @@ void Camera4::Update(double dt)
 	}
 	 if (Application::IsKeyPressed('W'))
 	{
-		position.x = position.x + view.x;
-		position.z = position.z + view.z;
+		//no clip
+		position = position + view;
+		//normal
+		//position.x = position.x + view.x;
+		//position.z = position.z + view.z;
+
+		//camera
 		target = position + view;
 	}
 	 if (Application::IsKeyPressed('S'))
 	{
-		position.x = position.x - view.x;
-		position.z = position.z - view.z;
+		//no clip
+		position = position - view;
+
+		//normal
+		//position.x = position.x - view.x;
+		//position.z = position.z - view.z;
+
+		//camera
 		target = position + view;
 	}
 	else if (Application::IsKeyPressed(VK_LEFT))
