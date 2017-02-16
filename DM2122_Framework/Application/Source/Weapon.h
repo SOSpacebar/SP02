@@ -3,21 +3,16 @@
 
 #endif
 #include<string>
+#include "Item.h"
 using std::string;
-class Weapon
+class Weapon : public Item
 {
 public:
-	Weapon(const string&weaponName,const int weaponDamage);
+	Weapon(const string&weaponName, const int weaponDamage, const int weaponAmmo);
 	~Weapon();
 
 private:
 	const int attackDamage;
+	const int ammoSize;
 };
 
-//Weapon::Weapon(const string&weaponName, const int weaponDamage)
-//{
-//}
-//
-//Weapon::~Weapon()
-//{
-//}

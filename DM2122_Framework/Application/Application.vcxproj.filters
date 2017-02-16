@@ -65,6 +65,15 @@
     <ClCompile Include="Source\Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -130,10 +139,16 @@
     <ClInclude Include="Source\Characters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Monster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Collider.h">
+    <ClInclude Include="Source\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
