@@ -33,6 +33,9 @@ class SP02 : public Scene
 		GEO_SPACE,
 		GEO_SUN,
 		GEO_MOON,
+		GEO_COAL,
+		GEO_IRON,
+		GEO_COBALT,
 		NUM_GEOMETRY,
 	};
 
@@ -100,12 +103,23 @@ private:
 	Light light[2];
 
 	float FPS;
-
+	//daily cycle
 	float dailycycle;
+	//coal
 	int randomx;
 	int randomz;
-	int RandXArray[10];
-	int RandZArray[10];
+	int RandXArray[150];
+	int RandZArray[150];
+	//iron
+	int irandomx;
+	int irandomz;
+	int IRandXArray[100];
+	int IRandZArray[100];
+	//cobalt
+	int crandomx;
+	int crandomz;
+	int CRandXArray[50];
+	int CRandZArray[50];
 
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);

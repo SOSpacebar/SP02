@@ -26,14 +26,30 @@ void SP02::Init()
 	dailycycle = 0;
 	//random seed
 	srand(time(NULL));
-	for (int i = 0; i < 10 ; i++)
+	//random amounts of coal
+	for (int i = 0; i < 150 ; i++)
 	{
-		randomx = rand() % 10;
+		randomx = rand() % 300;
 		RandXArray[i] = randomx;
-		randomz = rand() % 10;
+		randomz = rand() % 300;
 		RandZArray[i] = randomz;
 	}
-
+	//random amounts of coal
+	for (int i = 0; i < 100; i++)
+	{
+		irandomx = rand() % 300;
+		IRandXArray[i] = irandomx;
+		irandomz = rand() % 300;
+		IRandZArray[i] = irandomz;
+	}
+	//random amounts of cobalt
+	for (int i = 0; i < 50; i++)
+	{
+		crandomx = rand() % 300;
+		CRandXArray[i] = crandomx;
+		crandomz = rand() % 300;
+		CRandZArray[i] = crandomz;
+	}
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -83,6 +99,17 @@ void SP02::Init()
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
+
+
+	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
+	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
+
+	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
+	meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
+
+	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
+	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
+
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -312,11 +339,28 @@ void SP02::Render()
 	modelStack.PopMatrix();
 
 	//randomly spawned objects
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 150; i++)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(RandXArray[i], 0, RandZArray[i]);
-		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.Translate(RandXArray[i] - 150, 0, RandZArray[i] - 150);
+		modelStack.Scale(0.5, 0.5, 0.5);
+		RenderMesh(meshList[GEO_COAL], false);
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i < 100; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(IRandXArray[i] - 150, 0, IRandZArray[i]-150);
+		modelStack.Scale(0.5, 0.5, 0.5);
+		RenderMesh(meshList[GEO_IRON], false);
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i < 50; i++)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(CRandXArray[i]-150, 0, CRandZArray[i]-150);
+		modelStack.Scale(0.5, 0.5, 0.5);
+		RenderMesh(meshList[GEO_COBALT], false);
 		modelStack.PopMatrix();
 	}
 
