@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
+#include "Bullet.h"
 
 class SP02 : public Scene
 {
@@ -126,6 +127,9 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 
 	void RenderSkybox();
+
+	Bullet*bullet[10];
+	bool canFire = false;
 
 	void DebugCamPosition();
 };

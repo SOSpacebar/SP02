@@ -50,6 +50,13 @@ void SP02::Init()
 		crandomz = rand() % 300;
 		CRandZArray[i] = crandomz;
 	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		bullet[i] = new Bullet();
+		bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+	}
+
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -101,14 +108,14 @@ void SP02::Init()
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
 
 
-	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
+	/*meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
 
 	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
 	meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
 
 	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
-	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
+	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");*/
 
 
 	Mtx44 projection;
@@ -278,9 +285,18 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('E'))
 	{
-
+		canFire = true;
 	}
-
+	else
+	{
+		canFire = false;
+		for (int i = 0; i < 10; i++)
+		{
+			bullet[i] = new Bullet();
+			bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+		}
+	}
+		
 
 	if (Application::IsKeyPressed(VK_F1))
 		SceneManager::instance()->SetNextScene(1);
@@ -339,7 +355,7 @@ void SP02::Render()
 	modelStack.PopMatrix();
 
 	//randomly spawned objects
-	for (int i = 0; i < 150; i++)
+	/*for (int i = 0; i < 150; i++)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(RandXArray[i] - 150, 0, RandZArray[i] - 150);
@@ -362,6 +378,17 @@ void SP02::Render()
 		modelStack.Scale(0.5, 0.5, 0.5);
 		RenderMesh(meshList[GEO_COBALT], false);
 		modelStack.PopMatrix();
+	}*/
+
+	if (canFire == true)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(bullet[i]->position.x, bullet[i]->position.y, bullet[i]->position.z);
+			RenderMesh(meshList[GEO_CUBE], false);
+			modelStack.PopMatrix();
+		}
 	}
 
 	//FPS
