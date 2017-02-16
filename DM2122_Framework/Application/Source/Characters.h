@@ -4,7 +4,7 @@
 #include "GameObject.h"
 
 
-class Characters : GameObject
+class Characters : public GameObject
 {
 public:
 	Characters();

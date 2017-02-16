@@ -176,6 +176,12 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+
+	//For my collider testing will remove later
+	//Vector3 box(6, 6, 6);
+	//Characters john_("john", camera.position);
+	//GameObject box_("box", box);
+	//john_.getCollider()->OnCollisionEnter(*box_.getCollider());
 }
 
 void SP02::Update(double dt)
