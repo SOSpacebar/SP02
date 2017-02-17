@@ -26,7 +26,7 @@ void Camera4::Update(double dt)
 {
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
-	static const float CAMERA_SPEED = 50.f;
+	static const float CAMERA_SPEED = 5.f;
 
 	Mtx44 rotateX, rotateY;
 	rotateX.SetToRotation(Application::yaw_, 0, -1, 0);

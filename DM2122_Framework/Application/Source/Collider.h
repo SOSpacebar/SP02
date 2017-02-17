@@ -8,11 +8,16 @@ class Collider
 public:
 	Collider();
 	~Collider();
-	Collider(Vector3, Vector3);
+	Collider(Vector3, Vector3, Vector3);
 
+	
+	void updateColliderPos(Vector3&);
 	bool OnCollisionEnter(Collider&);
+	float sweptAABBCollision(Collider&, Collider&);
+	Vector3 getboxSize();
+	
 private:
-	Vector3 boxMin, boxMax;
+	Vector3 boxMin, boxMax, boxSize;
 };
 
 

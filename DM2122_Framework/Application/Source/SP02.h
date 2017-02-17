@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "Light.h"
+#include "Characters.h"
 
 class SP02 : public Scene
 {
@@ -93,6 +94,9 @@ private:
 
 	Mesh* meshList[NUM_GEOMETRY];
 
+	//GameObject* gameObjectList[NUM_GEOMETRY];
+	Characters* john;
+	GameObject* box;
 	Camera4 camera;
 	MS modelStack, viewStack, projectionStack;
 
@@ -106,6 +110,9 @@ private:
 	int randomz;
 	int RandXArray[10];
 	int RandZArray[10];
+
+
+
 
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);

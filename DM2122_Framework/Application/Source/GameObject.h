@@ -5,7 +5,6 @@
 #include <string>
 #include "Collider.h"
 
-#endif
 
 using std::string;
 
@@ -15,11 +14,12 @@ public:
 	GameObject();
 	GameObject(const string &name);
 	GameObject(const string &name, Vector3 &position);
-	GameObject(const string &name, Vector3 &position, Vector3 &boxSize);
+	GameObject(const string &name, Vector3 &position, Vector3 &box);
 	virtual ~GameObject();
 
 	virtual Vector3 getPosition();
 	virtual void setPosition(Vector3 newPosition);
+	virtual void updatePosition(Vector3 newPosition);
 	virtual string getName();
 
 	virtual void setCollider(Collider*);
@@ -30,3 +30,5 @@ private:
 	Collider* collisionBox_;
 };
 
+
+#endif

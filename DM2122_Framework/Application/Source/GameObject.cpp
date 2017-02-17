@@ -12,14 +12,14 @@ GameObject::GameObject(const string &name) : name_(name), collisionBox_()
 
 GameObject::GameObject(const string &name, Vector3 &position) : name_(name), position_(position)
 {
-	Vector3 boxSize(10, 10, 10);
-	Collider* c = new Collider(position - boxSize, position + boxSize);
+	Vector3 boxSize(5, 5, 5);
+	Collider* c = new Collider(position, position, boxSize);
 	GameObject::setCollider(c);
 }
 
 GameObject::GameObject(const string &name, Vector3 &position, Vector3 &boxSize) : name_(name), position_(position)
 {
-	Collider* c = new Collider(position - boxSize, position + boxSize);
+	Collider* c = new Collider(position, position, boxSize);
 	GameObject::setCollider(c);
 }
 
@@ -50,4 +50,9 @@ void GameObject::setCollider(Collider* c)
 Collider* GameObject::getCollider()
 {
 	return this->collisionBox_;
+}
+
+void GameObject::updatePosition(Vector3 newPosition)
+{
+	this->position_ = newPosition;
 }

@@ -8,7 +8,6 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
-#include "Characters.h"
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
@@ -42,7 +41,7 @@ void SP02::Init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Enable Camera
-	camera.Init(Vector3(5, 5, 5), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(15, 5, 15), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	// Init VBO here
 	FPS = 0;
@@ -177,11 +176,11 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	//For my collider testing will remove later
-	//Vector3 box(6, 6, 6);
-	//Characters john_("john", camera.position);
-	//GameObject box_("box", box);
-	//john_.getCollider()->OnCollisionEnter(*box_.getCollider());
+	//For Testing on colliders/collisions.
+	john = new Characters("john", camera.position);
+	Vector3 temp(0, 0, 0);
+	Vector3 box_(5, 5, 5);
+	box = new GameObject("box", temp, box_);
 }
 
 void SP02::Update(double dt)
@@ -189,7 +188,7 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
-	static const float LSPEED = 10.f;
+	static const float LSPEED = 10.f; 
 
 	if (Application::IsKeyPressed('1'))
 	{
@@ -260,12 +259,31 @@ void SP02::Update(double dt)
 
 	dailycycle += 0.1 * dt;
 
+	//Update Player Position (Note Update First before checks)
+	john->getCollider()->updateColliderPos(camera.position);
+	john->updatePosition(camera.position);
+
+	//Check Collision.
+	static Vector3 prevPosition = camera.position;
+	static Vector3 prevTarget = camera.target;
+
+	if ((john->getCollider()->OnCollisionEnter(*box->getCollider())))
+	{
+		camera.position = prevPosition;
+		camera.target = prevTarget;
+	}
+	else
+	{
+		prevPosition = camera.position;
+		prevTarget = camera.target;
+	}
+
+
 	camera.Update(dt);
 }
 
 void SP02::Render()
 {
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL)
@@ -321,10 +339,10 @@ void SP02::Render()
 	}
 
 	//FPS
-	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
+	//RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
 
 	
-	//DebugCamPosition();
+	DebugCamPosition();
 }
 
 void SP02::RenderMesh(Mesh *mesh, bool enableLight)
@@ -542,9 +560,13 @@ void SP02::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float s
 
 void SP02::DebugCamPosition()
 {
-	//RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);
+	/*RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);*/
+
+	RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(john->getPosition().x), Color(0, 1, 0), 3, .5f, .5f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(john->getPosition().y), Color(0, 1, 0), 3, .5f, 1.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(john->getPosition().z), Color(0, 1, 0), 3, .5f, 1.5f);
 }
 
 void SP02::Exit()
