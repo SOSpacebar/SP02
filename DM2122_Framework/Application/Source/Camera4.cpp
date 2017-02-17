@@ -1,6 +1,7 @@
 #include "Camera4.h"
 #include "Application.h"
 #include "Mtx44.h"
+#include <iostream>
 
 Camera4::Camera4()
 {
@@ -27,15 +28,25 @@ void Camera4::Update(double dt)
 {
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
-	static const float CAMERA_SPEED = 5.f;
+	static const float CAMERA_SPEED = 100.f;
 
 	Mtx44 rotateX, rotateY;
+
 	rotateX.SetToRotation(Application::yaw_, 0, -1, 0);
+	right.y = 0;
+	right.Normalize();
+	up = right.Cross(view).Normalized();
+
 	rotateY.SetToRotation(Application::pitch_, right.x, 0, right.z);
-	//set view target up
+
 	view = rotateX* rotateY* view;
 	target = position + view;
 	up = rotateX* rotateY * up;
+
+
+
+	if(Application::IsKeyPressed(VK_SPACE))
+	std::cout << view << " : " << right << " : " << up << std::endl;
 
 	Application::pitch_ = 0;
 	Application::yaw_ = 0;
@@ -46,6 +57,7 @@ void Camera4::Update(double dt)
 	{
 		position = position - right;
 		target = position + view;
+
 	}
 	 if (Application::IsKeyPressed('D'))
 	{
@@ -55,7 +67,7 @@ void Camera4::Update(double dt)
 	 if (Application::IsKeyPressed('W'))
 	{
 		//no clip
-		if (GodMode = true)
+		if (GodMode == true)
 			position = position + view;
 		//normal
 		else
@@ -70,7 +82,7 @@ void Camera4::Update(double dt)
 	 if (Application::IsKeyPressed('S'))
 	{
 		//no clip
-		if (GodMode = true)
+		if (GodMode == true)
 		position = position - view;
 		else
 		{
@@ -137,6 +149,10 @@ void Camera4::Update(double dt)
 	if (Application::IsKeyPressed('R'))
 	{
 		Reset();
+		if (GodMode == true)
+			std::cout << "true" << std::endl;
+		else
+			std::cout << "false" << std::endl;
 	}
 
 	BoundsCheck(view);
@@ -148,6 +164,7 @@ void Camera4::Reset()
 		GodMode = false;
 	else if (GodMode == false)
 		GodMode = true;
+
 	position = defaultPosition;
 	target = defaultTarget;
 	up = defaultUp;

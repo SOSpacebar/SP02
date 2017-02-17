@@ -213,7 +213,7 @@ void SP02::Init()
 	//For Testing on colliders/collisions.
 	john = new Characters("john", camera.position);
 	Vector3 temp(0, 0, 0);
-	Vector3 box_(5, 5, 5);
+	Vector3 box_(10, 10, 10);
 	box = new GameObject("box", temp, box_);
 }
 
@@ -310,7 +310,7 @@ void SP02::Update(double dt)
 	static Vector3 prevPosition = camera.position;
 	static Vector3 prevTarget = camera.target;
 
-	if ((john->getCollider()->OnCollisionEnter(*box->getCollider())))
+	if ((john->getCollider()->OnCollisionEnter(*box->getCollider())))//when box collides with player
 	{
 		camera.position = prevPosition;
 		camera.target = prevTarget;
