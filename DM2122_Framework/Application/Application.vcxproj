@@ -116,6 +116,7 @@
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Element.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
