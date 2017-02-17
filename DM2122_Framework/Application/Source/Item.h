@@ -4,7 +4,7 @@
 #include "GameObject.h"
 
 using namespace std;
-class Item:GameObject
+class Item:public GameObject
 {
 public:
 	Item();

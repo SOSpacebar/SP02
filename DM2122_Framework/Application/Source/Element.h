@@ -9,7 +9,7 @@
 
 
 //damage commented incase for future use
-class Element :Item
+class Element :public Item
 {
 public:
 	Element();
