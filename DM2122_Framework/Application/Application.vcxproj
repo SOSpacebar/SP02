@@ -96,6 +96,8 @@
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Monster.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneUI.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -122,7 +124,9 @@
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Monster.h" />
+    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneUI.h" />
     <ClInclude Include="Source\shader.hpp" />
