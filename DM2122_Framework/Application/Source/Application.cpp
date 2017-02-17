@@ -166,8 +166,8 @@ void Application::Init()
 
 void Application::Run()
 {
-	SceneManager::instance()->AddScene(new SP02);
 	SceneManager::instance()->AddScene(new SceneBase);
+	SceneManager::instance()->AddScene(new SP02);
 	SceneManager::instance()->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame

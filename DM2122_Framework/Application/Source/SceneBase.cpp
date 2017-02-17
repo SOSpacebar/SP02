@@ -24,8 +24,6 @@ SceneBase::~SceneBase()
 void SceneBase::Init()
 {
 	dailycycle = 0;
-	//random seed
-	srand(time(NULL));
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = new Bullet();
@@ -34,13 +32,13 @@ void SceneBase::Init()
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Enable Camera
-	camera.Init(Vector3(5, 5, 5), Vector3(0, 5, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(-5, 5, -5), Vector3(0, 5, 0), Vector3(0, 1, 0));
 
 	// Init VBO here
 	FPS = 0;
@@ -259,10 +257,8 @@ void SceneBase::Update(double dt)
 	}
 
 
-	if (Application::IsKeyPressed(VK_F2))
-		SceneManager::instance()->SetNextScene(0);
 	if(camera.position.x > 20 && camera.position.z > 0 && camera.position.z<10)
-		SceneManager::instance()->SetNextScene(0);
+		SceneManager::instance()->SetNextScene(1);
 
 
 	dailycycle += 0.1 * dt;
@@ -437,6 +433,7 @@ void SceneBase::RenderSkybox()
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 	//Room
+	//top
 	modelStack.PushMatrix();
 	modelStack.Translate(0 , 25, 0 );
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -444,7 +441,7 @@ void SceneBase::RenderSkybox()
 	modelStack.Scale(50, 50, 50);
 	RenderMesh(meshList[GEO_ROOM], false);
 	modelStack.PopMatrix();
-
+	//bot
 	modelStack.PushMatrix();
 	modelStack.Translate(0 , 0, 0);
 	modelStack.Rotate(90, 1, 0, 0);
@@ -452,28 +449,28 @@ void SceneBase::RenderSkybox()
 	modelStack.Scale(50, 50, 50);
 	RenderMesh(meshList[GEO_ROOM], false);
 	modelStack.PopMatrix();
-
+	//front
 	modelStack.PushMatrix();
 	modelStack.Translate(25, 12.5 , 0 );
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(50, 25, 50);
 	RenderMesh(meshList[GEO_ROOMDOOR], false);
 	modelStack.PopMatrix();
-
+	//back
 	modelStack.PushMatrix();
 	modelStack.Translate(-25, 12.5 , 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	modelStack.Scale(50, 25, 50);
 	RenderMesh(meshList[GEO_ROOM], false);
 	modelStack.PopMatrix();
-
+	//left
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 12.5, -25);
 	modelStack.Rotate(180, 0, 1, 0);
 	modelStack.Scale(50, 25, 50);
 	RenderMesh(meshList[GEO_ROOM], false);
 	modelStack.PopMatrix();
-
+	//right   
 	modelStack.PushMatrix();
 	modelStack.Translate(0 , 12.5 , 25 );
 	modelStack.Scale(50, 25, 50);
