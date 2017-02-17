@@ -12,6 +12,7 @@ Camera4::~Camera4()
 
 void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
+	GodMode = false;
 	this->position = defaultPosition = pos;
 	this->target = defaultTarget = target;
 	Vector3 view = (target - position).Normalized();
@@ -54,10 +55,14 @@ void Camera4::Update(double dt)
 	 if (Application::IsKeyPressed('W'))
 	{
 		//no clip
-		position = position + view;
+		if (GodMode = true)
+			position = position + view;
 		//normal
-		//position.x = position.x + view.x;
-		//position.z = position.z + view.z;
+		else
+		{
+			position.x = position.x + view.x;
+			position.z = position.z + view.z;
+		}
 
 		//camera
 		target = position + view;
@@ -65,12 +70,14 @@ void Camera4::Update(double dt)
 	 if (Application::IsKeyPressed('S'))
 	{
 		//no clip
+		if (GodMode = true)
 		position = position - view;
-
-		//normal
-		//position.x = position.x - view.x;
-		//position.z = position.z - view.z;
-
+		else
+		{
+			//normal
+			position.x = position.x - view.x;
+			position.z = position.z - view.z;
+		}
 		//camera
 		target = position + view;
 	}
@@ -137,6 +144,10 @@ void Camera4::Update(double dt)
 
 void Camera4::Reset()
 {
+	if (GodMode == true)
+		GodMode = false;
+	else if (GodMode == false)
+		GodMode = true;
 	position = defaultPosition;
 	target = defaultTarget;
 	up = defaultUp;

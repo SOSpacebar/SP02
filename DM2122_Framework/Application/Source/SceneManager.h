@@ -7,6 +7,7 @@
 #include "SceneUI.h"
 #include "Assignment03.h"
 #include "SP02.h"
+#include "SceneBase.h"
 
 using std::map;
 

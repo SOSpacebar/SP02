@@ -1,8 +1,6 @@
-#define BULLET_H
+
 #ifndef BULLET_H
-
-#endif 
-
+#define BULLET_H
 #include <Vector3.h>
 
 class Bullet
@@ -21,3 +19,4 @@ private:
 
 	
 };
+#endif 

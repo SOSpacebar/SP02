@@ -12,7 +12,7 @@ public:
 	Vector3 defaultTarget;
 	Vector3 defaultUp;
 	float turnDir;
-
+	bool GodMode;
 	Camera4();
 	~Camera4();
 	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
