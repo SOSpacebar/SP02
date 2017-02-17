@@ -155,14 +155,14 @@ void Camera4::BoundsCheck(const Vector3& view)
 		position.x = 150;
 		target = position + view;
 	}
-	if (position.z < -200)
+	if (position.z < -150)
 	{
-		position.z = -200;
+		position.z = -150;
 		target = position + view;
 	}
-	if (position.z > 200)
+	if (position.z > 150)
 	{
-		position.z = 200;
+		position.z = 150;
 		target = position + view;
 	}
 }

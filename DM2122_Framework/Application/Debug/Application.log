@@ -1,11 +1,30 @@
-﻿Build started 17/2/2017 10:30:42 AM.
+﻿Build started 17/2/2017 10:34:50 AM.
      1>Project "C:\Users\User\Desktop\SP02\DM2122_Framework\Application\Application.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\User\Desktop\SP02\DM2122_Framework\\Common\Source /IC:\Users\User\Desktop\SP02\DM2122_Framework\\glfw\include /IC:\Users\User\Desktop\SP02\DM2122_Framework\\glew\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Camera4.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\User\Desktop\SP02\DM2122_Framework\\Common\Source /IC:\Users\User\Desktop\SP02\DM2122_Framework\\glfw\include /IC:\Users\User\Desktop\SP02\DM2122_Framework\\glew\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application.cpp Source\Assignment03.cpp Source\Bullet.cpp Source\Camera4.cpp Source\Monster.cpp Source\SceneManager.cpp Source\SP02.cpp Source\Weapon.cpp
+         Weapon.cpp
+         SP02.cpp
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\sp02.cpp(27): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\sp02.cpp(303): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+         Monster.cpp
          Camera4.cpp
+         Bullet.cpp
+         Generating Code...
+         Compiling...
+         SceneManager.cpp
+         Assignment03.cpp
+         Application.cpp
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(47): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(48): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(50): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(51): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(55): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\user\desktop\sp02\dm2122_framework\application\source\application.cpp(56): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+         Generating Code...
        Link:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\Application.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\User\Desktop\SP02\DM2122_Framework\Debug /LIBPATH:"C:\Users\User\Desktop\SP02\DM2122_Framework\\glfw\lib-msvc120" /LIBPATH:C:\Users\User\Desktop\SP02\DM2122_Framework\\glew\lib glew32.lib glfw3.lib opengl32.lib winmm.lib Common.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\Application.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\Application.lib" /MACHINE:X86 Debug\Application.obj
          Debug\Assignment03.obj
+         Debug\Bullet.obj
          Debug\Camera.obj
          Debug\Camera4.obj
          Debug\Characters.obj
@@ -16,15 +35,32 @@
          Debug\main.obj
          Debug\Mesh.obj
          Debug\MeshBuilder.obj
+         Debug\Monster.obj
          Debug\SceneManager.obj
          Debug\SceneUI.obj
          Debug\shader.obj
          Debug\SP02.obj
          Debug\Utility.obj
          Debug\Vertex.obj
+         Debug\Weapon.obj
+     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>Vertex.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'Vertex.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Utility.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'Utility.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>shader.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'shader.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>SceneUI.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'SceneUI.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>MeshBuilder.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'MeshBuilder.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Mesh.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'Mesh.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>main.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'main.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>LoadTGA.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'LoadTGA.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>LoadOBJ.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'LoadOBJ.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Camera.obj : warning LNK4099: PDB 'vc120.pdb' was not found with 'Camera.obj' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Common.lib(MatrixStack.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'Common.lib(MatrixStack.obj)' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Common.lib(Mtx44.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'Common.lib(Mtx44.obj)' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Common.lib(timer.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'Common.lib(timer.obj)' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
+     1>Common.lib(Vector3.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'Common.lib(Vector3.obj)' or at 'C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\vc120.pdb'; linking object as if no debug info
          Application.vcxproj -> C:\Users\User\Desktop\SP02\DM2122_Framework\Debug\Application.exe
      1>Done Building Project "C:\Users\User\Desktop\SP02\DM2122_Framework\Application\Application.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.96
+Time Elapsed 00:00:04.90
