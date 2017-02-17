@@ -348,6 +348,7 @@ void SP02::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
+
 	// Initialize
 	Mtx44 MVP;
 
