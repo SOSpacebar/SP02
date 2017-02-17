@@ -32,4 +32,7 @@
 *.idb
 *.tlog
 *.lastbuildstate
+*.log
+*.pdb
 *.suo
+*.ilk
