@@ -50,10 +50,11 @@ void SP02::Init()
 		CRandZArray[i] = crandomz;
 	}
 
+	//Initialise bullet
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = new Bullet();
-		bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+		bullet[i]->Init(camera.position, Application::yaw_, Application::pitch_, 10);
 	}
 
 	// Enable depth test
@@ -212,6 +213,11 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
+	for (int i = 0; i < 10; i++)
+	{
+		bullet[i]->updateBullet(dt);
+	}
+
 	static const float LSPEED = 10.f; 
 
 	if (Application::IsKeyPressed('1'))
@@ -274,15 +280,11 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('E'))
 	{
-		canFire = true;
-	}
-	else
-	{
-		canFire = false;
 		for (int i = 0; i < 10; i++)
 		{
-			bullet[i] = new Bullet();
-			bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+			bullet[i]->position =camera.position;
+			bullet[i]->directionHorizontal_ = Application::yaw_; /*90;*/
+			//bullet[i]->directionVertical_ = Application::pitch_;
 		}
 	}
 		
@@ -436,16 +438,14 @@ void SP02::Render()
 	//modelStack.PopMatrix();
 
 
-	if (canFire == true)
+	for (int i = 0; i < 10; i++)
 	{
-		for (int i = 0; i < 10; i++)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(bullet[i]->position.x, bullet[i]->position.y, bullet[i]->position.z);
-			RenderMesh(meshList[GEO_CUBE], false);
-			modelStack.PopMatrix();
-		}
+		modelStack.PushMatrix();
+		modelStack.Translate(bullet[i]->position.x, bullet[i]->position.y, bullet[i]->position.z);
+		RenderMesh(meshList[GEO_CUBE], false);
+		modelStack.PopMatrix();
 	}
+	
 
 	//FPS
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);

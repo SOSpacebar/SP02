@@ -8,12 +8,14 @@ class Bullet
 public:
 	Bullet();
 	~Bullet();
-	Vector3 position;
 
-	void Init(const Vector3 &position, const float &rotation);
+	void Init(const Vector3 &position, const float &directionHorizontal_, const float &directionVertical_, const float &speed);
 	void updateBullet(double deltaTime);
 
-	float rotation;
+	Vector3 position;
+	float directionHorizontal_;
+	float directionVertical_;
+	float speed_;
 
 private:
 

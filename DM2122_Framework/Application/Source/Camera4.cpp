@@ -42,15 +42,12 @@ void Camera4::Update(double dt)
 	view = rotateX* rotateY* view;
 	target = position + view;
 	up = rotateX* rotateY * up;
-
-
-
+	
+	Application::pitch_ =0;
+	Application::yaw_ = 0;
+	
 	if(Application::IsKeyPressed(VK_SPACE))
 	std::cout << view << " : " << right << " : " << up << std::endl;
-
-	Application::pitch_ = 0;
-	Application::yaw_ = 0;
-
 
 	//Camera Controls
 	if (Application::IsKeyPressed('A'))
