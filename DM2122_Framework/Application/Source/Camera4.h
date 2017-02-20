@@ -13,6 +13,10 @@ public:
 	Vector3 defaultTarget;
 	Vector3 defaultUp;
 	float turnDir;
+	float pitch_;
+	float yaw_;
+	float lastX;
+	float lastY;
 	bool GodMode;
 	Camera4();
 	~Camera4();

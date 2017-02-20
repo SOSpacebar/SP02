@@ -58,7 +58,7 @@ void SP02::Init()
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = new Bullet();
-		bullet[i]->Init(camera.position, Application::yaw_, Application::pitch_, 10);
+		//bullet[i]->Init(camera.position, Application::yaw_, Application::pitch_, 10);
 	}
 
 	// Enable depth test
@@ -286,7 +286,7 @@ void SP02::Update(double dt)
 		for (int i = 0; i < 10; i++)
 		{
 			bullet[i]->position =camera.position;
-			bullet[i]->directionHorizontal_ = Application::yaw_; /*90;*/
+			//bullet[i]->directionHorizontal_ = Application::yaw_; /*90;*/
 			//bullet[i]->directionVertical_ = Application::pitch_;
 		}
 	}
@@ -432,6 +432,12 @@ void SP02::Render()
 		modelStack.PopMatrix();
 	}
 	
+	//render item on hand
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.target.x,camera.target.y -0.5,camera.target.z);
+	modelStack.Scale(0.5, 0.5, 0.5);
+	RenderMesh(meshList[GEO_CUBE], false);
+	modelStack.PopMatrix();
 
 	//FPS
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
