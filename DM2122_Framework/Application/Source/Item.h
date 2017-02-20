@@ -2,7 +2,6 @@
 #define ITEM_H
 
 #include "GameObject.h"
-
 using namespace std;
 class Item:public GameObject
 {
@@ -24,13 +23,4 @@ public:
 	//Item has weight
 	//but NOT/CANNOT BE DEFINED!!!
 };
-
-Item::Item()
-{
-}
-
-Item::~Item()
-{
-}
-
 #endif
