@@ -2,14 +2,6 @@
 #include "Element.h"
 
 
-Element::Element()
-{
-
-}
-
-Element::~Element()
-{
-}
 
 //void Material::setdamage(const int& damage)
 //{
