@@ -13,7 +13,6 @@ public:
 	Bullet(Scene*, const string &name, Vector3 &position, Vector3 &box);
 	void updateBullet(double deltaTime);
 
-	Vector3 position;
 	float directionHorizontal_;
 	float directionVertical_;
 	float speed_;

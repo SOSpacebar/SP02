@@ -54,13 +54,6 @@ void SP02::Init()
 		CRandZArray[i] = crandomz;
 	}
 
-	////Initialise bullet
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	bullet[i] = new Bullet();
-	//	bullet[i]->Init(camera.position, camera.pitch_, camera.yaw_, 10);
-	//}
-
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -216,15 +209,7 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
-	_dt = dt;
-
-	
-
-	/*for (int i = 0; i < 10; i++)
-	{
-		bullet[i]->updateBullet(dt);
-	}*/
-    
+	_dt = dt;    
 
 	static const float LSPEED = 10.f; 
 
@@ -288,11 +273,7 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('E'))
 	{
-		
-		//bullet[i]->directionHorizontal_ = camera.pitch_; /*90;*/
-		//bullet[i]->directionVertical_ = Application::pitch_;
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Bullet(this, "bullet", camera.position, Vector3(6, 6, 6)));
-		
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Bullet(this, "bullet", camera.position, Vector3(4, 4, 4)));
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))
@@ -329,8 +310,6 @@ void SP02::Render()
 		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
-
-	
 
 	// Initialize
 	Mtx44 MVP;
@@ -428,14 +407,6 @@ void SP02::Render()
 	//RenderMesh(meshList[GEO_ROOMDOOR], false);
 	//modelStack.PopMatrix();
 
-
-	/*for (int i = 0; i < 10; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(bullet[i]->position.x, bullet[i]->position.y, bullet[i]->position.z);
-		RenderMesh(meshList[GEO_CUBE], false);
-		modelStack.PopMatrix();
-	}*/
 	
 	//render item on hand
 	modelStack.PushMatrix();

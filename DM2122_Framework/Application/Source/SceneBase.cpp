@@ -27,7 +27,7 @@ void SceneBase::Init()
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = new Bullet();
-		bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+		bullet[i]->position_ = Vector3(camera.position.x, camera.position.y, camera.position.z);
 	}
 
 	// Enable depth test
@@ -253,7 +253,7 @@ void SceneBase::Update(double dt)
 		for (int i = 0; i < 10; i++)
 		{
 			bullet[i] = new Bullet();
-			bullet[i]->position = Vector3(camera.position.x, camera.position.y, camera.position.z);
+			bullet[i]->position_ = Vector3(camera.position.x, camera.position.y, camera.position.z);
 		}
 	}
 
@@ -308,14 +308,12 @@ void SceneBase::Render()
 
 	RenderSkybox();
 
-
-
 	if (canFire == true)
 	{
 		for (int i = 0; i < 10; i++)
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(bullet[i]->position.x, bullet[i]->position.y, bullet[i]->position.z);
+			modelStack.Translate(bullet[i]->position_.x, bullet[i]->position_.y, bullet[i]->position_.z);
 			RenderMesh(meshList[GEO_CUBE], false);
 			modelStack.PopMatrix();
 		}
