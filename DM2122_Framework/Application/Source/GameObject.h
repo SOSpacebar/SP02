@@ -19,6 +19,7 @@ public:
 	virtual ~GameObject();
 	
 	virtual bool anyInteraction() = 0;
+	virtual void update();
 	//virtual void collisionDetected() = 0;
 	virtual void render();
 
@@ -31,16 +32,19 @@ public:
 	virtual Collider& getCollider();
 
 	unsigned g_type;
-
-private:
-	Vector3 position_;
-	const string name_;
-	Collider collisionBox_;
 	Scene* scene_;
+	Vector3 position_;
 	float rotaX = 0, rotaY = 0, rotaZ = 0;
 	float scale = 1;
-	
 	bool lightEnable = true;
+private:
+	
+	const string name_;
+	Collider collisionBox_;
+	
+	
+	
+	
 };
 
 

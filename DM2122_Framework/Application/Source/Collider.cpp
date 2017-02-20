@@ -21,6 +21,7 @@ bool Collider::checkHit(Collider& other, Vector3* direction)
 			(this->boxMin.y < other.boxMax.y && this->boxMax.y > other.boxMin.y) &&
 			(this->boxMin.z < other.boxMax.z && this->boxMax.z > other.boxMin.z))
 		{
+
 			*direction = (*other.position - *position).Normalized();
 			return true;
 		}

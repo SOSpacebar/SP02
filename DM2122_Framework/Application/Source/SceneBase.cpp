@@ -181,6 +181,7 @@ void SceneBase::Update(double dt)
 {
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
+	dt = dt;
 
 	static const float LSPEED = 10.f;
 

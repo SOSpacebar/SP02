@@ -12,6 +12,7 @@ GameObject::GameObject(Scene* scene, const string &name) : scene_(scene), name_(
 
 GameObject::GameObject(Scene* scene, const string &name, Vector3 &position) : scene_(scene), name_(name), position_(position), collisionBox_(&position, Vector3(20, 10, 20))
 {
+	
 }
 
 GameObject::GameObject(Scene* scene, const string &name, Vector3 &position, Vector3 &boxSize) : scene_(scene), name_(name), position_(position), collisionBox_(&position, boxSize)
@@ -62,4 +63,9 @@ void GameObject::render()
 	scene_->modelStack.Scale(scale, scale, scale);
 	scene_->RenderMesh(scene_->meshList[g_type], lightEnable);
 	scene_->modelStack.PopMatrix();
+}
+
+void GameObject::update()
+{
+
 }

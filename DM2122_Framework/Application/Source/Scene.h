@@ -84,6 +84,8 @@ public:
 	Camera4 camera;
 	MS modelStack, viewStack, projectionStack;
 
+	float _dt;
+
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];

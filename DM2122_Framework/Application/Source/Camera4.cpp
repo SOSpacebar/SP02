@@ -23,12 +23,14 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	turnDir = 0;
 	pitch_ = 0;
 	yaw_ = 0;
-	lastX = 400, lastY = 300;
+	lastX = 0, lastY = 0;
 
 }
 
 void Camera4::Update(double dt)
 {
+	pitch_ = 0;
+	yaw_ = 0;
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	static const float CAMERA_SPEED = 100.f;
@@ -66,8 +68,7 @@ void Camera4::Update(double dt)
 	target = position + view;
 	up = rotateX* rotateY * up;
 	
-	pitch_ =0;
-	yaw_ = 0;
+	
 	
 	if(Application::IsKeyPressed(VK_SPACE))
 	std::cout << view << " : " << right << " : " << up << std::endl;
