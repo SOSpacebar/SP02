@@ -1,7 +1,6 @@
 #include "Camera4.h"
 #include "Application.h"
 #include "Mtx44.h"
-#include <iostream>
 
 Camera4::Camera4()
 {
@@ -22,6 +21,10 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	right.Normalize();
 	this->up = defaultUp = right.Cross(view).Normalized();
 	turnDir = 0;
+	pitch_ = 0;
+	yaw_ = 0;
+	lastX = 400, lastY = 300;
+
 }
 
 void Camera4::Update(double dt)
@@ -29,22 +32,42 @@ void Camera4::Update(double dt)
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	static const float CAMERA_SPEED = 100.f;
-
 	Mtx44 rotateX, rotateY;
+	bool firstMouse = true;
+	float sensitivity = 0.1;
 
-	rotateX.SetToRotation(Application::yaw_, 0, -1, 0);
+	float xoffset = Application::MouseXPos_ - lastX;
+	float yoffset = lastY - Application::MouseYPos_;
+
+	lastX = Application::MouseXPos_;
+	lastY = Application::MouseYPos_;
+
+	if (firstMouse)
+	{
+		lastX = Application::MouseXPos_;
+		lastY = Application::MouseYPos_;
+		firstMouse = false;
+	}
+
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw_ += xoffset;
+	pitch_ += yoffset;
+
+	rotateX.SetToRotation(yaw_, 0, -1, 0);
 	right.y = 0;
 	right.Normalize();
 	up = right.Cross(view).Normalized();
 
-	rotateY.SetToRotation(Application::pitch_, right.x, 0, right.z);
+	rotateY.SetToRotation(pitch_, right.x, 0, right.z);
 
 	view = rotateX* rotateY* view;
 	target = position + view;
 	up = rotateX* rotateY * up;
 	
-	Application::pitch_ =0;
-	Application::yaw_ = 0;
+	pitch_ =0;
+	yaw_ = 0;
 	
 	if(Application::IsKeyPressed(VK_SPACE))
 	std::cout << view << " : " << right << " : " << up << std::endl;

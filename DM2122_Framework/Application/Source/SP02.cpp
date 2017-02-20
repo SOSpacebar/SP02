@@ -54,7 +54,7 @@ void SP02::Init()
 	for (int i = 0; i < 10; i++)
 	{
 		bullet[i] = new Bullet();
-		bullet[i]->Init(camera.position, Application::yaw_, Application::pitch_, 10);
+		//bullet[i]->Init(camera.position, Application::yaw_, Application::pitch_, 10);
 	}
 
 	// Enable depth test
@@ -283,7 +283,7 @@ void SP02::Update(double dt)
 		for (int i = 0; i < 10; i++)
 		{
 			bullet[i]->position =camera.position;
-			bullet[i]->directionHorizontal_ = Application::yaw_; /*90;*/
+			//bullet[i]->directionHorizontal_ = Application::yaw_; /*90;*/
 			//bullet[i]->directionVertical_ = Application::pitch_;
 		}
 	}

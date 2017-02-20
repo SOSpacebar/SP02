@@ -11,15 +11,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #include "SceneManager.h"
 
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
-float Application::pitch_ = 0;
-float Application::yaw_ = 0;
-float lastX = 400, lastY = 300;
+float Application::MouseXPos_;
+float Application::MouseYPos_;
+//float lastX = 400, lastY = 300;
 
 static int nextSceneNo;
 static bool changeScene;
@@ -42,36 +41,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 static void cursorPositionCallback(GLFWwindow*window, double xPos, double yPos)
 {
-	bool firstMouse = true;
-	float pitch = 0, yaw = 0;
-	GLfloat xoffset = xPos - lastX;
-	GLfloat yoffset = lastY - yPos;
-
-	lastX = xPos;
-	lastY = yPos;
-
-	if (firstMouse)
-	{
-		lastX = xPos;
-		lastY = yPos;
-		firstMouse = false;
-	}
-
-	GLfloat sensitivity = 0.1f;
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	// yaw and pitch is the rotation value
-	yaw += xoffset;
-	pitch += yoffset;
-
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	Application::pitch_ = pitch;
-	Application::yaw_ = yaw;
+	Application::MouseXPos_ = xPos;
+	Application::MouseYPos_ = yPos;
 }
 
 static void mouseButtonCallback(GLFWwindow*window, int button, int action, int mods)
