@@ -205,8 +205,8 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box" ,Vector3(0,0,0)));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box1", Vector3(0, 0, 40)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box" ,Vector3(0,0,0)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
 }
@@ -326,6 +326,7 @@ void SP02::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
+	_gameObjectMananger.renderGameObjects();
 
 	// Initialize
 	Mtx44 MVP;
@@ -343,7 +344,7 @@ void SP02::Render()
 	modelStack.PopMatrix();
 
 	RenderSkybox();
-	//_gameObjectMananger.renderGameObjects();
+	
 
 	//Ground
 	modelStack.PushMatrix();
@@ -448,53 +449,53 @@ void SP02::Render()
 	DebugCamPosition();
 }
 
-void SP02::RenderMesh(Mesh *mesh, bool enableLight)
-{
-	Mtx44 MVP, modelView, modelView_inverse_transpose;
-
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-	modelView = viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
-	if (enableLight && lightsOn)
-	{
-		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
-		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
-		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
-
-		//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
-	}
-	else
-	{
-		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	}
-
-
-	if (mesh->textureID > 0)
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	}
-
-	else
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
-	}
-
-	mesh->Render();
-
-	if (mesh->textureID > 0)
-	{
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
-}
+//void SP02::RenderMesh(Mesh *mesh, bool enableLight)
+//{
+//	Mtx44 MVP, modelView, modelView_inverse_transpose;
+//
+//	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+//	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+//	modelView = viewStack.Top() * modelStack.Top();
+//	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+//	if (enableLight && lightsOn)
+//	{
+//		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+//		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+//		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
+//
+//		//load material
+//		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
+//		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
+//		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
+//		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
+//	}
+//	else
+//	{
+//		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+//	}
+//
+//
+//	if (mesh->textureID > 0)
+//	{
+//		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+//		glActiveTexture(GL_TEXTURE0);
+//		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+//		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+//	}
+//
+//	else
+//	{
+//		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
+//	}
+//
+//	mesh->Render();
+//
+//	if (mesh->textureID > 0)
+//	{
+//		glBindTexture(GL_TEXTURE_2D, 0);
+//	}
+//
+//}
 
 void SP02::RenderSkybox()
 {

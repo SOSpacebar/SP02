@@ -1,10 +1,10 @@
 #include "Monster.h"
 
-Monster::Monster(const string&name, Vector3&position, const int &health) : Characters(name, position), health(0)
+Monster::Monster(Scene* scene, const string&name, Vector3&position, const int &health) : Characters(scene, name, position), health(0)
 {
 }
 
-Monster::Monster(const string&name, Vector3&position, const int &health, const int &damage) :Characters(name, position), health(0), damage(0)
+Monster::Monster(Scene* scene, const string&name, Vector3&position, const int &health, const int &damage) : Characters(scene, name, position), health(0), damage(0)
 {
 }
 

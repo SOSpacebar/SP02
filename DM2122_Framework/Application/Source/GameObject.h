@@ -13,9 +13,9 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(const string &name);
-	GameObject(const string &name, Vector3 &position);
-	GameObject(const string &name, Vector3 &position, Vector3 &box);
+	GameObject(Scene*, const string &name);
+	GameObject(Scene*, const string &name, Vector3 &position);
+	GameObject(Scene*, const string &name, Vector3 &position, Vector3 &box);
 	virtual ~GameObject();
 	
 	virtual bool anyInteraction() = 0;
@@ -30,13 +30,17 @@ public:
 	virtual void setCollider(Collider);
 	virtual Collider& getCollider();
 
-	
+	unsigned g_type;
 
 private:
 	Vector3 position_;
 	const string name_;
 	Collider collisionBox_;
-	Scene* _scene;
+	Scene* scene_;
+	float rotaX = 0, rotaY = 0, rotaZ = 0;
+	float scale = 1;
+	
+	bool lightEnable = true;
 };
 
 

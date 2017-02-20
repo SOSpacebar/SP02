@@ -9,8 +9,8 @@ class Monster :public Characters
 {
 public:
 	Monster();
-	Monster(const string&name, Vector3&position, const int &health);
-	Monster(const string&name, Vector3&position, const int &health, const int &damage);
+	Monster(Scene*, const string&name, Vector3&position, const int &health);
+	Monster(Scene*, const string&name, Vector3&position, const int &health, const int &damage);
 	virtual ~Monster();
 
 	virtual void setHealth(int hp);

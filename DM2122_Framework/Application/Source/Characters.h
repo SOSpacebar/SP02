@@ -8,10 +8,10 @@ class Characters : public GameObject
 {
 public:
 	Characters();
-	Characters(const string& name);
-	Characters(const string& name, Vector3 &postion);
-	Characters(const string& name, Vector3 &postion, const unsigned &maxHealth);
-	Characters(const string& name, Vector3 &postion, const unsigned &maxHealth, const unsigned &maxStamina);
+	Characters(Scene*, const string& name);
+	Characters(Scene*, const string& name, Vector3 &postion);
+	Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth);
+	Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth, const unsigned &maxStamina);
 	virtual ~Characters();
 
 	virtual const unsigned getCurrentHealth();

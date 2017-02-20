@@ -98,6 +98,7 @@
     <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Monster.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneUI.cpp" />

@@ -5,21 +5,20 @@ Characters::Characters() : GameObject(), health_(0), stamina_(0), maxHealth_(0),
 
 }
 
-Characters::Characters(const string& name) : GameObject(name), health_(0), stamina_(0), maxHealth_(0), maxStamina_(0)
+Characters::Characters(Scene* scene, const string& name) : GameObject(scene,name), health_(0), stamina_(0), maxHealth_(0), maxStamina_(0)
 {
 }
 
-Characters::Characters(const string& name, Vector3 &postion) : GameObject(name, postion), health_(0), stamina_(0), maxHealth_(0), maxStamina_(0)
+Characters::Characters(Scene* scene, const string& name, Vector3 &postion) : GameObject(scene, name, postion), health_(0), stamina_(0), maxHealth_(0), maxStamina_(0)
+{
+	g_type = Scene::GEO_CUBE;
+}
+Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const unsigned &maxhealth_) : GameObject(scene,name, postion), health_(maxhealth_), stamina_(0), maxHealth_(maxhealth_), maxStamina_(0)
 {
 
 }
 
-Characters::Characters(const string& name, Vector3 &postion, const unsigned &maxhealth_) : GameObject(name, postion), health_(maxhealth_), stamina_(0), maxHealth_(maxhealth_), maxStamina_(0)
-{
-
-}
-
-Characters::Characters(const string& name, Vector3 &postion, const unsigned &maxhealth_, const unsigned &maxStamina) : GameObject(name, postion), health_(maxhealth_), stamina_(maxStamina), maxHealth_(maxhealth_), maxStamina_(maxStamina)
+Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const unsigned &maxhealth_, const unsigned &maxStamina) : GameObject(scene,name, postion), health_(maxhealth_), stamina_(maxStamina), maxHealth_(maxhealth_), maxStamina_(maxStamina)
 {
 
 }

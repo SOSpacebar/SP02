@@ -12,7 +12,7 @@
 
 class SP02 : public Scene
 {
-	enum GEOMETRY_TYPE
+	/*enum GEOMETRY_TYPE
 	{
 		GEO_TRIANGLE_1 = 0,
 		GEO_TRIANGLE_2,
@@ -77,7 +77,7 @@ class SP02 : public Scene
 		U_TEXT_COLOR,
 		U_TOTAL,
 
-	};
+	};*/
 
 public:
 	SP02();
@@ -89,19 +89,16 @@ public:
 	virtual void Exit();
 
 private:
-	unsigned m_vertexArrayID;
+	/*unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 
-	Mesh* meshList[NUM_GEOMETRY];
+	Mesh* meshList[NUM_GEOMETRY];*/
 
-	//GameObject* gameObjectList[NUM_GEOMETRY];
-	Characters* john;
-	GameObject* box;
 	static GameObjectManager _gameObjectMananger;
 
 	Camera4 camera;
-	MS modelStack, viewStack, projectionStack;
+	/*MS modelStack, viewStack, projectionStack;*/
 
 	bool lightsOn;
 	Light light[2];
@@ -128,7 +125,7 @@ private:
 
 
 
-	void RenderMesh(Mesh *mesh, bool enableLight);
+	//void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 
