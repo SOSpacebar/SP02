@@ -24,6 +24,7 @@ public:
 
 	virtual void setDefault();
 	virtual bool anyInteraction();
+	virtual void render();
 	//add on inventory, combat, movement when done
 	
 private:

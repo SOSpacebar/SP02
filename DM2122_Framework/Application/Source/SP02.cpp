@@ -330,7 +330,7 @@ void SP02::Render()
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	_gameObjectMananger.renderGameObjects();
+	
 
 	// Initialize
 	Mtx44 MVP;
@@ -449,7 +449,7 @@ void SP02::Render()
 	//player position
 	RenderTextOnScreen(meshList[GEO_TEXT], "Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26);
 
-	
+	_gameObjectMananger.renderGameObjects();
 	DebugCamPosition();
 }
 

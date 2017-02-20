@@ -21,7 +21,7 @@ public:
 	virtual bool anyInteraction() = 0;
 	virtual void update();
 	//virtual void collisionDetected() = 0;
-	virtual void render();
+	virtual void render() = 0;
 
 	virtual Vector3 getPosition();
 	virtual void setPosition(Vector3 newPosition);
@@ -38,13 +38,9 @@ public:
 	float scale = 1;
 	bool lightEnable = true;
 private:
-	
+
 	const string name_;
 	Collider collisionBox_;
-	
-	
-	
-	
 };
 
 

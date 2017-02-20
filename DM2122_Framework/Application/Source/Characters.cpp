@@ -70,3 +70,8 @@ bool Characters::anyInteraction()
 {
 	return false;
 }
+
+void Characters::render()
+{
+
+}
