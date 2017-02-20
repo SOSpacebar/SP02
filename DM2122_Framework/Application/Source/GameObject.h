@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include <string>
 #include "Collider.h"
+#include "Scene.h"
 
 
 using std::string;
@@ -16,18 +17,26 @@ public:
 	GameObject(const string &name, Vector3 &position);
 	GameObject(const string &name, Vector3 &position, Vector3 &box);
 	virtual ~GameObject();
+	
+	virtual bool anyInteraction() = 0;
+	//virtual void collisionDetected() = 0;
+	virtual void render();
 
 	virtual Vector3 getPosition();
 	virtual void setPosition(Vector3 newPosition);
 	virtual void updatePosition(Vector3 newPosition);
 	virtual string getName();
 
-	virtual void setCollider(Collider*);
-	virtual Collider* getCollider();
+	virtual void setCollider(Collider);
+	virtual Collider& getCollider();
+
+	
+
 private:
 	Vector3 position_;
 	const string name_;
-	Collider* collisionBox_;
+	Collider collisionBox_;
+	Scene* _scene;
 };
 
 

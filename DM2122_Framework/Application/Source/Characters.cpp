@@ -66,3 +66,8 @@ void Characters::setMaxStamina(const unsigned newMaxStamina)
 {
 	this->maxStamina_ = newMaxStamina;
 }
+
+bool Characters::anyInteraction()
+{
+	return false;
+}

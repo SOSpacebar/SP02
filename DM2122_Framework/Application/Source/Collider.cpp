@@ -4,7 +4,7 @@ Collider::Collider() : boxMin(0), boxMax(0), boxSize(0)
 {
 }
 
-Collider::Collider(Vector3 min, Vector3 max, Vector3 boxSize) : boxMin(min - boxSize * 0.5f), boxMax(max + boxSize * 0.5f), boxSize(boxSize)
+Collider::Collider(Vector3* pos, Vector3 boxSize) : boxMin((-boxSize * 0.5f) + *pos), boxMax((boxSize * 0.5f) + *pos), boxSize(boxSize), position(pos)
 {
 
 }
@@ -14,13 +14,14 @@ Collider::~Collider()
 
 }
 
-bool Collider::OnCollisionEnter(Collider& other)
+bool Collider::checkHit(Collider& other, Vector3* direction)
 {
 	if (this->boxMax != NULL || this->boxMin != NULL || other.boxMax != NULL || other.boxMin != NULL)
 		if ((this->boxMin.x < other.boxMax.x && this->boxMax.x > other.boxMin.x) && 
 			(this->boxMin.y < other.boxMax.y && this->boxMax.y > other.boxMin.y) &&
 			(this->boxMin.z < other.boxMax.z && this->boxMax.z > other.boxMin.z))
 		{
+			*direction = (*other.position - *position).Normalized();
 			return true;
 		}
 
@@ -38,5 +39,6 @@ void Collider::updateColliderPos(Vector3& newPos)
 	{
 		boxMin = (newPos - boxSize * 0.5f);
 		boxMax = (newPos + boxSize * 0.5f);
+		*position = newPos;
 	}
 }

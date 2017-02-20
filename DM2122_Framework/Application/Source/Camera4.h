@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Vector3.h"
 #include "Mtx44.h"
+#include "Collider.h"
 
 class Camera4 : public Camera
 {
@@ -19,6 +20,12 @@ public:
 	virtual void Update(double dt);
 	virtual void Reset();
 	virtual void BoundsCheck(const Vector3& view);
+
+
+	Collider& getCollider() { return  _collider; }
+
+private:
+	Collider _collider;
 };
 
 #endif

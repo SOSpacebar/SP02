@@ -90,6 +90,7 @@
     <ClCompile Include="Source\Characters.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
+    <ClCompile Include="Source\GOManager.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Element.h" />
     <ClInclude Include="Source\GameObject.h" />
+    <ClInclude Include="Source\GOManager.h" />
     <ClInclude Include="Source\Inventory.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Light.h" />

@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <iostream>
 
+GameObjectManager SP02::_gameObjectMananger;
+
 SP02::SP02()
 {
 }
@@ -22,6 +24,8 @@ SP02::~SP02()
 
 void SP02::Init()
 {
+	
+
 	dailycycle = 0;
 	//random seed
 	srand(time(NULL));
@@ -201,11 +205,10 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	//For Testing on colliders/collisions.
-	john = new Characters("john", camera.position);
-	Vector3 temp(0, 0, 0);
-	Vector3 box_(10, 10, 10);
-	box = new GameObject("box", temp, box_);
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box" ,Vector3(0,0,0)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box1", Vector3(0, 0, 40)));
+	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
+	//_gameObjectMananger.remove(box);
 }
 
 void SP02::Update(double dt)
@@ -295,27 +298,9 @@ void SP02::Update(double dt)
 
 	dailycycle += 0.1 * dt;
 
-	//Update Player Position (Note Update First before checks)
-	john->getCollider()->updateColliderPos(camera.position);
-	john->updatePosition(camera.position);
-
-	//Check Collision.
-	static Vector3 prevPosition = camera.position;
-	static Vector3 prevTarget = camera.target;
-
-	if ((john->getCollider()->OnCollisionEnter(*box->getCollider())))//when box collides with player
-	{
-		camera.position = prevPosition;
-		camera.target = prevTarget;
-	}
-	else
-	{
-		prevPosition = camera.position;
-		prevTarget = camera.target;
-	}
-
-
 	camera.Update(dt);
+	camera.getCollider().updateColliderPos(camera.position);
+	_gameObjectMananger.update(camera);
 }
 
 void SP02::Render()
@@ -358,6 +343,7 @@ void SP02::Render()
 	modelStack.PopMatrix();
 
 	RenderSkybox();
+	//_gameObjectMananger.renderGameObjects();
 
 	//Ground
 	modelStack.PushMatrix();
@@ -629,10 +615,6 @@ void SP02::DebugCamPosition()
 	/*RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);*/
-
-	RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(john->getPosition().x), Color(0, 1, 0), 3, .5f, .5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(john->getPosition().y), Color(0, 1, 0), 3, .5f, 1.0f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(john->getPosition().z), Color(0, 1, 0), 3, .5f, 1.5f);
 }
 
 void SP02::Exit()

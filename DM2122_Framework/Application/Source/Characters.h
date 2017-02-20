@@ -23,7 +23,7 @@ public:
 	virtual void setMaxStamina(const unsigned newMaxStamina);
 
 	virtual void setDefault();
-
+	virtual bool anyInteraction();
 	//add on inventory, combat, movement when done
 	
 private:

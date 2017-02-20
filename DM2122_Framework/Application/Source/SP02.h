@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Characters.h"
 #include "Bullet.h"
+#include "GOManager.h"
 
 class SP02 : public Scene
 {
@@ -97,6 +98,8 @@ private:
 	//GameObject* gameObjectList[NUM_GEOMETRY];
 	Characters* john;
 	GameObject* box;
+	static GameObjectManager _gameObjectMananger;
+
 	Camera4 camera;
 	MS modelStack, viewStack, projectionStack;
 

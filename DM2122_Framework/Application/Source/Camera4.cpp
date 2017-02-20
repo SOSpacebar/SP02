@@ -3,7 +3,7 @@
 #include "Mtx44.h"
 #include <iostream>
 
-Camera4::Camera4()
+Camera4::Camera4() : _collider(&position, Vector3(2, 1, 2))
 {
 }
 
