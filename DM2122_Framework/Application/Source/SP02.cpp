@@ -276,7 +276,7 @@ void SP02::Update(double dt)
 		light[0].position.y += (float)(LSPEED * dt);
 */
 
-	if (Application::IsKeyPressed('E'))
+	if (Application::mouseClicked)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Bullet(this, "Bullet", camera.position, Vector3(4, 4, 4)));
 	}
@@ -443,18 +443,19 @@ void SP02::Render()
 	//RenderMesh(meshList[GEO_CUBE], false);
 	//modelStack.PopMatrix();
 
+	_gameObjectMananger.renderGameObjects();
+
 	//FPS
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
 	//player position
 	RenderTextOnScreen(meshList[GEO_TEXT], "Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26);
 	//inventory
-	RenderTextOnScreen(meshList[GEO_TEXT], "Iron : " + std::to_string(player.inventory_.container.find("Iron")->second) , Color(1, 1, 0), 2, 0, 15);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 0, 16);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 0, 17);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 0, 18);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 0, 14);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Iron : " + std::to_string(player.inventory_.container.find("Iron")->second) , Color(1, 1, 0), 2, 1, 15);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14);
 
-	_gameObjectMananger.renderGameObjects();
 	DebugCamPosition();
 }
 

@@ -9,12 +9,8 @@ public:
 	Bullet();
 	~Bullet();
 
-	void Init(const Vector3 &position, const float &directionHorizontal_, const float &directionVertical_, const float &speed);
 	Bullet(Scene*, const string &name, Vector3 &position, Vector3 &box);
-	void updateBullet(double deltaTime);
 
-	float directionHorizontal_;
-	float directionVertical_;
 	float speed_;
 
 	Vector3 direction_;

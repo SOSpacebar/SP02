@@ -15,6 +15,7 @@ public:
 	//static void ChangeScene(int sceneNo);
 	static float MouseXPos_;
 	static float MouseYPos_;
+	static bool mouseClicked;
 
 private:
 
