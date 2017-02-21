@@ -53,8 +53,13 @@ void Camera4::Update(double dt)
 	xoffset *= sensitivity;
 	yoffset *= sensitivity;
 
+	//if (yaw_ >)
 	yaw_ += xoffset;
 	pitch_ += yoffset;
+	if (totalpitch_ > 80)
+		pitch_ -= (totalpitch_-80);
+	if (totalpitch_ < -80)
+		pitch_ += (-80 -totalpitch_);
 	totalpitch_ += pitch_;
 	totalyaw_ += yaw_;
 
