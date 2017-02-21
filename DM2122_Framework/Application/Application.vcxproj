@@ -91,6 +91,7 @@
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GOManager.cpp" />
+    <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />

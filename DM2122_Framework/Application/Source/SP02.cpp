@@ -90,6 +90,9 @@ void SP02::Init()
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
+	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
+	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
@@ -202,6 +205,7 @@ void SP02::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", Vector3(0, 5, 0), 0, 0));
 }
 
 void SP02::Update(double dt)
@@ -409,11 +413,11 @@ void SP02::Render()
 
 	
 	//render item on hand
-	modelStack.PushMatrix();
-	modelStack.Translate(camera.target.x,camera.target.y -0.5,camera.target.z);
-	modelStack.Scale(0.5, 0.5, 0.5);
-	RenderMesh(meshList[GEO_CUBE], false);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(camera.target.x,camera.target.y -0.5,camera.target.z);
+	//modelStack.Scale(0.5, 0.5, 0.5);
+	//RenderMesh(meshList[GEO_CUBE], false);
+	//modelStack.PopMatrix();
 
 	//FPS
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);

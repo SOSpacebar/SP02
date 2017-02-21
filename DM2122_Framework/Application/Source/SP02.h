@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Characters.h"
 #include "Bullet.h"
+#include "Weapon.h"
 #include "GOManager.h"
 
 class SP02 : public Scene

@@ -1,18 +1,22 @@
-#define WEAPON_H
 #ifndef WEAPON_H
+#define WEAPON_H
 
-#endif
 #include<string>
 #include "Item.h"
 using std::string;
 class Weapon : public Item
 {
 public:
-	Weapon(const string&weaponName, const int weaponDamage, const int weaponAmmo);
+	Weapon();
+	Weapon(Scene* scene, const string&weaponName, Vector3&position, const int weaponDamage, const int weaponAmmo);
 	~Weapon();
 
+	void render();
+	bool anyInteraction();
+
 private:
-	const int attackDamage;
-	const int ammoSize;
+	const int weaponDamage_;
+	const int weaponAmmo_;
 };
 
+#endif

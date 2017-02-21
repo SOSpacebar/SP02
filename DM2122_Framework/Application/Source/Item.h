@@ -6,13 +6,14 @@ using namespace std;
 class Item:public GameObject
 {
 public:
-	Item();
+	Item();//default constructor
+	Item(Scene* scene,const string&name,Vector3&position);
 	~Item();
 
 	//private:
 	//protected:
 
-	//initialize to 0 as default
+	//initialize to 0 as default (initialize in constructorrrrrr)
 	int size = 0;
 	int weight = 0;
 	int durability = 0;

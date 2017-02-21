@@ -24,6 +24,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	pitch_ = 0;
 	yaw_ = 0;
 	lastX = 0, lastY = 0;
+	totalpitch_ = 0, totalyaw_ = 0;
 
 }
 
@@ -54,6 +55,8 @@ void Camera4::Update(double dt)
 
 	yaw_ += xoffset;
 	pitch_ += yoffset;
+	totalpitch_ += pitch_;
+	totalyaw_ += yaw_;
 
 	rotateX.SetToRotation(yaw_, 0, -1, 0);
 	right.y = 0;
