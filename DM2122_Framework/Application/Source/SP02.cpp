@@ -88,8 +88,8 @@ void SP02::Init()
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
-	//meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
-	//meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
+	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
 
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
