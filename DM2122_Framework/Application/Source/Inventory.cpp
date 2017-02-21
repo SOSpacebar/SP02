@@ -2,9 +2,13 @@
 #include "Inventory.h"
 
 
-Inventory::Inventory()
+Inventory::Inventory()//must initialize all pick up items in a container as 0
 {
-
+	container.insert(make_pair("Iron", 0));
+	container.insert(make_pair("Copper", 0));
+	container.insert(make_pair("Silver", 0));
+	container.insert(make_pair("Gold", 0));
+	container.insert(make_pair("Steel", 0));
 }
 
 Inventory::~Inventory()

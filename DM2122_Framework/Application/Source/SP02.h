@@ -134,6 +134,10 @@ private:
 	bool canFire = false;
 
 	void DebugCamPosition();
-};
 
+
+
+	//test
+	Characters player;
+};
 #endif
