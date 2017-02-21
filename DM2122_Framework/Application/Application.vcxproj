@@ -105,6 +105,7 @@
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SP02.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Vein.cpp" />
     <ClCompile Include="Source\Vertex.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SP02.h" />
     <ClInclude Include="Source\Utility.h" />
+    <ClInclude Include="Source\Veins.h" />
     <ClInclude Include="Source\Vertex.h" />
     <ClInclude Include="Source\Weapon.h" />
   </ItemGroup>

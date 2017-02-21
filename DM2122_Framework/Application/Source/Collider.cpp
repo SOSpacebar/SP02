@@ -21,7 +21,8 @@ bool Collider::checkHit(Collider& other, Vector3* direction)
 			(this->boxMin.y < other.boxMax.y && this->boxMax.y > other.boxMin.y) &&
 			(this->boxMin.z < other.boxMax.z && this->boxMax.z > other.boxMin.z))
 		{
-			*direction = (*other.position - *position).Normalized();
+			Vector3 hitPos = other.position - position;
+			(*direction) = hitPos.Normalized();
 			return true;
 		}
 
@@ -41,4 +42,10 @@ void Collider::updateColliderPos(Vector3& newPos)
 		boxMax = (newPos + boxSize * 0.5f);
 		*position = newPos;
 	}
+}
+
+void Collider::setCollider(Vector3 pos,Vector3 boxSize)
+{
+	boxMin = -boxSize + pos;
+	boxMax = boxSize + pos;
 }

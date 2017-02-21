@@ -95,14 +95,14 @@ void SP02::Init()
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
 
 
-	/*meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
+	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
 
 	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
 	meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
 
 	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
-	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");*/
+	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
 
 
 	Mtx44 projection;
@@ -198,8 +198,11 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box" ,Vector3(0,0,0)));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
+	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box" ,Vector3(0,0,0)));
+	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein", Vector3(0, 0, 0)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein1", Vector3(0, 0, 40)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein2", Vector3(0, 0, -40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
 }

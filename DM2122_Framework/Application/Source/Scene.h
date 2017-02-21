@@ -29,6 +29,9 @@ public:
 		GEO_SPACE,
 		GEO_SUN,
 		GEO_MOON,
+		GEO_COAL,
+		GEO_IRON,
+		GEO_COBALT,
 		NUM_GEOMETRY,
 	};
 

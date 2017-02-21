@@ -35,37 +35,29 @@ void GameObjectManager::update(Camera4& cam)
 {
 	std::multimap<objectType, GameObject*>::iterator objIt = _gameObjects.begin();
 
-	static Vector3 prevPosition = cam.position;
-	static Vector3 prevTarget = cam.target;
+	static Vector3 prevPosition;
+	static Vector3 prevTarget;
 
 	for (objIt; objIt != _gameObjects.end(); objIt++)
 	{
 		GameObject* temp = objIt->second;
-
+		
 		//Check For Player Collision
 		if (!temp->anyInteraction())
 		{
-			
-			Vector3 lastHitPos;
+			Vector3 lastHitPos = 0;
+
 			if (temp->getCollider().checkHit(cam.getCollider(), &lastHitPos))
 			{
 				std::cout << temp->getName(); //Check what collider its hitting
-				if (lastHitPos != NULL)
-					lastHitPos.Normalize();
-
-				cam.position = lastHitPos;
-
 				cam.position = prevPosition;
-				cam.target = prevTarget;
-			}
-
-			else
-			{
-				prevPosition = cam.position;
-				prevTarget = cam.target;
+				cam.target = prevTarget;		
 			}
 		}
 	}
+
+	prevPosition = cam.position;
+	prevTarget = cam.target;
 }
 
 GameObject* GameObjectManager::get(GameObject* gameObject)

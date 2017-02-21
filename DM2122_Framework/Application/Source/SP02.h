@@ -9,6 +9,7 @@
 #include "Characters.h"
 #include "Bullet.h"
 #include "GOManager.h"
+#include "Veins.h"
 
 class SP02 : public Scene
 {
