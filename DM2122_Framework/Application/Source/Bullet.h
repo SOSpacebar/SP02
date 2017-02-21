@@ -16,6 +16,8 @@ public:
 	float directionHorizontal_;
 	float directionVertical_;
 	float speed_;
+
+	Vector3 direction_;
 	
 	virtual void update();
 	virtual void render();

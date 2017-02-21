@@ -8,12 +8,13 @@ Bullet::~Bullet()
 {
 }
 
-Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 &box) : GameObject(scene, name, position + Vector3(-5,0,0), box)
+Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 &box) : GameObject(scene, name, position + Vector3(-5, 0, 0), box)
 {
 	g_type = Scene::GEO_CUBE;
-	directionHorizontal_ = scene->camera.yaw_;
+	//directionHorizontal_ = scene->camera.yaw_;
 	//directionVertical_ = scene->camera.pitch_; 
 	speed_ = 10;
+	direction_ = scene->camera.view;
 }
 
 
@@ -23,8 +24,9 @@ void Bullet::update()
 
 bool Bullet::anyInteraction()
 {
-	position_.x += (float)(speed_ * cos(Math::DegreeToRadian(directionHorizontal_)) * scene_->_dt);
+	//position_.x += (float)(speed_ * cos(Math::DegreeToRadian(directionHorizontal_)) * scene_->_dt);
 	//position_.z += (float)(speed_ * sin(Math::DegreeToRadian(directionHorizontal_)) * scene_->_dt);
+	position_ += direction_ * speed_ * scene_->_dt;
 	this->getCollider().updateColliderPos(this->position_);
 	return false;
 }

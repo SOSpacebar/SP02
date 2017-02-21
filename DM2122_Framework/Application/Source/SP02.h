@@ -97,7 +97,7 @@ private:
 
 	static GameObjectManager _gameObjectMananger;
 
-	Camera4 camera;
+	//Camera4 camera;
 	/*MS modelStack, viewStack, projectionStack;*/
 
 	bool lightsOn;

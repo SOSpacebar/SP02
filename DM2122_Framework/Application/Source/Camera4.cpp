@@ -15,7 +15,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	GodMode = false;
 	this->position = defaultPosition = pos;
 	this->target = defaultTarget = target;
-	Vector3 view = (target - position).Normalized();
+	view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	right.y = 0;
 	right.Normalize();
@@ -29,7 +29,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 
 void Camera4::Update(double dt)
 {
-	Vector3 view = (target - position).Normalized();
+	view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	static const float CAMERA_SPEED = 100.f;
 	Mtx44 rotateX, rotateY;
@@ -139,7 +139,7 @@ void Camera4::Update(double dt)
 	{
 		float pitch = (float)(CAMERA_SPEED * dt);
 
-		Vector3 view = (target - position).Normalized();
+		view = (target - position).Normalized();
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
@@ -154,7 +154,7 @@ void Camera4::Update(double dt)
 	else if (Application::IsKeyPressed(VK_DOWN))
 	{
 		float pitch = (float)(-CAMERA_SPEED * dt);
-		Vector3 view = (target - position).Normalized();
+		view = (target - position).Normalized();
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
