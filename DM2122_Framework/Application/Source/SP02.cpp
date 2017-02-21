@@ -273,7 +273,7 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('E'))
 	{
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Bullet(this, "bullet", camera.position, Vector3(4, 4, 4)));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Bullet(this, "Bullet", camera.position, Vector3(4, 4, 4)));
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))

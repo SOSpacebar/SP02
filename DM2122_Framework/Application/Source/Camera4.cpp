@@ -29,8 +29,6 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 
 void Camera4::Update(double dt)
 {
-	pitch_ = 0;
-	yaw_ = 0;
 	Vector3 view = (target - position).Normalized();
 	Vector3 right = view.Cross(up);
 	static const float CAMERA_SPEED = 100.f;
@@ -67,7 +65,8 @@ void Camera4::Update(double dt)
 	view = rotateX* rotateY* view;
 	target = position + view;
 	up = rotateX* rotateY * up;
-	
+	pitch_ = 0;
+	yaw_ = 0;
 	
 	
 	if(Application::IsKeyPressed(VK_SPACE))

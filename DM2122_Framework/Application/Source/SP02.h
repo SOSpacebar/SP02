@@ -131,7 +131,6 @@ private:
 
 	void RenderSkybox();
 
-	Bullet*bullet[10];
 	bool canFire = false;
 
 	void DebugCamPosition();
