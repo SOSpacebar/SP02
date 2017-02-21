@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Characters.h"
 #include "Bullet.h"
+#include "Weapon.h"
 #include "GOManager.h"
 #include "Veins.h"
 
@@ -135,6 +136,10 @@ private:
 	bool canFire = false;
 
 	void DebugCamPosition();
-};
 
+
+
+	//test
+	Characters player;
+};
 #endif

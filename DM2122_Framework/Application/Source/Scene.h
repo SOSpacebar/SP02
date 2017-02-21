@@ -32,6 +32,7 @@ public:
 		GEO_COAL,
 		GEO_IRON,
 		GEO_COBALT,
+		GEO_BLASTER,
 		NUM_GEOMETRY,
 	};
 

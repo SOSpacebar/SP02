@@ -16,6 +16,8 @@ public:
 	float turnDir;
 	float pitch_;
 	float yaw_;
+	float totalpitch_;
+	float totalyaw_;
 	float lastX;
 	float lastY;
 	bool GodMode;

@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "Characters.h"
+//#include "Characters.h"
 using namespace std;
 
-class Inventory:public Characters
+class Inventory
 {
 public:
 	Inventory();
@@ -19,7 +19,7 @@ public:
 	unsigned int size();//output different TYPES of elements
 	void print();//show container in the interface
 
-
+	
 	map<string, unsigned int>container;//the container
 	unsigned int getquantity;//to get quantity of element inside the container 
 

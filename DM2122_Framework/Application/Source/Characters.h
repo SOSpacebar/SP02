@@ -2,8 +2,8 @@
 #define CHARACTERS_H
 
 #include "GameObject.h"
-
-
+#include "Inventory.h"
+//using namespace std;
 class Characters : public GameObject
 {
 public:
@@ -12,6 +12,7 @@ public:
 	Characters(Scene*, const string& name, Vector3 &postion);
 	Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth);
 	Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth, const unsigned &maxStamina);
+	//Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth, const unsigned &maxStamina,Inventory inventory);
 	virtual ~Characters();
 
 	virtual const unsigned getCurrentHealth();
@@ -26,9 +27,11 @@ public:
 	virtual bool anyInteraction();
 	virtual void render();
 	//add on inventory, combat, movement when done
-	
+	Inventory inventory_;
 private:
+
 	unsigned health_, maxHealth_, stamina_, maxStamina_;
+	
 };
 
 #endif
