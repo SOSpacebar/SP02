@@ -18,6 +18,7 @@ const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 float Application::MouseXPos_;
 float Application::MouseYPos_;
+bool Application::mouseClicked = false;
 //float lastX = 400, lastY = 300;
 
 static int nextSceneNo;
@@ -49,11 +50,12 @@ static void mouseButtonCallback(GLFWwindow*window, int button, int action, int m
 {
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
+		Application::mouseClicked = true;
 		std::cout << "Fire" << std::endl;
 	}
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	else if (action == GLFW_RELEASE)
 	{
-		std::cout << "Clicked" << std::endl;
+		Application::mouseClicked = false;;
 	}
 }
 
