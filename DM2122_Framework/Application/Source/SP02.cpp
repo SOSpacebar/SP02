@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-GameObjectManager SP02::_gameObjectMananger;
+GameObjectManager Scene::_gameObjectMananger;
 
 SP02::SP02()
 {
@@ -278,6 +278,7 @@ void SP02::Update(double dt)
 
 	if (Application::mouseClicked)
 	{
+		std::cout << "PEWPEW";
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", camera.position, Vector3(4, 4, 4)));
 	}
 		

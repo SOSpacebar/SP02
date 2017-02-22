@@ -37,6 +37,8 @@ public:
 
 private:
 	std::multimap<objectType, GameObject*> _gameObjects;
+	std::multimap<objectType, GameObject*>::iterator objIt;
+	bool updated;
 
 	struct GameObjectDeallocator
 	{

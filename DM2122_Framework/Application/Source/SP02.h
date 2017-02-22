@@ -97,7 +97,7 @@ private:
 
 	Mesh* meshList[NUM_GEOMETRY];*/
 
-	static GameObjectManager _gameObjectMananger;
+	//static GameObjectManager _gameObjectMananger;
 
 	//Camera4 camera;
 	/*MS modelStack, viewStack, projectionStack;*/

@@ -5,6 +5,7 @@
 #include "MatrixStack.h"
 #include "Mesh.h"
 
+class GameObjectManager;
 
 class Scene
 {
@@ -96,6 +97,10 @@ public:
 
 	Mesh* meshList[NUM_GEOMETRY];
 	void RenderMesh(Mesh *mesh, bool enableLight);
+
+	static GameObjectManager _gameObjectMananger;
+private:
+	
 };
 
 #endif

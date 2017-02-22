@@ -25,6 +25,8 @@ void GameObjectManager::remove(GameObject* gameObject)
 		if (it->second == gameObject)
 		{
 			it = _gameObjects.erase(it);
+			objIt = it;
+			updated = true;
 			delete gameObject;
 			return;
 		}
@@ -33,12 +35,12 @@ void GameObjectManager::remove(GameObject* gameObject)
 
 void GameObjectManager::update(Camera4& cam)
 {
-	std::multimap<objectType, GameObject*>::iterator objIt = _gameObjects.begin();
+	objIt = _gameObjects.begin();
 
 	static Vector3 prevPosition;
 	static Vector3 prevTarget;
 
-	for (objIt; objIt != _gameObjects.end(); objIt++)
+	for (objIt; objIt != _gameObjects.end();)
 	{
 		GameObject* temp = objIt->second;
 		
@@ -54,6 +56,11 @@ void GameObjectManager::update(Camera4& cam)
 				cam.target = prevTarget;		
 			}
 		}
+
+		if (!updated)
+			objIt++;
+		else
+			updated = false;
 	}
 
 	prevPosition = cam.position;

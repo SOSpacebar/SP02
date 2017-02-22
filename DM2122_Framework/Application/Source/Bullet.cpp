@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "GOManager.h"
 
 Bullet::Bullet()
 {
@@ -11,7 +12,7 @@ Bullet::~Bullet()
 Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 &box) : GameObject(scene, name, position + Vector3(-5, 0, 0), box)
 {
 	g_type = Scene::GEO_CUBE;
-	speed_ = 10;
+	speed_ = 50;
 	direction_ = scene->camera.view;
 	Vector3 offset = scene->camera.view * 5;
 	Vector3 startPos = position + offset;
@@ -26,6 +27,13 @@ bool Bullet::anyInteraction()
 {
 	position_ += direction_ * speed_ * scene_->dt_;
 	this->getCollider().updateColliderPos(this->position_);
+	if (position_.x > 100)
+	{
+		std::cout << "delete";
+		scene_->_gameObjectMananger.remove(this);
+		return true;
+	}
+	
 	return false;
 }
 
