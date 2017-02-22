@@ -13,7 +13,8 @@ Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 &box
 	g_type = Scene::GEO_CUBE;
 	speed_ = 10;
 	direction_ = scene->camera.view;
-	Vector3 startPos = position - direction_;
+	Vector3 offset = scene->camera.view * 5;
+	Vector3 startPos = position + offset;
 	position_ = startPos;
 }
 
@@ -23,7 +24,7 @@ void Bullet::update()
 
 bool Bullet::anyInteraction()
 {
-	position_ += direction_ * speed_ * scene_->_dt;
+	position_ += direction_ * speed_ * scene_->dt_;
 	this->getCollider().updateColliderPos(this->position_);
 	return false;
 }

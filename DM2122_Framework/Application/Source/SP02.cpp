@@ -214,7 +214,7 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
-	_dt = dt;    
+	dt_ = dt;    
 
 	static const float LSPEED = 10.f; 
 
