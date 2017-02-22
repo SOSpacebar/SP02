@@ -14,6 +14,7 @@ public:
 		T_ENVIRONMENTAL = 0,
 		T_ENEMY,
 		T_INTERACTABLE,
+		T_PLAYERPROJECTILE ,
 		T_NUMTYPE //Let NumType be last
 
 	};

@@ -15,6 +15,8 @@ Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 &box
 	//directionVertical_ = scene->camera.pitch_; 
 	speed_ = 10;
 	direction_ = scene->camera.view;
+	Vector3 startPos = position - direction_;
+	position_ = startPos;
 }
 
 
