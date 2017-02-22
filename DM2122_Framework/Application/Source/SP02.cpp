@@ -201,12 +201,13 @@ void SP02::Init()
 
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box" ,Vector3(0,0,0)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein", Vector3(0, 0, 0)));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein1", Vector3(0, 0, 40)));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein2", Vector3(0, 0, -40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", Vector3(0, 5, 0), 0, 0));
+	Vein::numOres = 10;
+	Vein::init();
+	for (int i = 0; i<Vein::numOres; i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein", Vector3(Vein::iRandXVec[i], 0, Vein::iRandYVec[i])));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
 
 void SP02::Update(double dt)

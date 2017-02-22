@@ -39,6 +39,8 @@ void GameObjectManager::update(Camera4& cam)
 
 	static Vector3 prevPosition;
 	static Vector3 prevTarget;
+	static float prevTPitch_;
+	static float prevTYaw_;
 
 	for (objIt; objIt != _gameObjects.end();)
 	{
@@ -54,6 +56,8 @@ void GameObjectManager::update(Camera4& cam)
 				std::cout << temp->getName(); //Check what collider its hitting
 				cam.position = prevPosition;
 				cam.target = prevTarget;		
+				cam.totalpitch_ = prevTPitch_;
+				cam.totalyaw_ = prevTYaw_;
 			}
 		}
 
@@ -65,6 +69,8 @@ void GameObjectManager::update(Camera4& cam)
 
 	prevPosition = cam.position;
 	prevTarget = cam.target;
+	prevTPitch_ = cam.totalpitch_;
+	prevTYaw_ = cam.totalyaw_;
 }
 
 GameObject* GameObjectManager::get(GameObject* gameObject)

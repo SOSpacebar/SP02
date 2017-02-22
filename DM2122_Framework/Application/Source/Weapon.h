@@ -8,7 +8,7 @@ class Weapon : public Item
 {
 public:
 	Weapon();
-	Weapon(Scene* scene, const string&weaponName, Vector3&position, const int weaponDamage, const int weaponAmmo);
+	Weapon(Scene* scene, const string&weaponName, const int weaponDamage, const int weaponAmmo);
 	~Weapon();
 
 	void render();

@@ -7,7 +7,7 @@ class Item:public GameObject
 {
 public:
 	Item();//default constructor
-	Item(Scene* scene,const string&name,Vector3&position);
+	Item(Scene* scene,const string&name);
 	~Item();
 
 	//private:
