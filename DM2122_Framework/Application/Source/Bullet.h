@@ -14,6 +14,8 @@ public:
 	float speed_;
 
 	Vector3 direction_;
+	Vector3 startPosition;
+	Vector3 bulletDirection_;
 	
 	virtual void update();
 	virtual void render();

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 
+EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 UIManager Scene::_UIManager;
 
@@ -92,6 +93,8 @@ void SP02::Init()
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
 	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
 	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
+	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
 
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
@@ -209,15 +212,11 @@ void SP02::Init()
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
-	Vein::numOres = 3;
-	Vein::init();
-	_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Weapon(this, "blaster", 0, 0));
-	for (int i = 0; i<Vein::numOres; i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "vein" + i, Vector3(Vein::iRandXVec[i], 0, Vein::iRandYVec[i])));
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i]));
 
-	
-
-
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
 
 void SP02::Update(double dt)
@@ -289,8 +288,8 @@ void SP02::Update(double dt)
 
 	if (Application::mouseClicked)
 	{
-		std::cout << "PEWPEW";
-		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", camera.position, Vector3(4, 4, 4)));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
+		std::cout << "Shoot";
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))

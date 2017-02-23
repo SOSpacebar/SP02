@@ -12,6 +12,7 @@
 #include "GOManager.h"
 #include "UIManager.h"
 #include "Veins.h"
+#include "EnvironmentManager.h"
 
 class SP02 : public Scene
 {

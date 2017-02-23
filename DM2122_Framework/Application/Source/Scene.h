@@ -7,6 +7,7 @@
 #include "UIManager.h"
 
 class GameObjectManager;
+class EnvironmentManager;
 
 class Scene
 {
@@ -35,6 +36,7 @@ public:
 		GEO_IRON,
 		GEO_COBALT,
 		GEO_BLASTER,
+		GEO_LASERPROJ,
 		NUM_GEOMETRY,
 	};
 
@@ -103,6 +105,8 @@ public:
 
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
+	static EnvironmentManager _environmentManager;
+
 private:
 	
 };
