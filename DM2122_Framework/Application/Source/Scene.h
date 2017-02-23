@@ -7,6 +7,7 @@
 #include "UIManager.h"
 
 class GameObjectManager;
+class EnvironmentManager;
 
 class Scene
 {
@@ -101,6 +102,8 @@ public:
 
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
+	static EnvironmentManager _environmentManager;
+
 private:
 	
 };

@@ -89,6 +89,7 @@
     <ClCompile Include="Source\Camera4.cpp" />
     <ClCompile Include="Source\Characters.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
+    <ClCompile Include="Source\EnvironmentManager.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GOManager.cpp" />
     <ClCompile Include="Source\Inventory.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Source\Characters.h" />
     <ClInclude Include="Source\Collider.h" />
     <ClInclude Include="Source\Element.h" />
+    <ClInclude Include="Source\EnvironmentManager.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\GOManager.h" />
     <ClInclude Include="Source\Inventory.h" />
