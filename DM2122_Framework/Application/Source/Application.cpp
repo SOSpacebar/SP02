@@ -19,6 +19,7 @@ const unsigned int frameTime = 1000 / FPS; // time for each frame
 float Application::MouseXPos_;
 float Application::MouseYPos_;
 bool Application::mouseClicked = false;
+bool Application::cantSpam = false;
 //float lastX = 400, lastY = 300;
 
 static int nextSceneNo;

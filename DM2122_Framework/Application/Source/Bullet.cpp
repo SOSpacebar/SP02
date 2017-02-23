@@ -24,6 +24,7 @@ void Bullet::update()
 
 bool Bullet::anyInteraction()
 {
+	
 	position_ += bulletDirection_* speed_ * scene_->dt_;
 	this->getCollider().updateColliderPos(this->position_);
 	float distance = (startPosition - this->position_).Length();
@@ -31,11 +32,15 @@ bool Bullet::anyInteraction()
 	if (distance > 50)
 	{
 		scene_->_gameObjectMananger.remove(this);
-		std::cout << "delete";
+		std::cout << "delete" << std::endl;
 		return true;
 	}
+	else if (Application::cantSpam == true)
+	{
+		Application::mouseClicked = false;
+		
+	}
 	return false;
-
 }
 
 void Bullet::render()

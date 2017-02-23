@@ -22,10 +22,6 @@ Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const
 {
 
 }
-//Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const unsigned &maxhealth_, const unsigned &maxStamina, Inventory inventory) : GameObject(scene, name, postion), health_(maxhealth_), stamina_(maxStamina), maxHealth_(maxhealth_), maxStamina_(maxStamina), Inventory(inventory_)
-//{
-//
-//}
 
 
 Characters::~Characters()

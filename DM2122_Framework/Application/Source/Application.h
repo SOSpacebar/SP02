@@ -16,6 +16,7 @@ public:
 	static float MouseXPos_;
 	static float MouseYPos_;
 	static bool mouseClicked;
+	static bool cantSpam;
 
 private:
 

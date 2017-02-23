@@ -295,7 +295,8 @@ void SP02::Update(double dt)
 	if (Application::mouseClicked)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
-		std::cout << "Shoot";
+		Application::cantSpam = true;
+		std::cout << "Clicked" << std::endl;
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))

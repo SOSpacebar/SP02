@@ -2,6 +2,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 #include <Vector3.h>
+#include "Application.h"
 #include "GameObject.h"
 class Bullet : public GameObject
 {
