@@ -42,7 +42,7 @@ public:
 		GEO_ALIENPROBE,
 		GEO_BEHOLDER,
 		GEO_STIMPAK,
-
+		TEXT,
 		NUM_GEOMETRY,
 	};
 
@@ -108,7 +108,7 @@ public:
 
 	Mesh* meshList[NUM_GEOMETRY];
 	void RenderMesh(Mesh *mesh, bool enableLight);
-
+	void RenderText(Mesh* mesh, std::string text, Color color);
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
 	static EnvironmentManager _environmentManager;

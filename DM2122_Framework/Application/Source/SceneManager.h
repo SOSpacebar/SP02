@@ -8,6 +8,7 @@
 #include "Assignment03.h"
 #include "SP02.h"
 #include "SceneBase.h"
+#include "TScene.h"
 
 using std::map;
 
