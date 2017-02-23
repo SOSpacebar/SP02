@@ -18,6 +18,8 @@ public:
 		T_COBALT,
 		T_NUMTYPE
 	};
+	//TODO:
+	//function will be able to choose the amount and zone where the ore will spawn
 
 	void initRandPos(ENVIRONMENT_TYPE oreType);//gets the ore type and initialize the pos values of it
 	void add(GameObject* gameobject);//add the position into the gameobject
@@ -33,13 +35,6 @@ private:
 	int numOres; //number of ores to render
 	int RandX;//random x value
 	int RandZ;//random z value
-	std::vector<int>RandXVec;//stores random x values
-	std::vector<int>RandZVec;//stores random y values
-
-
-
-
-
 
 };
 #endif // !1

@@ -208,13 +208,20 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box" ,Vector3(0,0,0)));
-	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
-	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
-	//_gameObjectMananger.remove(box);
+
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i]));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL));
+
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON);
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON));
+
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT);
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
+
+
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }

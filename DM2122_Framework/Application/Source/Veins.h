@@ -8,20 +8,19 @@
 class Vein : public GameObject
 {
 public:
-	Vein(Scene*, const string&, Vector3&);
+	enum ORE_TYPE {
+		T_COAL,
+		T_IRON,
+		T_COBALT,
+		T_NUMTYPE,
+	};
+	Vein(Scene*, const string&, Vector3&,ORE_TYPE ore);
 	~Vein();
 
-	static void init();
 	virtual bool anyInteraction();
 	virtual void render();
 
-	static int numOres;
-	static std::vector<int>iRandXVec;
-	static std::vector<int>iRandYVec;
 private:
-	
-	static int iRandX;
-	static int iRandY;
 };
 
 
