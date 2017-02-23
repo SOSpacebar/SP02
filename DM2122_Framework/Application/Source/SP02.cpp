@@ -93,6 +93,8 @@ void SP02::Init()
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
 	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
 	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
+	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
 
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
@@ -292,8 +294,8 @@ void SP02::Update(double dt)
 
 	if (Application::mouseClicked)
 	{
-		std::cout << "PEWPEW";
-		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", camera.position, Vector3(4, 4, 4)));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
+		std::cout << "Shoot";
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))

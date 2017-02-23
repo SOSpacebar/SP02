@@ -17,7 +17,7 @@ void Weapon::render()//render this on hand
 	scene_->modelStack.Rotate(scene_->camera.totalyaw_, 0, -1,0);//left and right
 	scene_->modelStack.Rotate(scene_->camera.totalpitch_, 0, 0,-1);//up dow
 
-	scene_->modelStack.Translate(-1, -0.3, -0.3);
+	scene_->modelStack.Translate(-1, -0.3, 0);
 	scene_->modelStack.Rotate(180, 0, 0, 1);
 	scene_->modelStack.Rotate(90, 1, 0, 0);
 	scene_->modelStack.Scale (0.03, 0.03, 0.03);

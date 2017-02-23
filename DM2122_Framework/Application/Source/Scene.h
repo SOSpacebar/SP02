@@ -36,6 +36,7 @@ public:
 		GEO_IRON,
 		GEO_COBALT,
 		GEO_BLASTER,
+		GEO_LASERPROJ,
 		NUM_GEOMETRY,
 	};
 

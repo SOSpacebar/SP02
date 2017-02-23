@@ -1,9 +1,8 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-//#include<string>
 #include "Item.h"
-//using std::string;
+
 class Weapon : public Item
 {
 public:
