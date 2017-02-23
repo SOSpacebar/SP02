@@ -15,6 +15,7 @@ public:
 		T_ENEMY,
 		T_INTERACTABLE,
 		T_PLAYERPROJECTILE ,
+		T_MINEABLE,
 		T_NUMTYPE //Let NumType be last
 
 	};
@@ -34,9 +35,10 @@ public:
 	void renderGameObjects();
 
 	GameObject* get(GameObject* gameObject);
+	std::multimap<objectType, GameObject*> _gameObjects;
 
 private:
-	std::multimap<objectType, GameObject*> _gameObjects;
+	
 	std::multimap<objectType, GameObject*>::iterator objIt;
 	bool updated;
 

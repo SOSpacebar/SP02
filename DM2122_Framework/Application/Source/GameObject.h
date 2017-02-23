@@ -35,6 +35,7 @@ public:
 	Vector3 position_;
 	float rotaX = 0, rotaY = 0, rotaZ = 0;
 	float scale = 1;
+	float distance_;
 	bool lightEnable = true;
 private:
 

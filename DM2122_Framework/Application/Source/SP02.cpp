@@ -215,14 +215,8 @@ void SP02::Init()
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i]));
-	/*Vein::numOres = 3;
-	Vein::init();
-	for (int i = 0; i<Vein::numOres; i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein", Vector3(Vein::iRandXVec[i], 0, Vein::iRandYVec[i])));
-*/
+
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
-
-
 }
 
 void SP02::Update(double dt)
@@ -310,6 +304,11 @@ void SP02::Update(double dt)
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
 
+
+	if (Application::IsKeyPressed('E'))
+	{
+		interact = true;
+	}
 
 	if (Application::IsKeyPressed('Z'))
 	{
@@ -466,13 +465,15 @@ void SP02::Render()
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//player position
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
 	DebugCamPosition();
 }

@@ -56,7 +56,7 @@ void GameObjectManager::update(Camera4& cam)
 			{
 				std::cout << temp->getName(); //Check what collider its hitting
 				cam.position = prevPosition;
-				cam.target = prevTarget;		
+				cam.target = prevTarget;
 				cam.totalpitch_ = prevTPitch_;
 				cam.totalyaw_ = prevTYaw_;
 			}

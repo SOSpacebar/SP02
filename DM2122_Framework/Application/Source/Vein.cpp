@@ -56,13 +56,22 @@ Vein::~Vein()
 
 bool Vein::anyInteraction()
 {
-	float distance = (scene_->camera.position - this->position_).Length();
+	auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_MINEABLE);
 
-	if (distance < 20)
+	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
 	{
-		scene_->_gameObjectMananger.remove(this);
-		return true;
+		GameObject* temp = it->second;
+		distance_ = (temp->scene_->camera.position - temp->position_).Length();
+
+		if (distance_ < 20 && scene_->interact)
+		{
+			scene_->interact = false;
+			scene_->_gameObjectMananger.remove(temp);
+			return true;
+		}
 	}
+
+	scene_->interact = false;
 	return false;
 }
 
