@@ -28,34 +28,7 @@ SP02::~SP02()
 void SP02::Init()
 {
 	//Player* player = Player::getInstance();
-
 	dailycycle = 0;
-	//random seed
-	srand(time(NULL));
-	//random amounts of coal
-	for (int i = 0; i < 150 ; i++)
-	{
-		randomx = rand() % 300;
-		RandXArray[i] = randomx;
-		randomz = rand() % 300;
-		RandZArray[i] = randomz;
-	}
-	//random amounts of coal
-	for (int i = 0; i < 100; i++)
-	{
-		irandomx = rand() % 300;
-		IRandXArray[i] = irandomx;
-		irandomz = rand() % 300;
-		IRandZArray[i] = irandomz;
-	}
-	//random amounts of cobalt
-	for (int i = 0; i < 50; i++)
-	{
-		crandomx = rand() % 300;
-		CRandXArray[i] = crandomx;
-		crandomz = rand() % 300;
-		CRandZArray[i] = crandomz;
-	}
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -531,7 +504,7 @@ void SP02::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
 
-	DebugCamPosition();
+	//DebugCamPosition();
 }
 
 //void SP02::RenderMesh(Mesh *mesh, bool enableLight)
@@ -701,13 +674,6 @@ void SP02::RenderSkybox()
 //	modelStack.PopMatrix();
 //	glEnable(GL_DEPTH_TEST);
 //}
-
-void SP02::DebugCamPosition()
-{
-	/*RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);*/
-}
 
 void SP02::Exit()
 {

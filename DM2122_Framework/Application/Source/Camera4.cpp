@@ -12,6 +12,9 @@ Camera4::~Camera4()
 
 void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
+	Application::MouseXPos_ = 0;
+	Application::MouseYPos_ = 0;
+
 	GodMode = false;
 	this->position = defaultPosition = pos;
 	this->target = defaultTarget = target;

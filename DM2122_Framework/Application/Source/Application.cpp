@@ -13,7 +13,7 @@
 
 #include "SceneManager.h"
 
-GLFWwindow* m_window;
+GLFWwindow*Application::m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 float Application::MouseXPos_;
@@ -141,6 +141,7 @@ void Application::Init()
 
 void Application::Run()
 {
+	SceneManager::instance()->AddScene(new MainMenu);
 	SceneManager::instance()->AddScene(new SP02);
 	SceneManager::instance()->AddScene(new SceneBase);
 	SceneManager::instance()->Init();

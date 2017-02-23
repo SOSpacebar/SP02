@@ -111,24 +111,6 @@ private:
 	float FPS;
 	//daily cycle
 	float dailycycle;
-	//coal
-	int randomx;
-	int randomz;
-	int RandXArray[150];
-	int RandZArray[150];
-	//iron
-	int irandomx;
-	int irandomz;
-	int IRandXArray[100];
-	int IRandZArray[100];
-	//cobalt
-	int crandomx;
-	int crandomz;
-	int CRandXArray[50];
-	int CRandZArray[50];
-
-
-
 
 	//void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);
@@ -136,7 +118,7 @@ private:
 
 	void RenderSkybox();
 
-	void DebugCamPosition();
+	//void DebugCamPosition();
 
 
 
