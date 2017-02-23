@@ -15,9 +15,9 @@ public:
 	virtual bool anyInteraction();
 	virtual void render();
 
-	 static int numOres;
-	 static std::vector<int>iRandXVec;
-	 static std::vector<int>iRandYVec;
+	static int numOres;
+	static std::vector<int>iRandXVec;
+	static std::vector<int>iRandYVec;
 private:
 	
 	static int iRandX;

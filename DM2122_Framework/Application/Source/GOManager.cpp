@@ -42,6 +42,7 @@ void GameObjectManager::update(Camera4& cam)
 	static float prevTPitch_;
 	static float prevTYaw_;
 
+
 	for (objIt; objIt != _gameObjects.end();)
 	{
 		GameObject* temp = objIt->second;

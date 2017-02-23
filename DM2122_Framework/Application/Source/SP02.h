@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "Weapon.h"
 #include "GOManager.h"
+#include "UIManager.h"
 #include "Veins.h"
 
 class SP02 : public Scene

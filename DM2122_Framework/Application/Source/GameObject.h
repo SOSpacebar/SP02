@@ -6,7 +6,6 @@
 #include "Collider.h"
 #include "Scene.h"
 
-
 using std::string;
 
 class GameObject

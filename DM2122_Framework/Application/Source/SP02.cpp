@@ -13,6 +13,8 @@
 #include <iostream>
 
 GameObjectManager Scene::_gameObjectMananger;
+UIManager Scene::_UIManager;
+
 
 SP02::SP02()
 {
@@ -104,6 +106,10 @@ void SP02::Init()
 
 	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
 	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
+
+	//For UI assign(Make sure its after meshList)
+	UIManager _UI(this);
+	Scene::_UIManager = _UI;
 
 
 	Mtx44 projection;
@@ -203,11 +209,14 @@ void SP02::Init()
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters(this,"box1", Vector3(0, 0, 40)));
 	//_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Characters("box2", Vector3(60, 0, 60)));
 	//_gameObjectMananger.remove(box);
-	Vein::numOres = 10;
+	Vein::numOres = 3;
 	Vein::init();
 	for (int i = 0; i<Vein::numOres; i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "vein", Vector3(Vein::iRandXVec[i], 0, Vein::iRandYVec[i])));
+
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
+
+
 }
 
 void SP02::Update(double dt)
@@ -448,16 +457,16 @@ void SP02::Render()
 	_gameObjectMananger.renderGameObjects();
 
 	//FPS
-	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//player position
-	RenderTextOnScreen(meshList[GEO_TEXT], "Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26);
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26));
 	//inventory
-	RenderTextOnScreen(meshList[GEO_TEXT], "Iron : " + std::to_string(player.inventory_.container.find("Iron")->second) , Color(1, 1, 0), 2, 1, 15);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14);
-
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+	
 	DebugCamPosition();
 }
 
@@ -559,75 +568,75 @@ void SP02::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
-void SP02::RenderText(Mesh* mesh, std::string text, Color color)
-{
-	if (!mesh || mesh->textureID <= 0) //Proper error check
-		return;
+//void SP02::RenderText(Mesh* mesh, std::string text, Color color)
+//{
+//	if (!mesh || mesh->textureID <= 0) //Proper error check
+//		return;
+//
+//	glDisable(GL_DEPTH_TEST);
+//	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
+//	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
+//	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+//	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+//	glActiveTexture(GL_TEXTURE0);
+//	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+//	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+//	for (unsigned i = 0; i < text.length(); ++i)
+//	{
+//		Mtx44 characterSpacing;
+//		characterSpacing.SetToTranslation(i * .5f, 0, 0); //1.0f is the spacing of each character, you may change this value
+//		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
+//		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+//
+//		mesh->Render((unsigned)text[i] * 6, 6);
+//	}
+//	glBindTexture(GL_TEXTURE_2D, 0);
+//	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+//	glEnable(GL_DEPTH_TEST);
+//}
 
-	glDisable(GL_DEPTH_TEST);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	for (unsigned i = 0; i < text.length(); ++i)
-	{
-		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * .5f, 0, 0); //1.0f is the spacing of each character, you may change this value
-		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-		mesh->Render((unsigned)text[i] * 6, 6);
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-	glEnable(GL_DEPTH_TEST);
-}
-
-void SP02::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
-{
-	if (!mesh || mesh->textureID <= 0) //Proper error check
-		return;
-
-	glDisable(GL_DEPTH_TEST);
-
-	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
-	projectionStack.PushMatrix();
-	projectionStack.LoadMatrix(ortho);
-	viewStack.PushMatrix();
-	viewStack.LoadIdentity(); //No need camera for ortho mode
-	modelStack.PushMatrix();
-	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Scale(size, size, size);
-	modelStack.Translate(x, y, 0);
-
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	for (unsigned i = 0; i < text.length(); ++i)
-	{
-		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 1.0f, 0, 0); //1.0f is the spacing of each character, you may change this value
-		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-		mesh->Render((unsigned)text[i] * 6, 6);
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-
-	projectionStack.PopMatrix();
-	viewStack.PopMatrix();
-	modelStack.PopMatrix();
-	glEnable(GL_DEPTH_TEST);
-}
+//void SP02::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+//{
+//	if (!mesh || mesh->textureID <= 0) //Proper error check
+//		return;
+//
+//	glDisable(GL_DEPTH_TEST);
+//
+//	Mtx44 ortho;
+//	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+//	projectionStack.PushMatrix();
+//	projectionStack.LoadMatrix(ortho);
+//	viewStack.PushMatrix();
+//	viewStack.LoadIdentity(); //No need camera for ortho mode
+//	modelStack.PushMatrix();
+//	modelStack.LoadIdentity(); //Reset modelStack
+//	modelStack.Scale(size, size, size);
+//	modelStack.Translate(x, y, 0);
+//
+//	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
+//	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
+//	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+//	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
+//	glActiveTexture(GL_TEXTURE0);
+//	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
+//	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
+//	for (unsigned i = 0; i < text.length(); ++i)
+//	{
+//		Mtx44 characterSpacing;
+//		characterSpacing.SetToTranslation(i * 1.0f, 0, 0); //1.0f is the spacing of each character, you may change this value
+//		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
+//		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+//
+//		mesh->Render((unsigned)text[i] * 6, 6);
+//	}
+//	glBindTexture(GL_TEXTURE_2D, 0);
+//	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+//
+//	projectionStack.PopMatrix();
+//	viewStack.PopMatrix();
+//	modelStack.PopMatrix();
+//	glEnable(GL_DEPTH_TEST);
+//}
 
 void SP02::DebugCamPosition()
 {

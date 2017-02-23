@@ -4,6 +4,7 @@
 #include "Camera4.h"
 #include "MatrixStack.h"
 #include "Mesh.h"
+#include "UIManager.h"
 
 class GameObjectManager;
 
@@ -99,6 +100,7 @@ public:
 	void RenderMesh(Mesh *mesh, bool enableLight);
 
 	static GameObjectManager _gameObjectMananger;
+	static UIManager _UIManager;
 private:
 	
 };

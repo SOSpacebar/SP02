@@ -1,5 +1,6 @@
 #include "Veins.h"
 #include <iostream>
+#include "GOManager.h"
 
 int Vein::numOres;
 std::vector<int>Vein::iRandXVec;
@@ -13,32 +14,6 @@ Vein::Vein(Scene* scene, const string& name, Vector3& pos) : GameObject(scene, n
 	g_type = Scene::GEO_IRON;
 	scale = 2;
 
-	int numOres = 10;
-	srand(time(NULL));
-	for (int i = 0; i < numOres; i++)
-	{
-		if (iRandXVec.size() == 0 && iRandYVec.size() == 0)//if its first
-		{
-			iRandXVec.push_back(rand() % 150);
-			iRandYVec.push_back(rand() % 150);
-		}
-		else//not first
-		{
-			iRandX = rand() % 150;//get a number
-			iRandY = rand() % 150;//get a number
-			for (int i = 0; i < iRandXVec.size(); i++)//for all values
-			{
-				while (iRandX == iRandXVec[i] && iRandY == iRandYVec[i])//if its the same value
-				{
-					iRandX = rand() % 150;//get a new value
-					iRandY = rand() % 150;//get a new value
-				}
-
-			}
-			iRandXVec.push_back(iRandX);//push new value
-			iRandYVec.push_back(iRandY);//push new value
-		}
-	}
 	const int objSize = 6;
 	Vector3 boxSize(objSize * 2, objSize * 2, objSize * 2);
 	this->getCollider().setCollider(pos, boxSize);
@@ -81,7 +56,13 @@ Vein::~Vein()
 
 bool Vein::anyInteraction()
 {
+	float distance = (scene_->camera.position - this->position_).Length();
 
+	if (distance < 20)
+	{
+		scene_->_gameObjectMananger.remove(this);
+		return true;
+	}
 	return false;
 }
 
