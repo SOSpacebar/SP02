@@ -8,6 +8,7 @@
 
 class GameObjectManager;
 class EnvironmentManager;
+class Player;
 
 class Scene
 {
@@ -103,9 +104,11 @@ public:
 	Mesh* meshList[NUM_GEOMETRY];
 	void RenderMesh(Mesh *mesh, bool enableLight);
 
+	static Player _player;
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
 	static EnvironmentManager _environmentManager;
+	
 
 private:
 	

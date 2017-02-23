@@ -13,6 +13,7 @@
 #include "UIManager.h"
 #include "Veins.h"
 #include "EnvironmentManager.h"
+#include "Player.h"
 
 class SP02 : public Scene
 {
@@ -140,6 +141,6 @@ private:
 
 
 	//test
-	Characters player;
+	//Characters player;
 };
 #endif

@@ -37,35 +37,47 @@ void Characters::setDefault()
 	this->stamina_ = maxStamina_;
 }
 
-const unsigned Characters::getCurrentHealth()
+const float Characters::getCurrentHealth()
 {
 	return this->health_;
 }
 
-const unsigned Characters::getMaxHealth()
+const float Characters::getMaxHealth()
 {
 	return this->maxHealth_;
 }
 
-const unsigned Characters::getCurrentStamina()
+const float Characters::getCurrentStamina()
 {
 	return this->stamina_;
 }
 
-const unsigned Characters::getMaxStamina()
+const float Characters::getMaxStamina()
 {
 	return this->maxStamina_;
 }
 
-void Characters::setMaxHealth(const unsigned newMaxHealth)
+void Characters::setMaxHealth(const float newMaxHealth)
 {
 	this->maxHealth_ = newMaxHealth;
 }
 
-void Characters::setMaxStamina(const unsigned newMaxStamina)
+void Characters::setMaxStamina(const float newMaxStamina)
 {
 	this->maxStamina_ = newMaxStamina;
 }
+
+void Characters::updateHealth(float value)
+{
+	this->health_ += value;
+}
+
+void Characters::updateStamina(float value)
+{
+	this->stamina_ += value;
+}
+
+
 
 bool Characters::anyInteraction()
 {

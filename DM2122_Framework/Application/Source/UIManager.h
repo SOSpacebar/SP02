@@ -30,6 +30,9 @@ public:
 	
 
 	void renderTextOnScreen(UI_Text t);
+	void renderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
+
+	void renderPlayerDetails();
 private:
 	Scene* scene_;
 	Mesh* mesh_;

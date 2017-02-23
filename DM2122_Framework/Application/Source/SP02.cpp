@@ -12,9 +12,11 @@
 #include <stdlib.h>
 #include <iostream>
 
+Player Scene::_player;
 EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 UIManager Scene::_UIManager;
+
 
 
 SP02::SP02()
@@ -27,6 +29,8 @@ SP02::~SP02()
 
 void SP02::Init()
 {
+	//Player* player = Player::getInstance();
+
 	dailycycle = 0;
 	//random seed
 	srand(time(NULL));
@@ -113,7 +117,7 @@ void SP02::Init()
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
-
+	
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -214,7 +218,7 @@ void SP02::Init()
 	//_gameObjectMananger.remove(box);
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i]));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i]));
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
@@ -312,23 +316,23 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('Z'))
 	{
-		player.inventory_.push("Iron",1);//player picks up 1 element iron
+		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
 	}
 	if (Application::IsKeyPressed('X'))
 	{
-		player.inventory_.push("Copper", 1);
+		_player.inventory_.push("Copper", 1);
 	}
 	if (Application::IsKeyPressed('C'))
 	{
-		player.inventory_.push("Silver", 1);
+		_player.inventory_.push("Silver", 1);
 	}
 	if (Application::IsKeyPressed('V'))
 	{
-		player.inventory_.push("Gold", 1);
+		_player.inventory_.push("Gold", 1);
 	}
 	if (Application::IsKeyPressed('B'))
 	{
-		player.inventory_.push("Steel", 1);
+		_player.inventory_.push("Steel", 1);
 	}
 
 }
@@ -467,14 +471,19 @@ void SP02::Render()
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
+	//Player
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+
 	DebugCamPosition();
 }
 
