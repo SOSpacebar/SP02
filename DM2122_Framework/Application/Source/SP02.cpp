@@ -96,6 +96,15 @@ void SP02::Init()
 	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
 	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
 
+	meshList[GEO_CHEST] = MeshBuilder::GenerateOBJ("chest", "OBJ//Chest.obj");
+	meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
+	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
+	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
+	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
+	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
+	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
+	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
+	
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
@@ -221,8 +230,6 @@ void SP02::Init()
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
 
-
-
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
 
@@ -301,7 +308,7 @@ void SP02::Update(double dt)
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))
-		SceneManager::instance()->SetNextScene(0);
+		SceneManager::instance()->SetNextScene(1);
 	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
 	//	SceneManager::instance()->SetNextScene(0);
 
@@ -468,6 +475,40 @@ void SP02::Render()
 	//modelStack.PopMatrix();
 
 	_gameObjectMananger.renderGameObjects();
+
+	//Stimpak
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2, 5);
+	modelStack.Scale(.3, .3, .3);
+	RenderMesh(meshList[GEO_STIMPAK], false);
+	modelStack.PopMatrix();
+
+	//chest/InventoryBox, or whatever you guys wan as.
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 1, 0);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(.3, .3, .3);
+	RenderMesh(meshList[GEO_CHEST], false);
+	modelStack.PopMatrix();
+
+	//AlienProbe
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 5, -10);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(.3, .3, .3);
+	RenderMesh(meshList[GEO_ALIENPROBE], false);
+	modelStack.PopMatrix();
+
+	//Beholder
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 5, -15);
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(.3, .3, .3);
+	RenderMesh(meshList[GEO_BEHOLDER], false);
+	modelStack.PopMatrix();
+
+	
+
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));

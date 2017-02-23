@@ -13,8 +13,8 @@ Vein::Vein(Scene* scene, const string& name, Vector3& pos, ORE_TYPE ore) : GameO
 	if (ore == T_COBALT)
 		g_type = Scene::GEO_COBALT;
 
-	scale = 2;
-	const int objSize = 6;
+	scale = 0.5;
+	const int objSize = 4;
 	Vector3 boxSize(objSize * 2, objSize * 2, objSize * 2);
 	this->getCollider().setCollider(pos, boxSize);
 }
