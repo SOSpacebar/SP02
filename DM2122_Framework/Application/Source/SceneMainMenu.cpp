@@ -48,49 +48,19 @@ void MainMenu::Init()
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
-	//meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
-	//meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1);
-	//meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
-	//meshList[GEO_QUAD]->textureID = LoadTGA("Image//snowGround.tga");
-	//meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.545098f, 0, 0), 0.5f, 0.5f, 0.5f);
-	//meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("blade", Color(1, 0, 1), 16, 1, 1);
-	//meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
-	//meshList[GEO_ROOM]->textureID = LoadTGA("Image//room.tga");
-	//meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("Basedoor", Color(1, 1, 1), 1, 1);
-	//meshList[GEO_ROOMDOOR]->textureID = LoadTGA("Image//roomdoor.tga");
 	meshList[GEO_SPACE] = MeshBuilder::GenerateQuad("space", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SPACE]->textureID = LoadTGA("Image//Space.tga");
 	meshList[GEO_SUN] = MeshBuilder::GenerateQuad("sun", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
-	//meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
-	//meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
-	//meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
-	//meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
-
-	//meshList[GEO_CHEST] = MeshBuilder::GenerateOBJ("chest", "OBJ//Chest.obj");
-	//meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
-	//meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
-	//meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
-	//meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
-	//meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
-	//meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
-	//meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
+	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
+	meshList[GEO_QUAD]->textureID = LoadTGA("Image//room.tga");
 
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
-
-	//meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
-	//meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
-
-	//meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
-	//meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
-
-	//meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
-	//meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
 
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
@@ -150,8 +120,6 @@ void MainMenu::Update(double dt)
 	{
 		Application::Exit();
 	}
-	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
-	//	SceneManager::instance()->SetNextScene(0);
 
 	dailycycle += 0.5 * dt;
 
@@ -177,19 +145,18 @@ void MainMenu::Render()
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
-	//player position
+	//mouse position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_ )+ " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
-
+	//play button
+	_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 40, 30, 10);
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("PLAY", Color(0, 1, 0), 10, 3.5, 4));
-
+	//exit button
+	_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 20, 30, 10);
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("EXIT", Color(1, 0, 0), 10, 3.5, 2));
 
 
-}
 
-//void MainMenu::RenderMesh(Mesh *mesh, bool enableLight)
-//{
-//}
+}
 
 void MainMenu::RenderSkybox()
 {
@@ -240,10 +207,6 @@ void MainMenu::RenderSkybox()
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 }
-
-//void MainMenu::RenderText(Mesh* mesh, std::string text, Color color)
-//{
-//}
 
 void MainMenu::Exit()
 {

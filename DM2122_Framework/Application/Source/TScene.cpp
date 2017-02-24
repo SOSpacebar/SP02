@@ -211,15 +211,15 @@ void TScene::Init()
 
 	//_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
 //	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3 (0,0,0), Vein::ORE_TYPE::T_COAL));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3 (0,0,0), Vein::ORE_TYPE::T_COAL,0));
 
 	//_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON);
 	//for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(20, 0, 0), Vein::ORE_TYPE::T_IRON));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(20, 0, 0), Vein::ORE_TYPE::T_IRON,0));
 
 //	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT);
 	//for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(40, 0, 0), Vein::ORE_TYPE::T_COBALT));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(40, 0, 0), Vein::ORE_TYPE::T_COBALT,0));
 
 
 

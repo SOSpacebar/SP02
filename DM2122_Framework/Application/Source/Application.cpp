@@ -141,13 +141,9 @@ void Application::Init()
 
 void Application::Run()
 {
-
-	//SceneManager::instance()->AddScene(new SP02);
-	//SceneManager::instance()->AddScene(new SceneBase);
-	SceneManager::instance()->AddScene(new TScene);
-
 	SceneManager::instance()->AddScene(new MainMenu);
 	SceneManager::instance()->AddScene(new SP02);
+	SceneManager::instance()->AddScene(new TScene);
 	SceneManager::instance()->AddScene(new SceneBase);
 
 	SceneManager::instance()->Init();

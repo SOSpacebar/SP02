@@ -4,7 +4,7 @@
 
 
 
-Vein::Vein(Scene* scene, const string& name, Vector3& pos, ORE_TYPE ore) : GameObject(scene, name, pos)
+Vein::Vein(Scene* scene, const string& name, Vector3& pos, ORE_TYPE ore, int rotation) : GameObject(scene, name, pos)
 {
 	if (ore == T_COAL)
 		g_type = Scene::GEO_COAL;
@@ -13,6 +13,7 @@ Vein::Vein(Scene* scene, const string& name, Vector3& pos, ORE_TYPE ore) : GameO
 	if (ore == T_COBALT)
 		g_type = Scene::GEO_COBALT;
 
+	rotaY = rotation;
 	scale = 0.5;
 	const int objSize = 1;
 	Vector3 boxSize(objSize * 1, objSize * 5, objSize * 1);
