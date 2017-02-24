@@ -14,7 +14,7 @@ public:
 		T_COBALT,
 		T_NUMTYPE,
 	};
-	Vein(Scene*, const string&, Vector3&,ORE_TYPE ore);
+	Vein(Scene*, const string&, Vector3&,ORE_TYPE ore,int rotation);
 	~Vein();
 
 	virtual bool anyInteraction();

@@ -1,5 +1,7 @@
 #include "EnvironmentManager.h"
 std::vector<Vector3>EnvironmentManager::orePos;
+std::vector<int>EnvironmentManager::oreRota;
+
 
 EnvironmentManager::EnvironmentManager()//constructor
 {
@@ -13,7 +15,10 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType, int maxOres, Vect
 {
 	//clear previous data
 	for (int i = 0; !orePos.empty(); i++)
+	{
 		orePos.pop_back();
+		oreRota.pop_back();
+	}
 	//get diff rand() seed
 	if (oreType == T_COAL)
 	{
@@ -35,6 +40,8 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType, int maxOres, Vect
 		if (orePos.size() == 0)//if its first
 		{
 			orePos.push_back(Vector3(MinPos.x + rand() % (int)(MaxPos.x - MinPos.x), 0, MinPos.z + rand() % (int)(MaxPos.z- MinPos.z)));
+			oreRota.push_back(rand() % 360);
+
 		}
 		else//not first
 		{
@@ -50,17 +57,14 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType, int maxOres, Vect
 
 			}
 			orePos.push_back(Vector3(RandX, 0, RandZ));
+			oreRota.push_back(rand() % 360);
+
 		}
 	}
 
 	for (int i = 0; i < orePos.size(); i++) //checking if it stores values into vector
-		std::cout << orePos[i] << " ore " << std::endl;
-
+		std::cout << orePos[i] << " ore " <<oreRota[i]<<"rota" << std::endl;
 	std::cout << orePos.size() << std::endl;
 
 }
 
-void EnvironmentManager::add(GameObject* gameobject)//store game obj
-{
-	VecEnvObj.push_back(gameobject);
-}
