@@ -20,7 +20,7 @@ public:
 		float positionX_;
 		float positionY_;
 
-
+		
 		UI_Text(string msg, Color c, float t_size, float posX, float posY) : message_(msg), color_(c), size_(t_size), positionX_(posX), positionY_(posY)  {}
 	};
 
@@ -30,6 +30,7 @@ public:
 	
 
 	void renderTextOnScreen(UI_Text t);
+	
 private:
 	Scene* scene_;
 	Mesh* mesh_;

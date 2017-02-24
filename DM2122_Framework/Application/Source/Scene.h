@@ -37,11 +37,14 @@ public:
 		GEO_COBALT,
 		GEO_BLASTER,
 		GEO_LASERPROJ,
+<<<<<<< Updated upstream
 
 		GEO_CHEST,
 		GEO_ALIENPROBE,
 		GEO_BEHOLDER,
 		GEO_STIMPAK,
+=======
+>>>>>>> Stashed changes
 		TEXT,
 		NUM_GEOMETRY,
 	};

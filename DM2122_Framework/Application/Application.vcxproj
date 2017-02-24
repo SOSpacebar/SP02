@@ -107,6 +107,7 @@
     <ClCompile Include="Source\SceneUI.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SP02.cpp" />
+    <ClCompile Include="Source\TScene.cpp" />
     <ClCompile Include="Source\UIManager.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Vein.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Source\SceneUI.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SP02.h" />
+    <ClInclude Include="Source\TScene.h" />
     <ClInclude Include="Source\UIManager.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Veins.h" />
