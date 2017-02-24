@@ -15,13 +15,16 @@ public:
 	//Characters(Scene*, const string& name, Vector3 &postion, const unsigned &maxHealth, const unsigned &maxStamina,Inventory inventory);
 	virtual ~Characters();
 
-	virtual const unsigned getCurrentHealth();
-	virtual const unsigned getMaxHealth();
-	virtual const unsigned getCurrentStamina();
-	virtual const unsigned getMaxStamina();
+	virtual const float getCurrentHealth();
+	virtual const float getMaxHealth();
+	virtual const float getCurrentStamina();
+	virtual const float getMaxStamina();
 
-	virtual void setMaxHealth(const unsigned newMaxHealth);
-	virtual void setMaxStamina(const unsigned newMaxStamina);
+	virtual void setMaxHealth(const float newMaxHealth);
+	virtual void setMaxStamina(const float newMaxStamina);
+
+	virtual void updateHealth(float);
+	virtual void updateStamina(float);
 
 	virtual void setDefault();
 	virtual bool anyInteraction();
@@ -30,7 +33,7 @@ public:
 	Inventory inventory_;
 private:
 
-	unsigned health_, maxHealth_, stamina_, maxStamina_;
+	float health_, maxHealth_, stamina_, maxStamina_;
 	
 };
 

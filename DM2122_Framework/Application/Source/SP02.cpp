@@ -12,10 +12,10 @@
 #include <stdlib.h>
 #include <iostream>
 
+Player Scene::_player;
 EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 UIManager Scene::_UIManager;
-
 
 SP02::SP02()
 {
@@ -27,33 +27,8 @@ SP02::~SP02()
 
 void SP02::Init()
 {
+	//Player* player = Player::getInstance();
 	dailycycle = 0;
-	//random seed
-	srand(time(NULL));
-	//random amounts of coal
-	for (int i = 0; i < 150 ; i++)
-	{
-		randomx = rand() % 300;
-		RandXArray[i] = randomx;
-		randomz = rand() % 300;
-		RandZArray[i] = randomz;
-	}
-	//random amounts of coal
-	for (int i = 0; i < 100; i++)
-	{
-		irandomx = rand() % 300;
-		IRandXArray[i] = irandomx;
-		irandomz = rand() % 300;
-		IRandZArray[i] = irandomz;
-	}
-	//random amounts of cobalt
-	for (int i = 0; i < 50; i++)
-	{
-		crandomx = rand() % 300;
-		CRandXArray[i] = crandomx;
-		crandomz = rand() % 300;
-		CRandZArray[i] = crandomz;
-	}
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -122,7 +97,7 @@ void SP02::Init()
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
-
+	
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -218,17 +193,17 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
 
-	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL);
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL,30, camera.position,Vector3(-75,0,-75),Vector3(75,0,75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL));
 
-	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON);
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON,20, camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON));
 
-	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT);
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT,10,camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
@@ -326,23 +301,23 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed('Z'))
 	{
-		player.inventory_.push("Iron",1);//player picks up 1 element iron
+		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
 	}
 	if (Application::IsKeyPressed('X'))
 	{
-		player.inventory_.push("Copper", 1);
+		_player.inventory_.push("Copper", 1);
 	}
 	if (Application::IsKeyPressed('C'))
 	{
-		player.inventory_.push("Silver", 1);
+		_player.inventory_.push("Silver", 1);
 	}
 	if (Application::IsKeyPressed('V'))
 	{
-		player.inventory_.push("Gold", 1);
+		_player.inventory_.push("Gold", 1);
 	}
 	if (Application::IsKeyPressed('B'))
 	{
-		player.inventory_.push("Steel", 1);
+		_player.inventory_.push("Steel", 1);
 	}
 
 }
@@ -515,15 +490,20 @@ void SP02::Render()
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
-	DebugCamPosition();
+	//Player
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+
+	//DebugCamPosition();
 }
 
 //void SP02::RenderMesh(Mesh *mesh, bool enableLight)
@@ -693,13 +673,6 @@ void SP02::RenderSkybox()
 //	modelStack.PopMatrix();
 //	glEnable(GL_DEPTH_TEST);
 //}
-
-void SP02::DebugCamPosition()
-{
-	/*RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);*/
-}
 
 void SP02::Exit()
 {

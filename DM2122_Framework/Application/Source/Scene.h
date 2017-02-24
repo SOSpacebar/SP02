@@ -8,6 +8,7 @@
 
 class GameObjectManager;
 class EnvironmentManager;
+class Player;
 
 class Scene
 {
@@ -37,15 +38,12 @@ public:
 		GEO_COBALT,
 		GEO_BLASTER,
 		GEO_LASERPROJ,
-<<<<<<< Updated upstream
 
 		GEO_CHEST,
 		GEO_ALIENPROBE,
 		GEO_BEHOLDER,
 		GEO_STIMPAK,
-=======
->>>>>>> Stashed changes
-		TEXT,
+		//TEXT,
 		NUM_GEOMETRY,
 	};
 
@@ -111,10 +109,15 @@ public:
 
 	Mesh* meshList[NUM_GEOMETRY];
 	void RenderMesh(Mesh *mesh, bool enableLight);
+
+	static Player _player;
+
 	void RenderText(Mesh* mesh, std::string text, Color color);
+
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
 	static EnvironmentManager _environmentManager;
+	
 
 private:
 	

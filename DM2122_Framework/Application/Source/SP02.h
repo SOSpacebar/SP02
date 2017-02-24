@@ -13,6 +13,7 @@
 #include "UIManager.h"
 #include "Veins.h"
 #include "EnvironmentManager.h"
+#include "Player.h"
 
 class SP02 : public Scene
 {
@@ -110,24 +111,6 @@ private:
 	float FPS;
 	//daily cycle
 	float dailycycle;
-	//coal
-	int randomx;
-	int randomz;
-	int RandXArray[150];
-	int RandZArray[150];
-	//iron
-	int irandomx;
-	int irandomz;
-	int IRandXArray[100];
-	int IRandZArray[100];
-	//cobalt
-	int crandomx;
-	int crandomz;
-	int CRandXArray[50];
-	int CRandZArray[50];
-
-
-
 
 	//void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);
@@ -135,11 +118,11 @@ private:
 
 	void RenderSkybox();
 
-	void DebugCamPosition();
+	//void DebugCamPosition();
 
 
 
 	//test
-	Characters player;
+	//Characters player;
 };
 #endif

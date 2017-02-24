@@ -35,3 +35,5 @@
 *.pdb
 *.suo
 *.ilk
+DM2122_Framework/Application/Debug/
+DM2122_Framework/Common/
