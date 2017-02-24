@@ -195,15 +195,15 @@ void SP02::Init()
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL,30, camera.position,Vector3(-75,0,-75),Vector3(75,0,75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL));
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON,20, camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON));
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT,10,camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
-		_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT));
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
