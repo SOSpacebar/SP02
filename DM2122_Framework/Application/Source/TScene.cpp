@@ -301,7 +301,9 @@ void TScene::Update(double dt)
 	}
 
 	if (Application::IsKeyPressed(VK_F1))
-		SceneManager::instance()->SetNextScene(0);
+	{
+		SceneManager::instance()->SetNextScene(2);
+	}
 	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
 	//	SceneManager::instance()->SetNextScene(0);
 
@@ -728,4 +730,5 @@ void TScene::Exit()
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
+	_gameObjectMananger.removeAll();
 }

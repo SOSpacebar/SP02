@@ -8,7 +8,12 @@ GameObjectManager::GameObjectManager()
 
 GameObjectManager::~GameObjectManager()
 {
-	for_each(_gameObjects.begin(), _gameObjects.end(), GameObjectDeallocator());
+	//for_each(_gameObjects.begin(), _gameObjects.end(), GameObjectDeallocator());
+	if (_gameObjects.size()) {
+		for (auto &i : _gameObjects)
+			delete i.second;
+	}
+	_gameObjects.clear();
 }
 
 void GameObjectManager::add(objectType type, GameObject* gameObject)
@@ -20,7 +25,7 @@ void GameObjectManager::remove(GameObject* gameObject)
 {
 	std::multimap<objectType, GameObject*> &temp = _gameObjects;
 
-	for (auto &it = temp.begin(); it != temp.end(); it++)
+	for (auto &it = temp.begin(); it != temp.end(); ++it)
 	{
 		if (it->second == gameObject)
 		{
@@ -31,6 +36,16 @@ void GameObjectManager::remove(GameObject* gameObject)
 			return;
 		}
 	}
+}
+
+void GameObjectManager::removeAll() //REMOVE FROM PREVS SCREEN
+{
+	if (_gameObjects.size()) {
+		for (auto &i : _gameObjects)
+			delete i.second;
+	}
+
+	_gameObjects.clear();
 }
 
 void GameObjectManager::update(Camera4& cam)

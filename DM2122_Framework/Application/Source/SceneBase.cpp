@@ -259,7 +259,7 @@ void SceneBase::Update(double dt)
 
 
 	if(camera.position.x > 20 && camera.position.z > 0 && camera.position.z<10)
-		SceneManager::instance()->SetNextScene(1);
+		SceneManager::instance()->SetNextScene(3);
 
 
 	dailycycle += 0.1 * dt;

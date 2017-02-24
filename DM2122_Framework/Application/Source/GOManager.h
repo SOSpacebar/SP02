@@ -27,6 +27,7 @@ public:
 
 	void add(objectType type, GameObject* gameObject);
 	void remove(GameObject* gameObject);
+	void removeAll();
 
 	int GetObjectCount() const;
 
