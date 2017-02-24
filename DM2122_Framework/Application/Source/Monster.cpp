@@ -12,13 +12,17 @@ Monster::Monster(Scene* scene, const string&name, Vector3&position, const int &h
 Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE monster) : Characters(scene, name, pos)
 {
 	if (monster == T_ENEMYPROBE)
+	{
 		g_type = Scene::GEO_ALIENPROBE;
+	}
 	if (monster == T_ENEMYBEHOLDER)
+	{
 		g_type = Scene::GEO_BEHOLDER;
-	
-	scale = 0.5;
-	const int objSize = 6;
-	Vector3 boxSize(objSize * 2, objSize * 2, objSize * 2);
+	}
+
+	scale = 0.3;
+	const int objSize = 1;
+	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
 	this->getCollider().setCollider(pos, boxSize);
 }
 
@@ -29,14 +33,13 @@ bool Monster::anyInteraction()
 	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
 	{
 		GameObject* temp = it->second;
-		distance_ = (temp->scene_->camera.position - temp->position_).Length();
-
+		/*distance_ = (temp->scene_->camera.position - temp->position_).Length();
 		if (distance_ < 20 && scene_->interact)
 		{
-			scene_->interact = false;
-			scene_->_gameObjectMananger.remove(temp);
-			return true;
-		}
+		scene_->interact = false;
+		scene_->_gameObjectMananger.remove(temp);
+		return true;
+		}*/
 	}
 
 	scene_->interact = false;
@@ -72,7 +75,7 @@ void Monster::render()
 	scene_->modelStack.PushMatrix();
 	scene_->modelStack.Translate(position_.x, position_.y, position_.z);
 	scene_->modelStack.Rotate(rotaX, 1, 0, 0);
-	scene_->modelStack.Rotate(rotaY, 0, 1, 0);
+	scene_->modelStack.Rotate(90, 0, 1, 0);
 	scene_->modelStack.Rotate(rotaZ, 0, 0, 1);
 	scene_->modelStack.Scale(scale, scale, scale);
 	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = false);

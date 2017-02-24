@@ -15,6 +15,7 @@
 Player Scene::_player;
 EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
+monsterManager Scene::_monsterManager;
 UIManager Scene::_UIManager;
 
 SP02::SP02()
@@ -80,6 +81,8 @@ void SP02::Init()
 	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
 	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
 	
+	/*meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("ground,",Color(1, 1, 1),1,1);
+	meshList[GEO_GROUND]->textureID = LoadTGA("Image//rockGround.tga");*/
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
@@ -205,6 +208,18 @@ void SP02::Init()
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
 
+	//monsters
+	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 10, camera.position, Vector3(-15, 0, -15), Vector3(150, 0, 150));
+	for (int i = 0; i < monsterManager::monsterPos.size(); i++)
+	{
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
+	}
+	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 10, camera.position, Vector3(15, 0, 15), Vector3(-150, 0, -150));
+	for (int i = 0; i < monsterManager::monsterPos.size(); i++)
+	{
+		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
+	}
+
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }
 
@@ -300,26 +315,26 @@ void SP02::Update(double dt)
 		interact = true;
 	}
 
-	if (Application::IsKeyPressed('Z'))
-	{
-		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
-	}
-	if (Application::IsKeyPressed('X'))
-	{
-		_player.inventory_.push("Copper", 1);
-	}
-	if (Application::IsKeyPressed('C'))
-	{
-		_player.inventory_.push("Silver", 1);
-	}
-	if (Application::IsKeyPressed('V'))
-	{
-		_player.inventory_.push("Gold", 1);
-	}
-	if (Application::IsKeyPressed('B'))
-	{
-		_player.inventory_.push("Steel", 1);
-	}
+	//if (Application::IsKeyPressed('Z'))
+	//{
+	//	_player.inventory_.push("Iron", 1);//player picks up 1 element iron
+	//}
+	//if (Application::IsKeyPressed('X'))
+	//{
+	//	_player.inventory_.push("Copper", 1);
+	//}
+	//if (Application::IsKeyPressed('C'))
+	//{
+	//	_player.inventory_.push("Silver", 1);
+	//}
+	//if (Application::IsKeyPressed('V'))
+	//{
+	//	_player.inventory_.push("Gold", 1);
+	//}
+	//if (Application::IsKeyPressed('B'))
+	//{
+	//	_player.inventory_.push("Steel", 1);
+	//}
 
 }
 
@@ -466,24 +481,6 @@ void SP02::Render()
 	modelStack.Scale(.3, .3, .3);
 	RenderMesh(meshList[GEO_CHEST], false);
 	modelStack.PopMatrix();
-
-	//AlienProbe
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 5, -10);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(.3, .3, .3);
-	RenderMesh(meshList[GEO_ALIENPROBE], false);
-	modelStack.PopMatrix();
-
-	//Beholder
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 5, -15);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(.3, .3, .3);
-	RenderMesh(meshList[GEO_BEHOLDER], false);
-	modelStack.PopMatrix();
-
-	
 
 
 	//FPS

@@ -8,6 +8,7 @@
 
 class GameObjectManager;
 class EnvironmentManager;
+class monsterManager;
 class Player;
 
 class Scene
@@ -43,7 +44,10 @@ public:
 		GEO_ALIENPROBE,
 		GEO_BEHOLDER,
 		GEO_STIMPAK,
-		//TEXT,
+
+		GEO_GROUND,
+
+		TEXT,
 		NUM_GEOMETRY,
 	};
 
@@ -117,7 +121,7 @@ public:
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
 	static EnvironmentManager _environmentManager;
-	
+	static monsterManager _monsterManager;
 
 private:
 	

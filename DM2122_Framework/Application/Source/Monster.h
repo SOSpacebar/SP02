@@ -1,6 +1,5 @@
-#define MONSTER_H
 #ifndef MONSTER_H
-#endif
+#define MONSTER_H
 
 #include "Characters.h"
 
@@ -16,7 +15,7 @@ public:
 	Monster();
 	Monster(Scene*, const string&name, Vector3&position, const int &health);
 	Monster(Scene*, const string&name, Vector3&position, const int &health, const int &damage);
-	Monster(Scene*, const string&, Vector3&, MONSTER_TYPE monster);
+	Monster(Scene*, const string&name, Vector3&position, MONSTER_TYPE monster);
 	virtual ~Monster();
 
 	virtual void setHealth(int hp);
@@ -32,3 +31,5 @@ private:
 	int damage;
 
 };
+
+#endif
