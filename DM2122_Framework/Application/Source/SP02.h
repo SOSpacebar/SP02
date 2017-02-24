@@ -13,6 +13,7 @@
 #include "UIManager.h"
 #include "Veins.h"
 #include "EnvironmentManager.h"
+#include "monsterManager.h"
 #include "Player.h"
 
 class SP02 : public Scene
