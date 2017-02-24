@@ -21,7 +21,7 @@ public:
 	//TODO:
 	//function will be able to choose the amount and zone where the ore will spawn
 
-	void initRandPos(ENVIRONMENT_TYPE oreType);//gets the ore type and initialize the pos values of it
+	void initRandPos(ENVIRONMENT_TYPE oreType, int maxOre, Vector3 playerPos);//gets the ore type and initialize the pos values of it
 	void add(GameObject* gameobject);//add the position into the gameobject
 
 	static	std::vector<Vector3>orePos;

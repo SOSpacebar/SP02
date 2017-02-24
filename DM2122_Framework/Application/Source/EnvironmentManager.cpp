@@ -9,7 +9,7 @@ EnvironmentManager::~EnvironmentManager()//destructon
 {
 }
 
-void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
+void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType,int maxOres,Vector3 playerPos)//store rand pos
 {
 	//clear previous data
 	for (int i = 0; !orePos.empty(); i++)
@@ -20,7 +20,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 	{
 		srand(time(NULL));
 
-		numOres = rand() % 30;
+		numOres = rand() %maxOres;
 		for (int i = 0; i < numOres; i++)
 		{
 			if (orePos.size() == 0)//if its first
@@ -33,7 +33,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 				RandZ = rand() % 150;//get a number
 				for (int i = 0; i < orePos.size(); i++)//for all values
 				{
-					while (RandX == orePos[i].x && RandZ == orePos[i].z)//if its the same value
+					while (RandX == orePos[i].x && RandZ == orePos[i].z && RandX == playerPos.x && RandZ == playerPos.z)//if its the same value or at player postion
 					{
 						RandX = rand() % 150;//get a new value
 						RandZ = rand() % 150;//get a new value
@@ -55,7 +55,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 	{
 		srand(time(NULL)*2);
 
-		numOres = rand() % 20;//get a number
+		numOres = rand() % maxOres;//get a number
 		for (int i = 0; i < numOres; i++)
 		{
 			if (orePos.size() == 0)//if its first
@@ -68,7 +68,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 				RandZ = rand() % 150;//get a number
 				for (int i = 0; i < orePos.size(); i++)//for all values
 				{
-					while (RandX == orePos[i].x && RandZ == orePos[i].z)//if its the same value
+					while (RandX == orePos[i].x && RandZ == orePos[i].z && RandX == playerPos.x && RandZ == playerPos.z) 
 					{
 						RandX = rand() % 150;//get a new value
 						RandZ = rand() % 150;//get a new value
@@ -87,7 +87,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 	{
 		srand(time(NULL)*3);
 
-		numOres = rand() % 10;//get a number
+		numOres = rand() % maxOres;//get a number
 		for (int i = 0; i < numOres; i++)
 		{
 			if (orePos.size() == 0)//if its first
@@ -100,7 +100,7 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType)//store rand pos
 				RandZ = rand() % 150;//get a number
 				for (int i = 0; i < orePos.size(); i++)//for all values
 				{
-					while (RandX == orePos[i].x && RandZ == orePos[i].z)//if its the same value
+					while (RandX == orePos[i].x && RandZ == orePos[i].z && RandX == playerPos.x && RandZ == playerPos.z)//if its the same value
 					{
 						RandX = rand() % 150;//get a new value
 						RandZ = rand() % 150;//get a new value
