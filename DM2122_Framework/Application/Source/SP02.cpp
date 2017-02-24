@@ -97,7 +97,8 @@ void SP02::Init()
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
-	
+	Application::cantSpam = true;
+
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -205,7 +206,7 @@ void SP02::Init()
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
 }
 
 void SP02::Update(double dt)
@@ -275,8 +276,9 @@ void SP02::Update(double dt)
 		light[0].position.y += (float)(LSPEED * dt);
 */
 
-	if (Application::mouseClicked)
+	if (Application::mouseClicked && Weapon::weaponAmmo_ !=0)
 	{
+		Weapon::weaponAmmo_--;
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
 		Application::cantSpam = true;
 		std::cout << "Clicked" << std::endl;

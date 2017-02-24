@@ -12,10 +12,11 @@ public:
 
 	void render();
 	bool anyInteraction();
+	static int weaponDamage_;
+	static int weaponAmmo_;
 
 private:
-	const int weaponDamage_;
-	const int weaponAmmo_;
+
 };
 
 #endif

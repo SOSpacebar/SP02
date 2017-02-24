@@ -1,11 +1,13 @@
 #include "Weapon.h"
 #include <iostream>
-Weapon::Weapon():weaponDamage_(0), weaponAmmo_(0)
-{
-}
 
-Weapon::Weapon(Scene* scene, const string&weaponName, const int weaponDamage, const int weaponAmmo):Item(scene,weaponName),weaponDamage_(weaponDamage),weaponAmmo_(weaponAmmo)
+int Weapon::weaponDamage_;
+int Weapon::weaponAmmo_;
+
+Weapon::Weapon(Scene* scene, const string&weaponName, const int weaponDamage, const int weaponAmmo):Item(scene,weaponName)
 {
+	weaponDamage_ = weaponDamage;
+	weaponAmmo_ = weaponAmmo;
 	g_type = Scene::GEO_BLASTER;
 }
 
