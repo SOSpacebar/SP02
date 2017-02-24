@@ -222,7 +222,7 @@ void SP02::Init()
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
 }
 
 void SP02::Update(double dt)
