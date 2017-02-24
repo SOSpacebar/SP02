@@ -10,43 +10,49 @@ Player* Player::getInstance() {
 	return playerInstance;
 }
 
-Player::Player() : Characters(), currentOxygenValue(maxOxygenValue), maxOxygenValue(300)
+Player::Player() : Characters(), maxOxygenValue(300)
 {
+	currentOxygenValue = maxOxygenValue;
 	setDefault();
 }
 
-void Player::damagePlayer(float value)
+void Player::damagePlayer(double value)
 {
 	if (getCurrentHealth() > 0)
 		updateHealth(value);
 }
 
-void Player::updateOxygen(float value)
+void Player::updateOxygen(double value)
 {
-	if (currentOxygenValue < maxOxygenValue)
-		currentOxygenValue += value;
+	if (currentOxygenValue > maxOxygenValue)
+		return;
 
 	if (currentOxygenValue < maxOxygenValue * 0.1)
 		lackOfOxygen = true;
+
+	currentOxygenValue += value;
 }
 
-void Player::setMaxOxygen(float value)
+void Player::setMaxOxygen(double value)
 {
 	maxOxygenValue = value;
 }
 
-float Player::getOxygen()
+int Player::getOxygen()
 {
-	return currentOxygenValue;
+	return (int)currentOxygenValue;
 }
 
-float Player::getMaxOxygen()
+int Player::getMaxOxygen()
 {
-	return maxOxygenValue;
+	return (int)maxOxygenValue;
 }
 
-void Player::update(float dt)
+void Player::update(double dt)
 {
+	if (currentOxygenValue > 0)
+		updateOxygen(dt);
+
 	if (lackOfOxygen)
 		updateHealth(10 * dt);
 }

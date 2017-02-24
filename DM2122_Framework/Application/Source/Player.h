@@ -11,23 +11,23 @@ public:
 
 	static Player* getInstance();
 
-	void damagePlayer(float);
+	void damagePlayer(double);
 
 
-	void updateOxygen(float);
-	void setMaxOxygen(float);
-	float getOxygen();
-	float getMaxOxygen();
+	void updateOxygen(double);
+	void setMaxOxygen(double);
+	int getOxygen();
+	int getMaxOxygen();
 
-	void update(float);
+	void update(double);
 
 private:
 	bool lackOfOxygen;
 
 	static Player* playerInstance;
 
-	float currentOxygenValue;
-	float maxOxygenValue;
+	double currentOxygenValue;
+	double maxOxygenValue;
 };
 
 

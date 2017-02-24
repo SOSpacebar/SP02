@@ -13,12 +13,12 @@ Characters::Characters(Scene* scene, const string& name, Vector3 &postion) : Gam
 {
 	g_type = Scene::GEO_CUBE;
 }
-Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const unsigned &maxhealth_) : GameObject(scene,name, postion), health_(maxhealth_), stamina_(0), maxHealth_(maxhealth_), maxStamina_(0)
+Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const double &maxhealth_) : GameObject(scene, name, postion), health_(maxhealth_), stamina_(0), maxHealth_(maxhealth_), maxStamina_(0)
 {
 
 }
 
-Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const unsigned &maxhealth_, const unsigned &maxStamina) : GameObject(scene,name, postion), health_(maxhealth_), stamina_(maxStamina), maxHealth_(maxhealth_), maxStamina_(maxStamina)
+Characters::Characters(Scene* scene, const string& name, Vector3 &postion, const double &maxhealth_, const double &maxStamina) : GameObject(scene, name, postion), health_(maxhealth_), stamina_(maxStamina), maxHealth_(maxhealth_), maxStamina_(maxStamina)
 {
 
 }
@@ -37,42 +37,42 @@ void Characters::setDefault()
 	this->stamina_ = maxStamina_;
 }
 
-const float Characters::getCurrentHealth()
+const int Characters::getCurrentHealth()
 {
-	return this->health_;
+	return (int)this->health_;
 }
 
-const float Characters::getMaxHealth()
+const int Characters::getMaxHealth()
 {
-	return this->maxHealth_;
+	return (int)this->maxHealth_;
 }
 
-const float Characters::getCurrentStamina()
+const int Characters::getCurrentStamina()
 {
-	return this->stamina_;
+	return (int)this->stamina_;
 }
 
-const float Characters::getMaxStamina()
+const int Characters::getMaxStamina()
 {
-	return this->maxStamina_;
+	return (int)this->maxStamina_;
 }
 
-void Characters::setMaxHealth(const float newMaxHealth)
+void Characters::setMaxHealth(const double newMaxHealth)
 {
 	this->maxHealth_ = newMaxHealth;
 }
 
-void Characters::setMaxStamina(const float newMaxStamina)
+void Characters::setMaxStamina(const double newMaxStamina)
 {
 	this->maxStamina_ = newMaxStamina;
 }
 
-void Characters::updateHealth(float value)
+void Characters::updateHealth(double value)
 {
 	this->health_ += value;
 }
 
-void Characters::updateStamina(float value)
+void Characters::updateStamina(double value)
 {
 	this->stamina_ += value;
 }

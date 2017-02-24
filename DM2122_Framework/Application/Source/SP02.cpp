@@ -293,6 +293,7 @@ void SP02::Update(double dt)
 	camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
+	_player.update(-dt);
 
 
 	if (Application::IsKeyPressed('E'))
