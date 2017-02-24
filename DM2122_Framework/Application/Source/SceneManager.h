@@ -9,7 +9,7 @@
 #include "SP02.h"
 #include "SceneBase.h"
 #include "SceneMainMenu.h"
-//#include "TScene.h"
+#include "TScene.h"
 
 using std::map;
 

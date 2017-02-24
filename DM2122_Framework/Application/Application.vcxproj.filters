@@ -101,6 +101,7 @@
     <ClCompile Include="Source\EnvironmentManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\TScene.cpp">
     <ClCompile Include="Source\SceneMainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -202,6 +203,7 @@
     <ClInclude Include="Source\EnvironmentManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\TScene.h">
     <ClInclude Include="Source\SceneMainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>

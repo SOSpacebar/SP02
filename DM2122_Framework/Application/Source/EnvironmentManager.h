@@ -21,7 +21,7 @@ public:
 	//TODO:
 	//function will be able to choose the amount and zone where the ore will spawn
 
-	void initRandPos(ENVIRONMENT_TYPE oreType, int maxOre, Vector3 playerPos);//gets the ore type and initialize the pos values of it
+	void initRandPos(ENVIRONMENT_TYPE oreType, int maxOre, Vector3 playerPos,Vector3 MinPos,Vector3 MaxPos);//gets the ore type and initialize the pos values of it
 	void add(GameObject* gameobject);//add the position into the gameobject
 
 	static	std::vector<Vector3>orePos;
@@ -33,6 +33,9 @@ private:
 	std::vector<GameObject*> VecEnvObj;// stores environment objs to pass into GOmmanager
 	const int CMap = 150; //size of map
 	int numOres; //number of ores to render
+	int RandPos;
+	int MaxPos;
+	int MinPos;
 	int RandX;//random x value
 	int RandZ;//random z value
 

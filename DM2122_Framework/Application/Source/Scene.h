@@ -43,7 +43,7 @@ public:
 		GEO_ALIENPROBE,
 		GEO_BEHOLDER,
 		GEO_STIMPAK,
-		TEXT,
+		//TEXT,
 		NUM_GEOMETRY,
 	};
 

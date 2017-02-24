@@ -80,7 +80,7 @@ void MainMenu::Init()
 
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
 
 	//meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
@@ -180,9 +180,9 @@ void MainMenu::Render()
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_ )+ " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("PLAY", Color(1, 1, 0), 10, 3.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("PLAY", Color(0, 1, 0), 10, 3.5, 4));
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("EXIT", Color(1, 1, 0), 10, 3.5, 2));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("EXIT", Color(1, 0, 0), 10, 3.5, 2));
 
 
 }
