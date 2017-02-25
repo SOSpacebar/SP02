@@ -17,7 +17,6 @@ EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 monsterManager Scene::_monsterManager;
 UIManager Scene::_UIManager;
-
 SP02::SP02()
 {
 }
@@ -211,27 +210,29 @@ void SP02::Init()
 
 
 	//monsters
-	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 10, camera.position, Vector3(-15, 0, -15), Vector3(150, 0, 150));
-	for (int i = 0; i < monsterManager::monsterPos.size(); i++)
+	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
+	for (int i = 0; i < count*5; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
 	}
-	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 10, camera.position, Vector3(15, 0, 15), Vector3(-150, 0, -150));
-	for (int i = 0; i < monsterManager::monsterPos.size(); i++)
+	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
+	for (int i = 0; i < count*10; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
+	
+
 }
 
 void SP02::Update(double dt)
 {
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
-
+	
 	dt_ = dt;    
-
+	time -= dt;
 	static const float LSPEED = 10.f; 
 
 	if (Application::IsKeyPressed('1'))
@@ -301,7 +302,9 @@ void SP02::Update(double dt)
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))
+	{
 		SceneManager::instance()->SetNextScene(1);
+	}
 	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
 	//	SceneManager::instance()->SetNextScene(0);
 
@@ -316,6 +319,16 @@ void SP02::Update(double dt)
 	if (Application::IsKeyPressed('E'))
 	{
 		interact = true;
+	}
+	if (time <= 0)
+	{
+		SceneManager::instance()->SetNextScene(2);
+		time = 10;
+		if (count <2)
+		{
+			count++;
+		}
+	
 	}
 
 	//if (Application::IsKeyPressed('Z'))
@@ -485,7 +498,7 @@ void SP02::Render()
 	RenderMesh(meshList[GEO_CHEST], false);
 	modelStack.PopMatrix();
 
-
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Time: " + std::to_string(time), Color(0, 1, 0), 3, .5f, 13));
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//player position
