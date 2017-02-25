@@ -223,7 +223,7 @@ void SP02::Init()
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
 	
-
+	
 }
 
 void SP02::Update(double dt)
@@ -328,7 +328,6 @@ void SP02::Update(double dt)
 		{
 			count++;
 		}
-	
 	}
 
 	//if (Application::IsKeyPressed('Z'))
