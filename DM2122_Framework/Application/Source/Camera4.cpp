@@ -28,7 +28,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	yaw_ = 0;
 	lastX = 0, lastY = 0;
 	totalpitch_ = 0, totalyaw_ = 0;
-	speed_ = 15;
+	speed_ = 30;
 }
 
 void Camera4::Update(double dt)

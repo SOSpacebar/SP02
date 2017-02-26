@@ -75,8 +75,6 @@ void Player::update(double dt)
 		else
 			updateStamina(-dt);
 
-		scene_->camera.speed_ = 15;
+		scene_->camera.speed_ = 30;
 	}
-
-	
 }
