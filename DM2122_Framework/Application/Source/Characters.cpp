@@ -74,6 +74,9 @@ void Characters::updateHealth(double value)
 
 void Characters::updateStamina(double value)
 {
+	if (stamina_ > maxStamina_)
+		return;
+
 	this->stamina_ += value;
 }
 

@@ -16,6 +16,7 @@ public:
 		T_INTERACTABLE,
 		T_PLAYERPROJECTILE ,
 		T_MINEABLE,
+		T_WALL,
 		T_NUMTYPE //Let NumType be last
 
 	};

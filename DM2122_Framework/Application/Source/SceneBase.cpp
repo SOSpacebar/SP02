@@ -26,6 +26,7 @@ void SceneBase::Init()
 	dailycycle = 0;
 	tsmthhappened = 0;
 	bsmthhappend = false;
+	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -77,7 +78,7 @@ void SceneBase::Init()
 	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
@@ -93,6 +94,7 @@ void SceneBase::Init()
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
 	Application::cantSpam = true;
+	_player.scene_ = this;
 
 
 	Mtx44 projection;
@@ -201,11 +203,6 @@ void SceneBase::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, 25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,0,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-25, 10, 0), Walls::WALL_TYPE::T_DOOR, Vector3(0,-90,0), Vector3(50, 20, 50), Vector3(0, 5, 50)));//front
 
-
-
-
-
-
 }
 
 void SceneBase::Update(double dt)
@@ -299,6 +296,11 @@ void SceneBase::Update(double dt)
 		tsmthhappened = 0;
 	}
 
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		_player.isRunning = true;
+	}
+
 	if (Application::IsKeyPressed('Z') && bsmthhappend == false)
 	{
 		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
@@ -370,22 +372,12 @@ void SceneBase::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();
 
-	RenderSkybox();
-
-
-	//Ground
-	modelStack.PushMatrix();
-	modelStack.Scale(1000, 1, 1000);
-	modelStack.Rotate(90, 1, 0, 0);
-	RenderMesh(meshList[GEO_QUAD], true);
-	modelStack.PopMatrix();
-
 	_gameObjectMananger.renderGameObjects();
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Time: " + std::to_string(time), Color(0, 1, 0), 3, .5f, 13));
+	RenderSkybox();
+
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
-	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
@@ -401,8 +393,9 @@ void SceneBase::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
 
-	//DebugCamPosition();
+
 }
+
 
 void SceneBase::RenderSkybox()
 {

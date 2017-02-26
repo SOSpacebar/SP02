@@ -28,7 +28,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	yaw_ = 0;
 	lastX = 0, lastY = 0;
 	totalpitch_ = 0, totalyaw_ = 0;
-
+	speed_ = 15;
 }
 
 void Camera4::Update(double dt)
@@ -82,14 +82,14 @@ void Camera4::Update(double dt)
 	//Camera Controls
 	if (Application::IsKeyPressed('A'))
 	{
-		position = position - right;
-		target = position + view;
+		position = position - right * speed_ * dt;
+		target = position + view * speed_ * dt;
 
 	}
 	 if (Application::IsKeyPressed('D'))
 	{
-		position = position + right;
-		target = position + view;
+		 position = position + right * speed_ * dt;
+		 target = position + view * speed_ * dt;
 	}
 	 if (Application::IsKeyPressed('W'))
 	{
@@ -99,11 +99,11 @@ void Camera4::Update(double dt)
 		//normal
 		else
 		{
-			position.x = position.x + view.x;
-			position.z = position.z + view.z;
+			position.x = position.x + view.x * speed_ * dt;
+			position.z = position.z + view.z * speed_ * dt;
 		}
 		//camera
-		target = position + view;
+		target = position + view * speed_ * dt;
 	}
 	 if (Application::IsKeyPressed('S'))
 	{
@@ -113,11 +113,11 @@ void Camera4::Update(double dt)
 		else
 		{
 			//normal
-			position.x = position.x - view.x;
-			position.z = position.z - view.z;
+			position.x = position.x - view.x * speed_ * dt;
+			position.z = position.z - view.z * speed_ * dt;
 		}
 		//camera
-		target = position + view;
+		target = position + view * speed_ * dt;
 	}
 	else if (Application::IsKeyPressed(VK_LEFT))
 	{

@@ -20,6 +20,7 @@ float Application::MouseXPos_;
 float Application::MouseYPos_;
 bool Application::mouseClicked = false;
 bool Application::cantSpam = false;
+bool Application::quitGame = false;
 //float lastX = 400, lastY = 300;
 
 static int nextSceneNo;
@@ -150,7 +151,7 @@ void Application::Run()
 	SceneManager::instance()->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE) && !quitGame)
 	{
 		SceneManager::instance()->Update();
 		SceneManager::instance()->Update(m_timer.getElapsedTime());

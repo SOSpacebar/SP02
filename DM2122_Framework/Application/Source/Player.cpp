@@ -13,6 +13,7 @@ Player* Player::getInstance() {
 Player::Player() : Characters(), maxOxygenValue(300)
 {
 	currentOxygenValue = maxOxygenValue;
+	recoverStamina = 0;
 	setDefault();
 }
 
@@ -55,4 +56,27 @@ void Player::update(double dt)
 
 	if (lackOfOxygen)
 		updateHealth(10 * dt);
+
+	if (isRunning)
+	{
+		updateStamina(dt * 3);
+		scene_->camera.speed_ = 45;
+		recoverStamina = 0;
+		isRunning = false;
+	}
+
+	else
+	{
+		if (recoverStamina < 3)
+		{
+			recoverStamina -= dt;
+		}
+
+		else
+			updateStamina(-dt);
+
+		scene_->camera.speed_ = 15;
+	}
+
+	
 }

@@ -17,6 +17,7 @@ EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 monsterManager Scene::_monsterManager;
 UIManager Scene::_UIManager;
+
 SP02::SP02()
 {
 }
@@ -84,7 +85,7 @@ void SP02::Init()
 	meshList[GEO_GROUND]->textureID = LoadTGA("Image//rockGround.tga");*/
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
@@ -99,6 +100,9 @@ void SP02::Init()
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
+
+	//Assign scene to player.
+	_player.scene_ = this;
 	Application::cantSpam = true;
 
 
@@ -195,7 +199,6 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL,30, camera.position,Vector3(-75,0,-75),Vector3(75,0,75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL, EnvironmentManager::oreRota[i]));
@@ -207,7 +210,6 @@ void SP02::Init()
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT,10,camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
 	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
-
 
 	//monsters
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
@@ -222,8 +224,6 @@ void SP02::Init()
 	}
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
-	
-	
 }
 
 void SP02::Update(double dt)
@@ -303,7 +303,7 @@ void SP02::Update(double dt)
 		
 	if (Application::IsKeyPressed(VK_F1))
 	{
-		SceneManager::instance()->SetNextScene(1);
+		SceneManager::instance()->SetNextScene(0);
 	}
 	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
 	//	SceneManager::instance()->SetNextScene(0);
@@ -320,6 +320,12 @@ void SP02::Update(double dt)
 	{
 		interact = true;
 	}
+
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		_player.isRunning = true;
+	}
+
 	if (time <= 0)
 	{
 		SceneManager::instance()->SetNextScene(2);
@@ -393,92 +399,12 @@ void SP02::Render()
 
 	RenderSkybox();
 	
-
 	//Ground
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1, 1000);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_QUAD], true);
 	modelStack.PopMatrix();
-
-	//randomly spawned objects
-	/*for (int i = 0; i < 150; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(RandXArray[i] - 150, 0, RandZArray[i] - 150);
-		modelStack.Scale(0.5, 0.5, 0.5);
-		RenderMesh(meshList[GEO_COAL], false);
-		modelStack.PopMatrix();
-	}
-	for (int i = 0; i < 100; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(IRandXArray[i] - 150, 0, IRandZArray[i]-150);
-		modelStack.Scale(0.5, 0.5, 0.5);
-		RenderMesh(meshList[GEO_IRON], false);
-		modelStack.PopMatrix();
-	}
-	for (int i = 0; i < 50; i++)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(CRandXArray[i]-150, 0, CRandZArray[i]-150);
-		modelStack.Scale(0.5, 0.5, 0.5);
-		RenderMesh(meshList[GEO_COBALT], false);
-		modelStack.PopMatrix();
-	}*/
-
-	//rest of the base
-	//top
-	//modelStack.PushMatrix();
-	//modelStack.Translate(55, 25, 0);
-	//modelStack.Rotate(-90, 1, 0, 0);
-	//modelStack.Rotate(90, 0, 0, 1);
-	//modelStack.Scale(50, 50, 50);
-	//RenderMesh(meshList[GEO_ROOM], false);
-	//modelStack.PopMatrix();
-	////bot
-	//modelStack.PushMatrix();
-	//modelStack.Translate(55, 0.1, 0);
-	//modelStack.Rotate(90, 1, 0, 0);
-	//modelStack.Rotate(-90, 0, 0, 1);
-	//modelStack.Scale(50, 50, 50);
-	//RenderMesh(meshList[GEO_ROOM], false);
-	//modelStack.PopMatrix();
-	////back
-	//modelStack.PushMatrix();
-	//modelStack.Translate(80, 12.5, 0);
-	//modelStack.Rotate(-90, 0, 1, 0);
-	//modelStack.Scale(50, 25, 50);
-	//RenderMesh(meshList[GEO_ROOM], false);
-	//modelStack.PopMatrix();
-	////side
-	//modelStack.PushMatrix();
-	//modelStack.Translate(55, 12.5, -25);
-	//modelStack.Rotate(180, 0, 1, 0);
-	//modelStack.Scale(50, 25, 50);
-	//RenderMesh(meshList[GEO_ROOM], false);
-	//modelStack.PopMatrix();
-	////other side
-	//modelStack.PushMatrix();
-	//modelStack.Translate(55, 12.5, 25);
-	//modelStack.Scale(50, 25, 50);
-	//RenderMesh(meshList[GEO_ROOM], false);
-	//modelStack.PopMatrix();
-	////basedoor
-	//modelStack.PushMatrix();
-	//modelStack.Translate(30, 12.5, 0);
-	//modelStack.Rotate(-90, 0, 1, 0);
-	//modelStack.Scale(50, 25, 50);
-	//RenderMesh(meshList[GEO_ROOMDOOR], false);
-	//modelStack.PopMatrix();
-
-	
-	//render item on hand
-	//modelStack.PushMatrix();
-	//modelStack.Translate(camera.target.x,camera.target.y -0.5,camera.target.z);
-	//modelStack.Scale(0.5, 0.5, 0.5);
-	//RenderMesh(meshList[GEO_CUBE], false);
-	//modelStack.PopMatrix();
 
 	_gameObjectMananger.renderGameObjects();
 
@@ -513,59 +439,11 @@ void SP02::Render()
 	
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
 
 	//DebugCamPosition();
 }
-
-//void SP02::RenderMesh(Mesh *mesh, bool enableLight)
-//{
-//	Mtx44 MVP, modelView, modelView_inverse_transpose;
-//
-//	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-//	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-//	modelView = viewStack.Top() * modelStack.Top();
-//	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
-//	if (enableLight && lightsOn)
-//	{
-//		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
-//		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
-//		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
-//
-//		//load material
-//		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
-//		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
-//		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
-//		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
-//	}
-//	else
-//	{
-//		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-//	}
-//
-//
-//	if (mesh->textureID > 0)
-//	{
-//		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-//		glActiveTexture(GL_TEXTURE0);
-//		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-//		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-//	}
-//
-//	else
-//	{
-//		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
-//	}
-//
-//	mesh->Render();
-//
-//	if (mesh->textureID > 0)
-//	{
-//		glBindTexture(GL_TEXTURE_2D, 0);
-//	}
-//
-//}
 
 void SP02::RenderSkybox()
 {
@@ -616,76 +494,6 @@ void SP02::RenderSkybox()
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 }
-
-//void SP02::RenderText(Mesh* mesh, std::string text, Color color)
-//{
-//	if (!mesh || mesh->textureID <= 0) //Proper error check
-//		return;
-//
-//	glDisable(GL_DEPTH_TEST);
-//	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-//	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-//	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-//	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-//	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-//	for (unsigned i = 0; i < text.length(); ++i)
-//	{
-//		Mtx44 characterSpacing;
-//		characterSpacing.SetToTranslation(i * .5f, 0, 0); //1.0f is the spacing of each character, you may change this value
-//		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-//		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-//
-//		mesh->Render((unsigned)text[i] * 6, 6);
-//	}
-//	glBindTexture(GL_TEXTURE_2D, 0);
-//	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-//	glEnable(GL_DEPTH_TEST);
-//}
-
-//void SP02::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
-//{
-//	if (!mesh || mesh->textureID <= 0) //Proper error check
-//		return;
-//
-//	glDisable(GL_DEPTH_TEST);
-//
-//	Mtx44 ortho;
-//	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
-//	projectionStack.PushMatrix();
-//	projectionStack.LoadMatrix(ortho);
-//	viewStack.PushMatrix();
-//	viewStack.LoadIdentity(); //No need camera for ortho mode
-//	modelStack.PushMatrix();
-//	modelStack.LoadIdentity(); //Reset modelStack
-//	modelStack.Scale(size, size, size);
-//	modelStack.Translate(x, y, 0);
-//
-//	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-//	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-//	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-//	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-//	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-//	for (unsigned i = 0; i < text.length(); ++i)
-//	{
-//		Mtx44 characterSpacing;
-//		characterSpacing.SetToTranslation(i * 1.0f, 0, 0); //1.0f is the spacing of each character, you may change this value
-//		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-//		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-//
-//		mesh->Render((unsigned)text[i] * 6, 6);
-//	}
-//	glBindTexture(GL_TEXTURE_2D, 0);
-//	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-//
-//	projectionStack.PopMatrix();
-//	viewStack.PopMatrix();
-//	modelStack.PopMatrix();
-//	glEnable(GL_DEPTH_TEST);
-//}
 
 void SP02::Exit()
 {
