@@ -8,10 +8,10 @@
 #include "MeshBuilder.h"
 #include "Utility.h"
 #include "LoadTGA.h"
-#include "Characters.h"
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
+
 
 SceneBase::SceneBase()
 {
@@ -24,6 +24,8 @@ SceneBase::~SceneBase()
 void SceneBase::Init()
 {
 	dailycycle = 0;
+	tsmthhappened = 0;
+	bsmthhappend = false;
 	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -33,7 +35,7 @@ void SceneBase::Init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Enable Camera
-	camera.Init(Vector3(-5, 5, -5), Vector3(0, 5, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(-20, 6, -5), Vector3(0, 5, -5), Vector3(0, 1, 0));
 
 	// Init VBO here
 	FPS = 0;
@@ -51,32 +53,55 @@ void SceneBase::Init()
 	meshList[GEO_QUAD]->textureID = LoadTGA("Image//snowGround.tga");
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.545098f, 0, 0), 0.5f, 0.5f, 0.5f);
 	meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("blade", Color(1, 0, 1), 16, 1, 1);
-
-	//walls of a room
-	meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("room", Color(0, 0, 0), 1, 1);
+	meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
 	meshList[GEO_ROOM]->textureID = LoadTGA("Image//room.tga");
-	meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("room", Color(0, 0, 0), 1, 1); 
-	meshList[GEO_ROOMDOOR]->textureID = LoadTGA("Image//roomdoor.tga");
-
-
-	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
-	meshList[GEO_QUAD]->textureID = LoadTGA("Image//snowGround.tga");
+	meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("Basedoor", Color(1, 1, 1), 1, 1);
+	meshList[GEO_ROOMDOOR]->textureID = LoadTGA("Image//roomwithdoor.tga");
 	meshList[GEO_SPACE] = MeshBuilder::GenerateQuad("space", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SPACE]->textureID = LoadTGA("Image//Space.tga");
 	meshList[GEO_SUN] = MeshBuilder::GenerateQuad("sun", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
+	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
+	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
+	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
+
+	meshList[GEO_CHEST] = MeshBuilder::GenerateOBJ("chest", "OBJ//Chest.obj");
+	meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
+	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
+	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
+	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
+	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
+	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
+	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
 
+	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
+	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
+
+	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
+	meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
+
+	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
+	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
+
+	//For UI assign(Make sure its after meshList)
+	UIManager _UI(this);
+	Scene::_UIManager = _UI;
+	Application::cantSpam = true;
+	_player.scene_ = this;
+
+
 	Mtx44 projection;
-	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 4000.0f);
+	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
 	projectionStack.LoadMatrix(projection);
 
-	light[0].type = Light::LIGHT_SPOT;
+	light[0].type = Light::LIGHT_POINT;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 1;
@@ -165,13 +190,36 @@ void SceneBase::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
+	//workplace
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "trader", Vector3(20, 5, 0),WorkStation::STATION_TYPE::T_TRADE,0));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "furnace", Vector3(20, 5, 15), WorkStation::STATION_TYPE::T_FURNACE, 0));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "upgrader", Vector3(20, 5, -15), WorkStation::STATION_TYPE::T_UPGRADE, 0));
+
+	//room wall
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(0, 20, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(-90,0,0),Vector3(50,50,50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(0, 0.1, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(90,0,-90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(25, 10, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(0,-90,0), Vector3(50, 20, 50),Vector3(0,5,50)));//back
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, -25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,180,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, 25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,0,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-25, 10, 0), Walls::WALL_TYPE::T_DOOR, Vector3(0,-90,0), Vector3(50, 20, 50), Vector3(0, 5, 50)));//front
+
 }
 
 void SceneBase::Update(double dt)
 {
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
-	dt = dt;
+
+	dt_ = dt;
+	time -= dt;
+
+	tsmthhappened += dt;
+
+	if (bsmthhappend == true && tsmthhappened > 1)
+	{
+		bsmthhappend = false;
+	}
+
 
 	static const float LSPEED = 10.f;
 
@@ -219,30 +267,75 @@ void SceneBase::Update(double dt)
 		lightsOn = true;
 	}
 
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
+	if (Application::mouseClicked && Weapon::weaponAmmo_ != 0)
+	{
+		Weapon::weaponAmmo_--;
+		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
+		Application::cantSpam = true;
+		std::cout << "Clicked" << std::endl;
+	}
 
-	if(camera.position.x > 20 && camera.position.z > 0 && camera.position.z<10)
+	if (Application::IsKeyPressed(VK_F1))
+	{
+		_gameObjectMananger.removeAll();
 		SceneManager::instance()->SetNextScene(3);
+	}
 
 	dailycycle += 0.1 * dt;
 
 	camera.Update(dt);
+	camera.getCollider().updateColliderPos(camera.position);
+	_gameObjectMananger.update(camera);
+	_player.update(-dt);
+
+
+	if (Application::IsKeyPressed('E') && bsmthhappend == false)
+	{
+		interact = true;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		_player.isRunning = true;
+	}
+
+	if (Application::IsKeyPressed('Z') && bsmthhappend == false)
+	{
+		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::IsKeyPressed('X') && bsmthhappend == false)
+	{
+		_player.inventory_.push("Copper", 1);
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::IsKeyPressed('C') && bsmthhappend == false)
+	{
+		_player.inventory_.push("Silver", 1);
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::IsKeyPressed('V') && bsmthhappend == false)
+	{
+		_player.inventory_.push("Gold", 1);
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::IsKeyPressed('B') && bsmthhappend == false)
+	{
+		_player.inventory_.push("Steel", 1);
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+
 }
 
 void SceneBase::Render()
 {
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (light[0].type == Light::LIGHT_DIRECTIONAL)
@@ -279,73 +372,33 @@ void SceneBase::Render()
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();
 
+	_gameObjectMananger.renderGameObjects();
+
 	RenderSkybox();
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
+	//inventory
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
-	//DebugCamPosition();
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
+
+	//Player
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+
+
 }
 
-void SceneBase::RenderMesh(Mesh *mesh, bool enableLight)
-{
-	Mtx44 MVP, modelView, modelView_inverse_transpose;
-
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-	modelView = viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
-	if (enableLight && lightsOn)
-	{
-		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
-		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
-		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
-
-		//load material
-		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
-		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
-		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &mesh->material.kSpecular.r);
-		glUniform1f(m_parameters[U_MATERIAL_SHININESS], mesh->material.kShininess);
-	}
-	else
-	{
-		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	}
-
-
-	if (mesh->textureID > 0)
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-		glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	}
-
-	else
-	{
-		glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 0);
-	}
-
-	mesh->Render();
-
-	if (mesh->textureID > 0)
-	{
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-
-}
 
 void SceneBase::RenderSkybox()
 {
-
-	//Ground
-	modelStack.PushMatrix();
-	modelStack.Scale(1000, 1, 1000);
-	modelStack.Translate(0, -1, 0);
-	modelStack.Rotate(90, 1, 0, 0);
-	RenderMesh(meshList[GEO_QUAD], true);
-	modelStack.PopMatrix();
 	//space
 	modelStack.PushMatrix();
 	modelStack.Rotate(dailycycle, 0, 0, 1);
@@ -392,128 +445,6 @@ void SceneBase::RenderSkybox()
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
-	//Room
-	//top
-	modelStack.PushMatrix();
-	modelStack.Translate(0 , 25, 0 );
-	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Rotate(90, 0, 0, 1);
-	modelStack.Scale(50, 50, 50);
-	RenderMesh(meshList[GEO_ROOM], false);
-	modelStack.PopMatrix();
-	//bot
-	modelStack.PushMatrix();
-	modelStack.Translate(0 , 0, 0);
-	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Rotate(-90, 0, 0, 1);
-	modelStack.Scale(50, 50, 50);
-	RenderMesh(meshList[GEO_ROOM], false);
-	modelStack.PopMatrix();
-	//front
-	modelStack.PushMatrix();
-	modelStack.Translate(25, 12.5 , 0 );
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(50, 25, 50);
-	RenderMesh(meshList[GEO_ROOMDOOR], false);
-	modelStack.PopMatrix();
-	//back
-	modelStack.PushMatrix();
-	modelStack.Translate(-25, 12.5 , 0);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(50, 25, 50);
-	RenderMesh(meshList[GEO_ROOM], false);
-	modelStack.PopMatrix();
-	//left
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 12.5, -25);
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(50, 25, 50);
-	RenderMesh(meshList[GEO_ROOM], false);
-	modelStack.PopMatrix();
-	//right   
-	modelStack.PushMatrix();
-	modelStack.Translate(0 , 12.5 , 25 );
-	modelStack.Scale(50, 25, 50);
-	RenderMesh(meshList[GEO_ROOM], false);
-	modelStack.PopMatrix();
-
-}
-
-void SceneBase::RenderText(Mesh* mesh, std::string text, Color color)
-{
-	if (!mesh || mesh->textureID <= 0) //Proper error check
-		return;
-
-	glDisable(GL_DEPTH_TEST);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	for (unsigned i = 0; i < text.length(); ++i)
-	{
-		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * .5f, 0, 0); //1.0f is the spacing of each character, you may change this value
-		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-		mesh->Render((unsigned)text[i] * 6, 6);
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-	glEnable(GL_DEPTH_TEST);
-}
-
-void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
-{
-	if (!mesh || mesh->textureID <= 0) //Proper error check
-		return;
-
-	glDisable(GL_DEPTH_TEST);
-
-	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
-	projectionStack.PushMatrix();
-	projectionStack.LoadMatrix(ortho);
-	viewStack.PushMatrix();
-	viewStack.LoadIdentity(); //No need camera for ortho mode
-	modelStack.PushMatrix();
-	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Scale(size, size, size);
-	modelStack.Translate(x, y, 0);
-
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	for (unsigned i = 0; i < text.length(); ++i)
-	{
-		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 1.0f, 0, 0); //1.0f is the spacing of each character, you may change this value
-		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-		mesh->Render((unsigned)text[i] * 6, 6);
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-
-	projectionStack.PopMatrix();
-	viewStack.PopMatrix();
-	modelStack.PopMatrix();
-	glEnable(GL_DEPTH_TEST);
-}
-
-void SceneBase::DebugCamPosition()
-{
-	//RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);
 }
 
 void SceneBase::Exit()

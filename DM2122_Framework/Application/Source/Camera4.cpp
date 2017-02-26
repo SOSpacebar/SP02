@@ -12,8 +12,8 @@ Camera4::~Camera4()
 
 void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
-	Application::MouseXPos_ = 0;
-	Application::MouseYPos_ = 0;
+	Application::MouseXPos_ = 400;
+	Application::MouseYPos_ = 300;
 
 	GodMode = false;
 	this->position = defaultPosition = pos;
@@ -26,7 +26,7 @@ void Camera4::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	turnDir = 0;
 	pitch_ = 0;
 	yaw_ = 0;
-	lastX = 0, lastY = 0;
+	lastX = 400, lastY = 300;
 	totalpitch_ = 0, totalyaw_ = 0;
 	speed_ = 30;
 }

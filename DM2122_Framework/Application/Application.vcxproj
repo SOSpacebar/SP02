@@ -89,6 +89,7 @@
     <ClCompile Include="Source\Camera4.cpp" />
     <ClCompile Include="Source\Characters.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
+    <ClCompile Include="Source\Element.cpp" />
     <ClCompile Include="Source\EnvironmentManager.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\GOManager.cpp" />
@@ -114,9 +115,12 @@
     <ClCompile Include="Source\Utility.cpp" />
     <ClCompile Include="Source\Vein.cpp" />
     <ClCompile Include="Source\Vertex.cpp" />
+    <ClCompile Include="Source\Walls.cpp" />
     <ClCompile Include="Source\Weapon.cpp" />
+    <ClCompile Include="Source\WorkStations.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\AI.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Assignment03.h" />
     <ClInclude Include="Source\Bullet.h" />
@@ -151,7 +155,9 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Veins.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Walls.h" />
     <ClInclude Include="Source\Weapon.h" />
+    <ClInclude Include="Source\WorkStations.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
