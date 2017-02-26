@@ -82,6 +82,11 @@ void TScene::Init()
 	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
 	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
 
+	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
+	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
+	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
+	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
+
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
@@ -182,6 +187,10 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3 (0,0,0), Vein::ORE_TYPE::T_COAL,0));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(20, 0, 0), Vein::ORE_TYPE::T_IRON,0));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(40, 0, 0), Vein::ORE_TYPE::T_COBALT,0));
+
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(30, 0, 40), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(30, 0, 41), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", Vector3(30, 0, 30), Monster::MONSTER_TYPE::T_ENEMYPROBE));
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
 }

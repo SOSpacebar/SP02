@@ -500,4 +500,5 @@ void SP02::Exit()
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
+	_gameObjectMananger.removeAll();
 }

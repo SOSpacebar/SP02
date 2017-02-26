@@ -60,11 +60,13 @@ const int Characters::getMaxStamina()
 void Characters::setMaxHealth(const double newMaxHealth)
 {
 	this->maxHealth_ = newMaxHealth;
+	health_ = maxHealth_;
 }
 
 void Characters::setMaxStamina(const double newMaxStamina)
 {
 	this->maxStamina_ = newMaxStamina;
+	stamina_ = maxStamina_;
 }
 
 void Characters::updateHealth(double value)
