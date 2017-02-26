@@ -21,6 +21,8 @@ public:
 
 	void update(double);
 
+	bool isRunning;
+
 private:
 	bool lackOfOxygen;
 
@@ -28,6 +30,7 @@ private:
 
 	double currentOxygenValue;
 	double maxOxygenValue;
+	float recoverStamina;
 };
 
 

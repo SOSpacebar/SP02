@@ -56,28 +56,6 @@ bool Bullet::anyInteraction()
 		}
 	}
 
-	//auto mappy = _scene->objBuilder.objInteractor._objects.equal_range(td_OBJ_TYPE::TYPE_ENEMY);
-
-	//for (multimap<td_OBJ_TYPE, Object*>::iterator it = mappy.first; it != mappy.second; ++it) {
-
-	//	Object* temp = it->second;
-
-	//	// NPC bullet collision
-	//	if ((temp->position - position).Length() < _interactDistance) {
-
-	//		NPC* npc = dynamic_cast<NPC*>(temp);
-	//		Vector3 pushAway = (npc->position - _scene->camera.position).Normalized();
-	//		pushAway *= 5; // multiply the unit vector by 5 so we can push him further
-
-	//		// Damage the enemy and then remove this bullet
-	//		//npc->position += pushAway;
-	//		npc->reduceHealth(_bulletDamage);
-	//		npc->reduceVelocity(npc->getCurrentVelocity() / 2);
-
-	//		_scene->objBuilder.destroyObject(this);
-	//		return true;
-	//	}
-
 	return false;
 }
 

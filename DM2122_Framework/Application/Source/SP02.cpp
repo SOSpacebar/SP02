@@ -17,6 +17,7 @@ EnvironmentManager Scene::_environmentManager;
 GameObjectManager Scene::_gameObjectMananger;
 monsterManager Scene::_monsterManager;
 UIManager Scene::_UIManager;
+
 SP02::SP02()
 {
 }
@@ -101,6 +102,8 @@ void SP02::Init()
 	Scene::_UIManager = _UI;
 	Application::cantSpam = true;
 
+	//Assign scene to player.
+	_player.scene_ = this;
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -320,6 +323,12 @@ void SP02::Update(double dt)
 	{
 		interact = true;
 	}
+
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		_player.isRunning = true;
+	}
+
 	if (time <= 0)
 	{
 		SceneManager::instance()->SetNextScene(2);
@@ -513,7 +522,7 @@ void SP02::Render()
 	
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
 
 	//DebugCamPosition();
