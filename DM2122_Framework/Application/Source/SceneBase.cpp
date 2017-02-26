@@ -24,12 +24,7 @@ SceneBase::~SceneBase()
 void SceneBase::Init()
 {
 	dailycycle = 0;
-	for (int i = 0; i < 10; i++)
-	{
-		bullet[i] = new Bullet();
-		bullet[i]->position_ = Vector3(camera.position.x, camera.position.y, camera.position.z);
-	}
-
+	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -74,7 +69,7 @@ void SceneBase::Init()
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
 
 	Mtx44 projection;
@@ -170,11 +165,6 @@ void SceneBase::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	//For my collider testing will remove later
-	//Vector3 box(6, 6, 6);
-	//Characters john_("john", camera.position);
-	//GameObject box_("box", box);
-	//john_.getCollider()->OnCollisionEnter(*box_.getCollider());
 }
 
 void SceneBase::Update(double dt)
@@ -242,25 +232,8 @@ void SceneBase::Update(double dt)
 	if (Application::IsKeyPressed('P'))
 		light[0].position.y += (float)(LSPEED * dt);
 
-
-	if (Application::IsKeyPressed('E'))
-	{
-		canFire = true;
-	}
-	else
-	{
-		canFire = false;
-		for (int i = 0; i < 10; i++)
-		{
-			bullet[i] = new Bullet();
-			bullet[i]->position_ = Vector3(camera.position.x, camera.position.y, camera.position.z);
-		}
-	}
-
-
 	if(camera.position.x > 20 && camera.position.z > 0 && camera.position.z<10)
 		SceneManager::instance()->SetNextScene(3);
-
 
 	dailycycle += 0.1 * dt;
 
@@ -308,21 +281,9 @@ void SceneBase::Render()
 
 	RenderSkybox();
 
-	if (canFire == true)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(bullet[i]->position_.x, bullet[i]->position_.y, bullet[i]->position_.z);
-			RenderMesh(meshList[GEO_CUBE], false);
-			modelStack.PopMatrix();
-		}
-	}
-
 	//FPS
-	RenderTextOnScreen(meshList[GEO_TEXT], "FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0, 26);
-
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 
 	//DebugCamPosition();
 }

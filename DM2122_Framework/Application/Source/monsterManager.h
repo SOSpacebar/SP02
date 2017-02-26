@@ -21,10 +21,8 @@ public:
 	void add(GameObject*gameobject);
 	static std::vector<Vector3>monsterPos;
 private:
-	std::vector<GameObject*>VecMonsterObj;
 	int numMonster;
 	int randPos;
-	int maxPos, minPos;
 	int randX, randY, randZ;
 
 };

@@ -19,6 +19,7 @@ public:
 	static float MouseYPos_;
 	static bool mouseClicked;
 	static bool cantSpam;
+	static bool quitGame;
 	static GLFWwindow* m_window;
 
 private:
