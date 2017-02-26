@@ -24,7 +24,7 @@ void monsterManager::initRandPos(MONSTER_TYPE monsterType, int maxMonster, Vecto
 		srand(time(NULL) + 2);
 	}
 
-	numMonster = maxMonster;
+	numMonster = maxMonster; //Set amount of monsters
 	//Initialise
 	for (int i = 0; i < numMonster; i++)
 	{
@@ -48,10 +48,5 @@ void monsterManager::initRandPos(MONSTER_TYPE monsterType, int maxMonster, Vecto
 			monsterPos.push_back(Vector3(randX, 0, randZ));
 		}
 	}
-}
-
-void monsterManager::add(GameObject*gameobject)
-{
-	VecMonsterObj.push_back(gameobject);
 }
 

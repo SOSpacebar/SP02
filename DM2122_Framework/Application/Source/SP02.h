@@ -121,7 +121,6 @@ private:
 
 	//void DebugCamPosition();
 
-	
 	float time = 10;
 	double count = 0;
 	//test

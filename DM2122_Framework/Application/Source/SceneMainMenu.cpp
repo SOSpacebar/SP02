@@ -118,12 +118,12 @@ void MainMenu::Update(double dt)
 		SceneManager::instance()->SetNextScene(1);
 	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_ <= 500 && Application::MouseYPos_ >= 375 && Application::MouseYPos_ <= 430)
 	{
-		Application::Exit();
+		Application::quitGame = true;
 	}
 
 	dailycycle += 0.5 * dt;
 
-	camera.Update(dt);
+	//camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
 }
