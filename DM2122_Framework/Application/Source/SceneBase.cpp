@@ -366,7 +366,12 @@ void SceneBase::Update(double dt)
 		StaCount++;
 		bsmthhappend = true;
 		tsmthhappened = 0;
-
+	}
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 500 && MousePos.x < 550 && MousePos.y < 520 && bsmthhappend == false)
+	{
+		std::cout << "confirm" << std::endl;
+		bsmthhappend = true;
+		tsmthhappened = 0;
 	}
 	 
 }
@@ -463,7 +468,6 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen :", Color(0, 0, 0), 3, 7, 11));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina :", Color(0, 0, 0), 3, 7, 10));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost :", Color(0, 0, 0), 3, 7, 7));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Back", Color(1, 0, 0), 3, 7, 3));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
 		//count
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(0, 0, 0), 3, 15, 15));
