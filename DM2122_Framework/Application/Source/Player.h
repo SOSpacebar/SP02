@@ -13,6 +13,8 @@ public:
 
 	void damagePlayer(double);
 
+	void setplayerstat(double, double, double);//health,oxygen,stamina
+
 
 	void updateOxygen(double);
 	void setMaxOxygen(double);
