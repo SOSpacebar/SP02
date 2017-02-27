@@ -72,6 +72,9 @@ void SceneBase::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
+	meshList[GEO_UPGRADEUI] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 1), 1, 1);
+	meshList[GEO_UPGRADEUI]->textureID = LoadTGA("Image//upgraderUI.tga");
+
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
 
@@ -469,6 +472,9 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina :", Color(0, 0, 0), 3, 7, 10));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost :", Color(0, 0, 0), 3, 7, 7));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
+		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
+
+		
 		//count
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(0, 0, 0), 3, 15, 15));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(0, 0, 0), 3, 15, 14));

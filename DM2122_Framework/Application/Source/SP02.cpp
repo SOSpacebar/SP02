@@ -80,9 +80,20 @@ void SP02::Init()
 	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
 	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
 	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
+	meshList[GEO_PORTAL] = MeshBuilder::GenerateOBJ("portal", "OBJ//Portal.obj");
+	meshList[GEO_PORTAL]->textureID = LoadTGA("Image//Portal.tga");
 	
 	/*meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("ground,",Color(1, 1, 1),1,1);
 	meshList[GEO_GROUND]->textureID = LoadTGA("Image//rockGround.tga");*/
+
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND] = MeshBuilder::GenerateQuad("uibackground", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND]->textureID = LoadTGA("Image//uiBackground.tga");
+	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateQuad("health", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHBAR]->textureID = LoadTGA("Image//healthBar.tga");
+	meshList[GEO_OXYGENBAR] = MeshBuilder::GenerateQuad("oxygen", Color(1, 1, 1), 1, 1);
+	meshList[GEO_OXYGENBAR]->textureID = LoadTGA("Image//oxygenBar.tga");
+	meshList[GEO_STAMINABAR] = MeshBuilder::GenerateQuad("stamina", Color(1, 1, 1), 1, 1);
+	meshList[GEO_STAMINABAR]->textureID = LoadTGA("Image//staminaBar.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
@@ -233,6 +244,7 @@ void SP02::Update(double dt)
 	
 	dt_ = dt;    
 	time -= dt;
+	rotateStimpak += (float)(20 * dt);
 	static const float LSPEED = 10.f; 
 
 	if (Application::IsKeyPressed('1'))
@@ -424,6 +436,7 @@ void SP02::Render()
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2, 5);
 	modelStack.Scale(.3, .3, .3);
+	modelStack.Rotate(rotateStimpak, 0, 1, 0);
 	RenderMesh(meshList[GEO_STIMPAK], false);
 	modelStack.PopMatrix();
 
@@ -433,6 +446,13 @@ void SP02::Render()
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(.3, .3, .3);
 	RenderMesh(meshList[GEO_CHEST], false);
+	modelStack.PopMatrix();
+
+	//portal
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 5, 0);
+	modelStack.Scale(.3, .3, .3);
+	RenderMesh(meshList[GEO_PORTAL], false);
 	modelStack.PopMatrix();
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Time: " + std::to_string(time), Color(0, 1, 0), 3, .5f, 13));
@@ -450,9 +470,15 @@ void SP02::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
 	//Player
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+
+	//healthStaminaOxygen background
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 10, 30, 20);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 10, 30, 23);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 8, 30, 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 6, 30, 22);
 
 	//DebugCamPosition();
 }
