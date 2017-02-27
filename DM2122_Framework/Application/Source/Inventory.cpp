@@ -55,7 +55,7 @@ void Inventory::minus(string name)
 	container.insert(make_pair(name, getquantity));
 }
 
-void Inventory::trade(string name,unsigned int quantity)
+void Inventory::upgrade(string name,unsigned int quantity)
 {
 	getquantity = container.find(name)->second;
 	if ((getquantity - quantity) >= NULL)

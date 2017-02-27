@@ -16,7 +16,7 @@ public:
 	void push(string name, unsigned int);//places element in container with specific quantity
 	void pop(string name);//clears the element from container,the whole quantity
 	void minus(string name);//decrease quantity by 1
-	void trade(string name, unsigned int);//trading the item name,amount to decrease
+	void upgrade(string name, unsigned int);//upgrade the item name,amount to decrease
 	unsigned int size();//output different TYPES of elements
 	void print();//show container in the interface
 

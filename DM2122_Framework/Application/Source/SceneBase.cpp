@@ -398,7 +398,7 @@ void SceneBase::Update(double dt)
 													
 													if ((IronCost <= (_player.inventory_.container.find("Iron")->second)) && (CobaltCost <= (_player.inventory_.container.find("Cobalt")->second)))
 													{
-														_player.inventory_.trade("Iron", IronCost);
+														_player.inventory_.upgrade("Iron", IronCost);
 														_player.setplayerstat(HP, OX, ST);
 													}
 
