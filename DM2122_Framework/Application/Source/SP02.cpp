@@ -298,7 +298,19 @@ void SP02::Update(double dt)
 		Weapon::weaponAmmo_--;
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
 		Application::cantSpam = true;
-		std::cout << "Clicked" << std::endl;
+		std::cout << "Fire" << std::endl;
+	}
+	if (Weapon::weaponAmmo_ == 0) //reload
+	{
+		std::cout << "no ammo" << std::endl;
+		Application::mouseClicked = false;
+		reloadTime += (float)(1 * dt);
+		if (reloadTime > 2)
+		{
+			Weapon::weaponAmmo_ = 10;
+			Application::mouseClicked = true;
+			reloadTime = 0;
+		}
 	}
 		
 	if (Application::IsKeyPressed(VK_F1))

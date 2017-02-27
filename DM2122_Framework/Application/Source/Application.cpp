@@ -53,7 +53,7 @@ static void mouseButtonCallback(GLFWwindow*window, int button, int action, int m
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
 		Application::mouseClicked = true;
-		std::cout << "Fire" << std::endl;
+		std::cout << "Clicked" << std::endl;
 	}
 	else if (action == GLFW_RELEASE)
 	{

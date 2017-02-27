@@ -123,6 +123,7 @@ private:
 
 	float time = 10;
 	double count = 0;
+	float reloadTime = 0;
 	//test
 	//Characters player;
 };
