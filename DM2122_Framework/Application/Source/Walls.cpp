@@ -10,7 +10,7 @@ Walls::Walls(Scene* scene, const string& name, Vector3& pos, WALL_TYPE wall, Vec
 	if (wall == T_PLAIN)
 		g_type = Scene::GEO_ROOM;
 	if (wall == T_WINDOW)
-		g_type = Scene::GEO_ROOM;
+		g_type = Scene::GEO_ROOMWINDOW;
 	if (wall == T_DOOR)
 		g_type = Scene::GEO_ROOMDOOR;
 

@@ -19,6 +19,11 @@ public:
 	virtual bool anyInteraction();
 	virtual void render();
 
+	static bool open;
+	static bool Topen;
+	static bool Fopen;
+	static bool Uopen;
+
 private:
 };
 

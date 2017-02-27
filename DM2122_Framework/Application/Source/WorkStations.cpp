@@ -2,6 +2,10 @@
 #include <iostream>
 #include "GOManager.h"
 
+bool WorkStation::open;
+bool WorkStation::Topen;
+bool WorkStation::Fopen;
+bool WorkStation::Uopen;
 
 
 WorkStation::WorkStation(Scene* scene, const string& name, Vector3& pos, STATION_TYPE station, int rotation) : GameObject(scene, name, pos)
@@ -15,9 +19,11 @@ WorkStation::WorkStation(Scene* scene, const string& name, Vector3& pos, STATION
 
 	rotaY = rotation;
 	scale = 10;
+	open = false;
 	const int objSize = 5;
 	Vector3 boxSize(objSize * 1, objSize * 1, objSize * 1);
 	this->getCollider().setCollider(pos, boxSize);
+	
 }
 
 WorkStation::~WorkStation()
@@ -36,8 +42,35 @@ bool WorkStation::anyInteraction()
 
 		if (distance_ < 15 && scene_->interact)
 		{
+			if (open == true)
+			{
+				open = false;
+				Topen = false;
+				Fopen = false;
+				Uopen = false;
+			}
+			else if (open == false)
+				open = true;
+
+			std::cout << distance_ << temp->getName() << open << std::endl;
+			//interactions
+			if (temp->getName() == "trader" && open)
+			{
+				std::cout << "TOPEN" << std::endl;
+				Topen = true;
+			}
+			if (temp->getName() == "furnace" && open)
+			{
+				std::cout << "FOPEN" << std::endl;
+				Fopen = true;
+			}
+			if (temp->getName() == "upgrader" && open)
+			{
+				std::cout << "UOPEN" << std::endl;
+				Uopen = true;
+
+			}
 			scene_->interact = false;
-			std::cout << distance_ << temp->getName() << std::endl;
 			return true;
 		}
 	}

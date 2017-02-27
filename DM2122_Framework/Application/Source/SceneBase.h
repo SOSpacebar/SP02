@@ -37,8 +37,6 @@ private:
 	float FPS;
 	float dailycycle;
 	void RenderSkybox();
-	float time = 10;
-	double count = 0;
 
 };
 #endif
