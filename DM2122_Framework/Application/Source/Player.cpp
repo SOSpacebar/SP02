@@ -78,3 +78,9 @@ void Player::update(double dt)
 		scene_->camera.speed_ = 30;
 	}
 }
+void  Player::setplayerstat(double health, double oxy, double stam)//health,oxy,stamina
+{
+	setMaxHealth(health);
+	setMaxOxygen(oxy);
+	setMaxStamina(stam);
+}

@@ -42,17 +42,18 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 
 bool Monster::anyInteraction()
 {
-	//if (nearestMonsterPos == 0)
-		nearestMonsterPos = &position_;
+	nearestMonsterPos = &position_;
 
 	Vector3 distanceToPlayer = scene_->camera.position - position_; 
 	float distanceToPlayerLength = distanceToPlayer.Length();
 	Vector3 nearestToPlayer = *(nearestMonsterPos)-scene_->camera.position;
 
 	timer += scene_->dt_;
+
 	if (nearestToPlayer.LengthSquared() >= distanceToPlayer.LengthSquared())
 		nearestMonsterPos = &position_;
 
+	//Vector to move to player.
 	Vector3 thisDistance = distanceToPlayer.Normalized();
 
 	//Rotate to face player.
@@ -82,11 +83,11 @@ bool Monster::anyInteraction()
 			thisDistance *= 2;
 		else
 			thisDistance.SetZero();
-
 		break;
+
 	case Monster::AI_ATTACK:
 		
-		float dirX = Math::RadianToDegree(atan2(distanceToPlayer.y, distanceToPlayer.Length()));
+		float dirX = Math::RadianToDegree(atan2(distanceToPlayer.y, distanceToPlayer.Length())); //direction to player
 
 		if (distanceToPlayerLength <= attackDistance) {
 			if (timer >= attackTimer) {
@@ -103,13 +104,19 @@ bool Monster::anyInteraction()
 	// Prevent this unit from merging with others WIP
 	/*auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
 
+	//Prevent this unit from merging with others WIP
+	auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
+
 	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
 	{
 		GameObject* temp = it->second;
 		Vector3 hitDirection;
 
-		if (temp != this && getCollider().checkHit(temp->getCollider(), &hitDirection) == true)
-			position_ += -hitDirection * scene_->dt_;
+		if (temp != this && this->getCollider().checkHit(temp->getCollider(), &hitDirection) == true)
+		{
+			position_ += -hitDirection * scene_->dt_ * 2;
+			
+		}
 	}
 
 	position_.x += thisDistance.x * speed * scene_->dt_;
@@ -124,11 +131,15 @@ bool Monster::anyInteraction()
 		return true;
 	}*/
 
+	this->getCollider().updateColliderPos(this->position_);
 	return false;
 }
 
 Monster::~Monster()
 {
+	//if (nearestMonsterPos == &position_) {
+	//	nearestMonsterPos = &Vector3(0, 0, 0);
+	//}
 }
 
 void Monster::setDamage(int att)

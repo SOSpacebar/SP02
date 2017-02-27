@@ -16,9 +16,10 @@ public:
 	bool checkHit(Collider&, Vector3*);
 	Vector3 getboxSize();
 	
+	Vector3* position;
 private:
 	Vector3 boxMin, boxMax, boxSize;
-	Vector3* position;
+	
 };
 
 
