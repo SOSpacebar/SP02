@@ -10,6 +10,7 @@
 #include "SceneBase.h"
 #include "SceneMainMenu.h"
 #include "TScene.h"
+#include "SceneLoading.h"
 
 using std::map;
 

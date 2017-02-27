@@ -271,7 +271,7 @@ void TScene::Update(double dt)
 	}
 
 	if (camera.position.z >= 110 && camera.position.z <= 120 && camera.position.x <= 5 && camera.position.x >= -5)
-		SceneManager::instance()->SetNextScene(2);
+		SceneManager::instance()->SetNextScene(3);
 
 	dailycycle += 0.1 * dt;
 

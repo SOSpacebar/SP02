@@ -80,11 +80,24 @@ void SP02::Init()
 	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
 	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
 	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
-	meshList[GEO_PORTAL] = MeshBuilder::GenerateOBJ("portal", "OBJ//Portal.obj");
-	meshList[GEO_PORTAL]->textureID = LoadTGA("Image//Portal.tga");
+	//meshList[GEO_PORTAL] = MeshBuilder::GenerateOBJ("portal", "OBJ//Portal.obj");
+	//meshList[GEO_PORTAL]->textureID = LoadTGA("Image//Portal.tga");
 	
 	/*meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("ground,",Color(1, 1, 1),1,1);
 	meshList[GEO_GROUND]->textureID = LoadTGA("Image//rockGround.tga");*/
+
+	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1, 1);
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//frontDark.tga");
+	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1, 1);
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//backDark.tga");
+	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1, 1);
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottomDark.tga");
+	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1, 1);
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//topDark.tga");
+	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1, 1);
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//leftDark.tga");
+	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1, 1);
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//rightDark.tga");
 
 	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND] = MeshBuilder::GenerateQuad("uibackground", Color(1, 1, 1), 1, 1);
 	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND]->textureID = LoadTGA("Image//uiBackground.tga");
@@ -329,8 +342,6 @@ void SP02::Update(double dt)
 	{
 		SceneManager::instance()->SetNextScene(0);
 	}
-	//if (camera.position.x > 25 && camera.position.z > -10 && camera.position.z<0)
-	//	SceneManager::instance()->SetNextScene(0);
 
 	dailycycle += 0.1 * dt;
 
@@ -352,7 +363,7 @@ void SP02::Update(double dt)
 
 	if (time <= 0)
 	{
-		SceneManager::instance()->SetNextScene(2);
+		SceneManager::instance()->SetNextScene(3);
 		time = 30;
 		if (count <2)
 		{
@@ -449,11 +460,11 @@ void SP02::Render()
 	modelStack.PopMatrix();
 
 	//portal
-	modelStack.PushMatrix();
+	/*modelStack.PushMatrix();
 	modelStack.Translate(0, 5, 0);
 	modelStack.Scale(.3, .3, .3);
 	RenderMesh(meshList[GEO_PORTAL], false);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Time: " + std::to_string(time), Color(0, 1, 0), 3, .5f, 13));
 	//FPS
@@ -486,8 +497,9 @@ void SP02::Render()
 void SP02::RenderSkybox()
 {
 	//space
+	//top
 	modelStack.PushMatrix();
-	modelStack.Rotate(dailycycle, 0, 0, 1);
+	modelStack.Rotate(dailycycle, 0, 1, 0);
 	modelStack.PushMatrix();
 	modelStack.Translate(0 + camera.position.x, 1000 + camera.position.y, 0 + camera.position.z);
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -496,6 +508,7 @@ void SP02::RenderSkybox()
 	RenderMesh(meshList[GEO_SUN], false);
 	modelStack.PopMatrix();
 
+	//btm
 	modelStack.PushMatrix();
 	modelStack.Translate(0 + camera.position.x, -1000 + camera.position.y, 0 + camera.position.z);
 	modelStack.Rotate(90, 1, 0, 0);
@@ -504,6 +517,7 @@ void SP02::RenderSkybox()
 	RenderMesh(meshList[GEO_MOON], false);
 	modelStack.PopMatrix();
 
+	//front
 	modelStack.PushMatrix();
 	modelStack.Translate(1000 + camera.position.x, 0 + camera.position.y, 0 + camera.position.z);
 	modelStack.Rotate(90, 0, 1, 0);
@@ -511,6 +525,7 @@ void SP02::RenderSkybox()
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
 
+	//back
 	modelStack.PushMatrix();
 	modelStack.Translate(-1000 + camera.position.x, 0 + camera.position.y, 0 + camera.position.z);
 	modelStack.Rotate(-90, 0, 1, 0);
@@ -518,6 +533,7 @@ void SP02::RenderSkybox()
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
 
+	//right
 	modelStack.PushMatrix();
 	modelStack.Translate(0 + camera.position.x, 0 + camera.position.y, -1000 + camera.position.z);
 	modelStack.Rotate(180, 0, 1, 0);
@@ -525,6 +541,7 @@ void SP02::RenderSkybox()
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
 
+	//left
 	modelStack.PushMatrix();
 	modelStack.Translate(0 + camera.position.x, 0 + camera.position.y, 1000 + camera.position.z);
 	modelStack.Scale(2000, 2000, 2000);
