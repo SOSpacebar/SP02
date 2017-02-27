@@ -37,6 +37,12 @@ private:
 	float FPS;
 	float dailycycle;
 	void RenderSkybox();
+	int WDcount;
+	int WAcount;
+	int OxyCount;
+	int StaCount;
+	int HPCount;
+
 
 };
 #endif

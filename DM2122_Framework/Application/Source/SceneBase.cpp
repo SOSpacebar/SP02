@@ -26,6 +26,11 @@ void SceneBase::Init()
 	dailycycle = 0;
 	tsmthhappened = 0;
 	bsmthhappend = false;
+	WDcount = 0;
+	WAcount = 0;
+	OxyCount = 0;
+	StaCount = 0;
+	HPCount = 0;
 	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -194,7 +199,6 @@ void SceneBase::Init()
 
 void SceneBase::Update(double dt)
 {
-	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
 	tsmthhappened += dt;
@@ -203,9 +207,6 @@ void SceneBase::Update(double dt)
 	{
 		bsmthhappend = false;
 	}
-
-
-	static const float LSPEED = 10.f;
 
 	if (Application::IsKeyPressed('1'))
 	{
@@ -225,22 +226,6 @@ void SceneBase::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-
 	if (Application::IsKeyPressed('8'))
 	{
 		lightsOn = false;
@@ -249,14 +234,6 @@ void SceneBase::Update(double dt)
 	if (Application::IsKeyPressed('9'))
 	{
 		lightsOn = true;
-	}
-
-	if (Application::mouseClicked && Weapon::weaponAmmo_ != 0)
-	{
-		Weapon::weaponAmmo_--;
-		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
-		Application::cantSpam = true;
-		std::cout << "Clicked" << std::endl;
 	}
 
 	if (Application::IsKeyPressed(VK_F1))
@@ -322,6 +299,76 @@ void SceneBase::Update(double dt)
 		tsmthhappened = 0;
 	}
 
+	Vector3 MousePos(Application::MouseXPos_, Application::MouseYPos_, 0);
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 140 && MousePos.x < 460 && MousePos.y < 160 && bsmthhappend == false && WDcount> 0)
+	{
+		WDcount--;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 170 && MousePos.x < 460 && MousePos.y < 190 && bsmthhappend == false && WAcount >0)
+	{
+		WAcount--;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+	}
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 230 && MousePos.x < 460 && MousePos.y < 250 && bsmthhappend == false &&HPCount > 0)
+	{
+		HPCount--;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 260 && MousePos.x < 460 && MousePos.y < 280 && bsmthhappend == false && OxyCount > 0)
+	{
+		OxyCount--;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 290 && MousePos.x < 460 && MousePos.y < 310 && bsmthhappend == false&&StaCount>0)
+	{
+		StaCount--;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 140 && MousePos.x < 520 && MousePos.y < 160 && bsmthhappend == false&& WDcount<9)
+	{
+		WDcount++;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 170 && MousePos.x < 520 && MousePos.y < 190 && bsmthhappend == false && WAcount<9)
+	{
+		WAcount++;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 230 && MousePos.x < 520 && MousePos.y < 250 && bsmthhappend == false && HPCount<9)
+	{
+		HPCount++;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 260 && MousePos.x < 520 && MousePos.y < 280 && bsmthhappend == false&&OxyCount<9)
+	{
+		OxyCount++;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 290 && MousePos.x < 520 && MousePos.y < 310 && bsmthhappend == false&&StaCount<9)
+	{
+		StaCount++;
+		bsmthhappend = true;
+		tsmthhappened = 0;
+
+	}
+	 
 }
 
 void SceneBase::Render()
@@ -408,7 +455,26 @@ void SceneBase::Render()
 	{
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
+		//names
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Upgrader", Color(0, 0, 0), 3, 7, 17));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Weapon damage :", Color(0, 0, 0), 3, 7, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Weapon ammo :", Color(0, 0, 0), 3, 7, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Health :", Color(0, 0, 0), 3, 7, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen :", Color(0, 0, 0), 3, 7, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina :", Color(0, 0, 0), 3, 7, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost :", Color(0, 0, 0), 3, 7, 7));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Back", Color(1, 0, 0), 3, 7, 3));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
+		//count
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(0, 0, 0), 3, 15, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(0, 0, 0), 3, 15, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(0, 0, 0), 3, 15, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(0, 0, 0), 3, 15, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(0, 0, 0), 3, 15, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron - " + to_string(WDcount + OxyCount+StaCount), Color(0, 0, 0), 3, 11, 7));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt - " + to_string(WAcount + HPCount), Color(0, 0, 0), 3, 11, 6));
+
+
 	}
 
 }
