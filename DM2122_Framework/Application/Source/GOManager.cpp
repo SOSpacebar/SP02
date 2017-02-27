@@ -67,7 +67,7 @@ void GameObjectManager::update(Camera4& cam)
 		{
 			Vector3 lastHitPos = 0;
 			//Check For Player Collision
-			if (temp->getCollider().checkHit(cam.getCollider(), &lastHitPos) && objIt->first != T_PLAYERPROJECTILE)
+			if (temp->getCollider().checkHit(cam.getCollider(), &lastHitPos) && objIt->first != T_PLAYERPROJECTILE && objIt->first != T_ENEMY)
 			{
 				std::cout << temp->getName(); //Check what collider its hitting
 				cam.position = prevPosition;

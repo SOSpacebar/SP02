@@ -22,8 +22,15 @@ bool Collider::checkHit(Collider& other, Vector3* direction)
 			(this->boxMin.z < other.boxMax.z && this->boxMax.z > other.boxMin.z))
 		{
 			Vector3 hitPos = other.position - position;
-
-			(*direction) = hitPos.Normalized();
+			//std::cout << "inside";
+			if (direction != nullptr)
+			{
+				if (hitPos != 0)
+				{
+					(*direction) = hitPos.Normalized();
+					//std::cout << "direction";
+				}
+			}
 			return true;
 		}
 

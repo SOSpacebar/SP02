@@ -9,13 +9,22 @@ Bullet::~Bullet()
 {
 }
 
-Bullet::Bullet(Scene* scene, const string &name, Vector3 &pos, Vector3&box) :GameObject(scene, name, pos, box)
+Bullet::Bullet(Scene* scene, const string &name, Vector3 &pos, Vector3&box) : GameObject(scene, name, pos, box)
 {
 	g_type = Scene::GEO_LASERPROJ;
 	speed_ = 50;
 	bulletDirection_ = scene->camera.view;
 	startPosition = position_;
 
+}
+
+Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 rotation, Vector3 direction, Vector3 &box) : GameObject(scene, name, position, box)
+{
+	g_type = Scene::GEO_SPHERE;
+	speed_ = 50;
+	bulletDirection_ = direction;
+	startPosition = position + direction;
+	isEnemyBullet = true;
 }
 
 void Bullet::update()

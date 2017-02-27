@@ -213,12 +213,12 @@ void SP02::Init()
 
 	//monsters
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*5; i++)
+	for (int i = 0; i < count*0; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
 	}
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*10; i++)
+	for (int i = 0; i < count*5; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
@@ -341,7 +341,7 @@ void SP02::Update(double dt)
 	if (time <= 0)
 	{
 		SceneManager::instance()->SetNextScene(2);
-		time = 10;
+		time = 30;
 		if (count <2)
 		{
 			count++;
