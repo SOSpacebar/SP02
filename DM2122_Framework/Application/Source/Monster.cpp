@@ -101,10 +101,7 @@ bool Monster::anyInteraction()
 		break;
 	}
 
-	// Prevent this unit from merging with others WIP
-	/*auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
-
-	//Prevent this unit from merging with others WIP
+	//Prevent this unit from merging with others
 	auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
 
 	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
@@ -115,7 +112,6 @@ bool Monster::anyInteraction()
 		if (temp != this && this->getCollider().checkHit(temp->getCollider(), &hitDirection) == true)
 		{
 			position_ += -hitDirection * scene_->dt_ * 2;
-			
 		}
 	}
 
@@ -129,7 +125,7 @@ bool Monster::anyInteraction()
 		scene_->_gameObjectMananger.remove(this);
 		std::cout << "dead";
 		return true;
-	}*/
+	}
 
 	this->getCollider().updateColliderPos(this->position_);
 	return false;
