@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "GOManager.h"
+#include "Player.h"
 
 Bullet::Bullet()
 {
@@ -20,11 +21,14 @@ Bullet::Bullet(Scene* scene, const string &name, Vector3 &pos, Vector3&box) : Ga
 
 Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 rotation, Vector3 direction, Vector3 &box) : GameObject(scene, name, position, box)
 {
-	g_type = Scene::GEO_SPHERE;
+	g_type = Scene::GEO_LASERPROJ;
 	speed_ = 50;
 	bulletDirection_ = direction;
 	startPosition = position + direction;
 	isEnemyBullet = true;
+	rotaX = rotation.x;
+	rotaY = rotation.y;
+	rotaZ = rotation.z;
 }
 
 void Bullet::update()
@@ -33,37 +37,50 @@ void Bullet::update()
 
 bool Bullet::anyInteraction()
 {
-	
-	position_ += bulletDirection_* speed_ * scene_->dt_;
-	this->getCollider().updateColliderPos(this->position_);
-	float distance = (startPosition - this->position_).Length();
-
-	if (distance > 50)
+	if (isEnemyBullet)
 	{
-		scene_->_gameObjectMananger.remove(this);
-		std::cout << "delete" << std::endl;
-		return true;
-	}
-	else if (Application::cantSpam == true)
-	{
-		Application::mouseClicked = false;
-		
-	}
-
-	auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
-
-	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
-	{
-		GameObject* temp = it->second;
-		distance_ = (temp->position_ - position_).Length();
-
-		if (distance_ < 5)
+		if (getCollider().checkHit(scene_->camera.getCollider()))
 		{
-			scene_->_gameObjectMananger.remove(temp);
+			Player::getInstance()->updateHealth(-5);
 			scene_->_gameObjectMananger.remove(this);
 			return true;
 		}
 	}
+
+	else
+	{
+		float distance = (startPosition - this->position_).Length();
+
+		if (distance > 50)
+		{
+			scene_->_gameObjectMananger.remove(this);
+			std::cout << "delete" << std::endl;
+			return true;
+		}
+		else if (Application::cantSpam == true)
+		{
+			Application::mouseClicked = false;
+
+		}
+
+		auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_ENEMY);
+
+		for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
+		{
+			GameObject* temp = it->second;
+			distance_ = (temp->position_ - position_).Length();
+
+			if (distance_ < 5)
+			{
+				scene_->_gameObjectMananger.remove(temp);
+				scene_->_gameObjectMananger.remove(this);
+				return true;
+			}
+		}
+	}
+
+	position_ += bulletDirection_* speed_ * scene_->dt_;
+	this->getCollider().updateColliderPos(this->position_);
 
 	return false;
 }

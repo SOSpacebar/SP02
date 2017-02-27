@@ -44,7 +44,7 @@ void Collider::updateColliderPos(Vector3& newPos)
 	{
 		boxMin = (newPos - boxSize * 0.5f);
 		boxMax = (newPos + boxSize * 0.5f);
-		*position = newPos;
+		position = &newPos;
 	}
 }
 
