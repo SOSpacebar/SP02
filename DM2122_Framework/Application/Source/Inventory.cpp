@@ -54,6 +54,30 @@ void Inventory::minus(string name)
 	container.erase(name);
 	container.insert(make_pair(name, getquantity));
 }
+
+void Inventory::upgrade(string name,unsigned int quantity)
+{
+	getquantity = container.find(name)->second;
+	if ((getquantity - quantity) >= NULL)
+	{
+		getquantity = getquantity - quantity;
+		container.erase(name);
+		container.insert(make_pair(name, getquantity));
+
+	}
+	/*if (getquantity <= 0)
+	{
+		getquantity = 0;
+	}
+	else
+	{
+		--getquantity;
+	}
+
+
+	container.erase(name);
+	container.insert(make_pair(name, getquantity));*/
+}
 unsigned int Inventory::size()
 {
 	int types = 0;

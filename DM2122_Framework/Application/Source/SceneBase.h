@@ -37,12 +37,20 @@ private:
 	float FPS;
 	float dailycycle;
 	void RenderSkybox();
+
+
+	//upgrade
 	int WDcount;
 	int WAcount;
 	int OxyCount;
 	int StaCount;
 	int HPCount;
 
-
+	int IronCost;
+	int CobaltCost;
+	//set upgrade
+	double OX;
+	double HP;
+	double ST;
 };
 #endif
