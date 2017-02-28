@@ -40,6 +40,38 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 	timer = 0;
 }
 
+Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE monster, bool idle) : Characters(scene, name, pos)
+{
+	if (monster == T_ENEMYPROBE)
+	{
+		g_type = Scene::GEO_ALIENPROBE;
+		acceleration_ = 0;
+		maxSpeed = 0;
+		attackDistance = 10;
+		setDamage(5);
+		setMaxHealth(100);
+		attackTimer = 3;
+	}
+	if (monster == T_ENEMYBEHOLDER)
+	{
+		g_type = Scene::GEO_BEHOLDER;
+		acceleration_ = 0;
+		maxSpeed = 0;
+		attackDistance = 30;
+		setDamage(10);
+		setMaxHealth(200);
+		attackTimer = 5;
+	}
+
+	scale = 0.3;
+	const int objSize = 1;
+	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
+	this->getCollider().setCollider(pos, boxSize);
+	timer = 0;
+
+	isIdle = idle;
+}
+
 bool Monster::anyInteraction()
 {
 	nearestMonsterPos = &position_;
@@ -63,10 +95,10 @@ bool Monster::anyInteraction()
 		speed += acceleration_ * scene_->dt_;
 
 	//AI States Checker
-	if (distanceToPlayerLength > 45) {
+	if (distanceToPlayerLength > 45 && !isIdle) {
 		currentState = AI_CHASE;
 	}
-	else if (distanceToPlayerLength <= 45) {
+	else if (distanceToPlayerLength <= 45 && !isIdle) {
 		currentState = AI_ATTACK;
 	}
 	else {
@@ -91,8 +123,7 @@ bool Monster::anyInteraction()
 
 		if (distanceToPlayerLength <= attackDistance) {
 			if (timer >= attackTimer) {
-				//scene_->_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this->scene_, "Bullet", position_, Vector3(dirX, rotaY, 0)));
-				std::cout << "enemy pew";
+				scene_->_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMYPROJECTILE, new Bullet(this->scene_, "E_Bullet", position_, Vector3(dirX, rotaY, 0), thisDistance, Vector3(2, 2, 2)));
 				attackTimer = timer + attackInterval;
 			}
 

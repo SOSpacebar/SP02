@@ -13,6 +13,8 @@ public:
 		T_PLAIN,
 		T_WINDOW,
 		T_DOOR,
+		T_TUTORIAL,
+		T_TUTORIALDOOR,
 		T_NUMTYPE,
 	};
 	Walls(Scene*, const string&, Vector3&, WALL_TYPE wall , Vector3& rotation, Vector3& scale,Vector3& box);

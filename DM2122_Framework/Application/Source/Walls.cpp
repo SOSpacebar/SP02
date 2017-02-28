@@ -13,6 +13,11 @@ Walls::Walls(Scene* scene, const string& name, Vector3& pos, WALL_TYPE wall, Vec
 		g_type = Scene::GEO_ROOMWINDOW;
 	if (wall == T_DOOR)
 		g_type = Scene::GEO_ROOMDOOR;
+	if (wall == T_TUTORIAL)
+		g_type = Scene::GEO_QUAD;
+	if (wall == T_TUTORIALDOOR)
+		g_type = Scene::GEO_TUTORIALDOOR;
+
 
 	scalex = scale.x;
 	scaley = scale.y;
@@ -31,22 +36,21 @@ Walls::~Walls()
 
 bool Walls::anyInteraction()
 {
-	//auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_MINEABLE);
+	auto temp = scene_->_gameObjectMananger._gameObjects.equal_range(GameObjectManager::T_INTERACTABLE);
 
-	//for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
-	//{
-	//	GameObject* temp = it->second;
-	//	distance_ = (temp->scene_->camera.position - temp->position_).Length();
+	for (std::multimap<GameObjectManager::objectType, GameObject*>::iterator it = temp.first; it != temp.second; ++it)
+	{
+		GameObject* temp = it->second;
+		distance_ = (temp->scene_->camera.position - temp->position_).Length();
 
-	//	if (distance_ < 20 && scene_->interact)
-	//	{
-	//		scene_->interact = false;
-	//		scene_->_gameObjectMananger.remove(temp);
-	//		return true;
-	//	}
-	//}
+		if (distance_ < 5 && temp->getName()=="door")
+		{
+			scene_->camera.position += Vector3(90, 0, 60);
+			scene_->camera.target = scene_->camera.position + scene_->camera.view;
+			return true;
 
-	//scene_->interact = false;
+		}
+	}
 	return false;
 }
 

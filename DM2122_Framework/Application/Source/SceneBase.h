@@ -38,7 +38,6 @@ private:
 	float dailycycle;
 	void RenderSkybox();
 
-
 	//upgrade
 	int WDcount;
 	int WAcount;

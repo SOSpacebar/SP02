@@ -13,7 +13,7 @@ public:
 	
 	void updateColliderPos(Vector3&);
 	void setCollider(Vector3,Vector3);
-	bool checkHit(Collider&, Vector3*);
+	bool checkHit(Collider&, Vector3* = nullptr);
 	Vector3 getboxSize();
 	
 	Vector3* position;

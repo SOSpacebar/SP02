@@ -1,4 +1,4 @@
-#include "SceneMainMenu.h"
+#include "SceneLoading.h"
 #include "GL\glew.h"
 #include "GLFW\glfw3.h"
 #include "Mtx44.h"
@@ -13,17 +13,18 @@
 #include <stdlib.h>
 #include <iostream>
 
-MainMenu::MainMenu()
+Loading::Loading()
 {
 }
 
-MainMenu::~MainMenu()
+Loading::~Loading()
 {
 }
 
-void MainMenu::Init()
+void Loading::Init()
 {
-	dailycycle = 0;
+
+	loadTime = 0;
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -31,7 +32,7 @@ void MainMenu::Init()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//enable mouse
-	glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPos(Application::m_window, 400, 300);
 
 
@@ -39,7 +40,6 @@ void MainMenu::Init()
 	camera.Init(Vector3(20, 5, -5), Vector3(0, 5, -5), Vector3(0, 1, 0));
 
 	// Init VBO here
-	FPS = 0;
 	lightsOn = true;
 
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -57,6 +57,8 @@ void MainMenu::Init()
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
 	meshList[GEO_QUAD]->textureID = LoadTGA("Image//room.tga");
 
+	meshList[GEO_LOADING] = MeshBuilder::GenerateQuad("loading", Color(1, 1, 1), 1, 1);
+	meshList[GEO_LOADING]->textureID = LoadTGA("Image//loading.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
@@ -88,11 +90,11 @@ void MainMenu::Init()
 
 }
 
-void MainMenu::Update(double dt)
+void Loading::Update(double dt)
 {
-	FPS = (float)(1.0f / dt);
-
 	dt_ = dt;
+
+	loadTime += (float)(1 * dt);
 
 	static const float LSPEED = 10.f;
 
@@ -114,21 +116,16 @@ void MainMenu::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
-	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_<=500 && Application::MouseYPos_ >= 175 && Application::MouseYPos_ <= 230)
-		SceneManager::instance()->SetNextScene(2);
-	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_ <= 500 && Application::MouseYPos_ >= 375 && Application::MouseYPos_ <= 430)
+	if (loadTime > 3)
 	{
-		Application::quitGame = true;
+		SceneManager::instance()->SetNextScene(1);
+		loadTime = 0;
 	}
-
-	dailycycle += 0.5 * dt;
-
-	//camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
 }
 
-void MainMenu::Render()
+void Loading::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -140,73 +137,11 @@ void MainMenu::Render()
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
-
-	RenderSkybox();
-
-	//FPS
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
-	//mouse position
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_ )+ " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
-	//play button
-	_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 40, 30, 10);
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("PLAY", Color(0, 1, 0), 10, 3.5, 4));
-	//exit button
-	_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 20, 30, 10);
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("EXIT", Color(1, 0, 0), 10, 3.5, 2));
-
+	
+	_UIManager.renderMeshOnScreen(meshList[GEO_LOADING], 40, 30, 80, 60);
 }
 
-void MainMenu::RenderSkybox()
-{
-	//space
-	modelStack.PushMatrix();
-	modelStack.Rotate(dailycycle, 0, 0, 1);
-	modelStack.PushMatrix();
-	modelStack.Translate(0 + camera.position.x, 1000 + camera.position.y, 0 + camera.position.z);
-	modelStack.Rotate(-90, 1, 0, 0);
-	modelStack.Rotate(90, 0, 0, 1);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0 + camera.position.x, -1000 + camera.position.y, 0 + camera.position.z);
-	modelStack.Rotate(90, 1, 0, 0);
-	modelStack.Rotate(-90, 0, 0, 1);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_MOON], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(1000 + camera.position.x, 0 + camera.position.y, 0 + camera.position.z);
-	modelStack.Rotate(90, 0, 1, 0);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_SPACE], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-1000 + camera.position.x, 0 + camera.position.y, 0 + camera.position.z);
-	modelStack.Rotate(-90, 0, 1, 0);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_SPACE], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0 + camera.position.x, 0 + camera.position.y, -1000 + camera.position.z);
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_SPACE], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0 + camera.position.x, 0 + camera.position.y, 1000 + camera.position.z);
-	modelStack.Scale(2000, 2000, 2000);
-	RenderMesh(meshList[GEO_SPACE], false);
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
-}
-
-void MainMenu::Exit()
+void Loading::Exit()
 {
 	glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 

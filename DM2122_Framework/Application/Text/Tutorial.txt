@@ -1,0 +1,9 @@
+"Space" Next >
+Stage 1
+Movement
+Stage 2
+Mining
+Stage 3
+Combat
+Stage 4
+upgrades

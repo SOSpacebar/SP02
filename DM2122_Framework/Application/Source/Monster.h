@@ -25,6 +25,8 @@ public:
 	Monster(Scene*, const string&name, Vector3&position, const int &health);
 	Monster(Scene*, const string&name, Vector3&position, const int &health, const int &damage);
 	Monster(Scene*, const string&name, Vector3&position, MONSTER_TYPE monster);
+	Monster(Scene*, const string&name, Vector3&position, MONSTER_TYPE monster, bool idle);
+
 	virtual ~Monster();
 
 	virtual void setDamage(int att);
@@ -50,6 +52,7 @@ private:
 
 	Vector3* nearestMonsterPos;
 
+	bool isIdle;
 };
 
 #endif

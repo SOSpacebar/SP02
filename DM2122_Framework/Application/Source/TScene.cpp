@@ -11,11 +11,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <iostream>
-
-//EnvironmentManager Scene::_environmentManager;
-//GameObjectManager Scene::_gameObjectMananger;
-//UIManager Scene::_UIManager;
-
+#include <fstream>
 
 TScene::TScene()
 {
@@ -27,8 +23,23 @@ TScene::~TScene()
 
 void TScene::Init()
 {
+	//init text file and line
+	string line;
+	ifstream myfile("Text/Tutorial.txt");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+		{
+			tutorialtext.push_back(line);
+			std::cout << line << '\n';
+		}
+		myfile.close();
+	}
+	Application::mouseClicked = false;
+	stage = 1;
 	dailycycle = 0;
-
+	textoffset = 1;
+	//Application::mouseClicked = false;
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -37,7 +48,8 @@ void TScene::Init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Enable Camera
-	camera.Init(Vector3(0, 5, -70), Vector3(-10, 5, -70), Vector3(0, 1, 0));
+	//camera.Init(Vector3(40, 5, -115), Vector3(0, 5, -115), Vector3(0, 1, 0));
+	camera.Init(Vector3(40, 5,-115), Vector3(0, 5, -115), Vector3(0, 1, 0));
 
 	// Init VBO here
 	FPS = 0;
@@ -52,13 +64,15 @@ void TScene::Init()
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1);
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
-	meshList[GEO_QUAD]->textureID = LoadTGA("Image//snowGround.tga");
+	meshList[GEO_QUAD]->textureID = LoadTGA("Image//Tscene-walls.tga");
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.545098f, 0, 0), 0.5f, 0.5f, 0.5f);
 	meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("blade", Color(1, 0, 1), 16, 1, 1);
 	meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
 	meshList[GEO_ROOM]->textureID = LoadTGA("Image//room.tga");
-	meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("Basedoor", Color(1, 1, 1), 1, 1);
+	meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
 	meshList[GEO_ROOMDOOR]->textureID = LoadTGA("Image//roomdoor.tga");
+	meshList[GEO_TUTORIALDOOR] = MeshBuilder::GenerateQuad("door", Color(1, 1, 1), 1, 1);
+	meshList[GEO_TUTORIALDOOR]->textureID = LoadTGA("Image//door.tga");
 	meshList[GEO_SPACE] = MeshBuilder::GenerateQuad("space", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SPACE]->textureID = LoadTGA("Image//Space.tga");
 	meshList[GEO_SUN] = MeshBuilder::GenerateQuad("sun", Color(1, 1, 1), 1, 1);
@@ -90,6 +104,7 @@ void TScene::Init()
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
+	_player.scene_ = this;
 
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
@@ -184,15 +199,80 @@ void TScene::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3 (0,0,0), Vein::ORE_TYPE::T_COAL,0));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(20, 0, 0), Vein::ORE_TYPE::T_IRON,0));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENVIRONMENTAL, new Vein(this, "ore", Vector3(40, 0, 0), Vein::ORE_TYPE::T_COBALT,0));
+	//ore
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COAL, EnvironmentManager::oreRota[i]));
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON, EnvironmentManager::oreRota[i]));
+	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
+		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(30, 0, 40), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(30, 0, 41), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
-	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", Vector3(30, 0, 30), Monster::MONSTER_TYPE::T_ENEMYPROBE));
 
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 0, 0));
+	//room wall stage 1
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(25, 0, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(-25, 0, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(50, 10, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//back
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -90), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -90), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -140), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -140), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, -115), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+
+	 //room wall stage 2
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(25, 0, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(-25, 0, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(50, 10, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//back
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -30), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -30), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -80), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -80), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, -55), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	//room wall stage 3
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(25, 0, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(-25, 0, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(50, 10, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//back
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, 30), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, 30), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -20), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -20), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, 5), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	//room wall stage 4
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(25, 0, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(-25, 0, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(90, 0, -90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(50, 10, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//back
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, 90), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, 90), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 180, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, 40), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, 40), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, 65), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+
+
+	//monster
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", Vector3(-40,5,-10), Monster::MONSTER_TYPE::T_ENEMYPROBE,true));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", Vector3(-35, 5,20), Monster::MONSTER_TYPE::T_ENEMYPROBE, true));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(-40, 5, -10), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER, true));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(-35, 5, 20), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER, true));
+
+	//upgrades
+	//_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "upgrader", Vector3(20, 5, -15), WorkStation::STATION_TYPE::T_UPGRADE, 0));
+
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 999, 999));
+
 }
 
 void TScene::Update(double dt)
@@ -201,9 +281,6 @@ void TScene::Update(double dt)
 	FPS = (float)(1.0f / dt);
 
 	dt_ = dt;
-
-	static const float LSPEED = 10.f;
-
 	if (Application::IsKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
@@ -248,21 +325,10 @@ void TScene::Update(double dt)
 		lightsOn = true;
 	}
 
-	/*
-	if (Application::IsKeyPressed('I'))
-	light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-	light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-	light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-	light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-	light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-	light[0].position.y += (float)(LSPEED * dt);
-	*/
-
+	if (Application::IsKeyPressed(VK_LSHIFT))
+	{
+		_player.isRunning = true;
+	}
 	if (Application::mouseClicked)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
@@ -270,41 +336,42 @@ void TScene::Update(double dt)
 		std::cout << "Clicked" << std::endl;
 	}
 
-	if (camera.position.z >= 110 && camera.position.z <= 120 && camera.position.x <= 5 && camera.position.x >= -5)
-		SceneManager::instance()->SetNextScene(2);
-
 	dailycycle += 0.1 * dt;
 
 	camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
+	_player.update(-dt);
 
+	//if (interact == true)
+	//{
 
+	//	interact = false;
+	//	if (stage == 5)
+	//	{
+	//		_gameObjectMananger.removeAll();
+	//		SceneManager::instance()->SetNextScene(3);
+	//	}
+	//}
 	if (Application::IsKeyPressed('E'))
 	{
 		interact = true;
 	}
-
-	if (Application::IsKeyPressed('Z'))
-	{
-		player.inventory_.push("Iron", 1);//player picks up 1 element iron
+	if (camera.position.z < -90) {
+		stage = 1;
 	}
-	if (Application::IsKeyPressed('X'))
-	{
-		player.inventory_.push("Copper", 1);
+	else if (camera.position.z < -30) {
+		stage = 2;
 	}
-	if (Application::IsKeyPressed('C'))
-	{
-		player.inventory_.push("Silver", 1);
+	else if (camera.position.z < 30) {
+		stage = 3;
 	}
-	if (Application::IsKeyPressed('V'))
-	{
-		player.inventory_.push("Gold", 1);
+	else if (camera.position.z < 90) {
+		stage = 4;
+		_gameObjectMananger.removeAll();
+		SceneManager::instance()->SetNextScene(3);
 	}
-	if (Application::IsKeyPressed('B'))
-	{
-		player.inventory_.push("Steel", 1);
-	}
+	//else if (camera.position.z < 150) {
 
 }
 
@@ -347,66 +414,66 @@ void TScene::Render()
 	modelStack.PopMatrix();
 
 	RenderSkybox();	
-	
-	//Ground
-	modelStack.PushMatrix();
-	modelStack.Scale(1000, 1, 1000);
-	modelStack.Rotate(90, 1, 0, 0);
-	RenderMesh(meshList[GEO_QUAD], true);
-	modelStack.PopMatrix();
 	_gameObjectMananger.renderGameObjects();
-
-	
-	modelStack.PushMatrix();
-	modelStack.Translate(-20, 5, -67);
-	modelStack.Rotate(90, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "Use mouse to look around", Color(1, 0, 0));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(-20, 7, -67);
-	modelStack.Rotate(90, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "Left click to shoot", Color(1, 0, 0));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(20, 7, -73);
-	modelStack.Rotate(-90, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "W A S D- to move", Color(1, 0, 0));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(15, 11, -10);
-	modelStack.Rotate(180, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "These are items you need(dont question my logic)", Color(1, 0, 0));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 8, 130);
-	modelStack.Rotate(180, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "Proceed here to end tutorial", Color(1, 0, 0));
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 6, 130);
-	modelStack.Rotate(180, 0, 1, 0);
-	RenderText(meshList[GEO_TEXT], "Enjoy exploring", Color(1, 0, 0));
-	modelStack.PopMatrix();
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));	
-	
-	DebugCamPosition();
+	if (stage == 1) {
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+
+		if (textoffset != 2)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 2)
+			textoffset++;
+	}
+	if (stage == 2) {
+		if (textoffset < 3)
+			textoffset++;
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+
+		if (textoffset != 4)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 4)
+			textoffset++;
+	}
+	if (stage == 3) {
+		if (textoffset < 5)
+			textoffset++;
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+
+		if (textoffset != 6)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 6)
+			textoffset++;
+	}
+	if (stage == 4) {
+		if (textoffset < 7)
+			textoffset++;
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+
+		if (textoffset != 8)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 8)
+			textoffset++;
+	}
+
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 0, 0), 2, 0.5, 9));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 0, 0), 2, 0.5, 8));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 0, 0), 2, 0.5, 7));
+
 }
 
 void TScene::RenderSkybox()
@@ -457,40 +524,6 @@ void TScene::RenderSkybox()
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
-}
-
-void TScene::RenderText(Mesh* mesh, std::string text, Color color)
-{
-	if (!mesh || mesh->textureID <= 0) //Proper error check
-		return;
-
-	glDisable(GL_DEPTH_TEST);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
-	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
-	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED], 1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mesh->textureID);
-	glUniform1i(m_parameters[U_COLOR_TEXTURE], 0);
-	for (unsigned i = 0; i < text.length(); ++i)
-	{
-		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 0.3f, 0, 0); //1.0f is the spacing of each character, you may change this value
-		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-		mesh->Render((unsigned)text[i] * 6, 6);
-	}
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-	glEnable(GL_DEPTH_TEST);
-}
-
-void TScene::DebugCamPosition()
-{
-	/*RenderTextOnScreen(meshList[GEO_TEXT], "x:" + std::to_string(camera.position.x), Color(0, 1, 0), 3, .5f, .5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "y:" + std::to_string(camera.position.y), Color(0, 1, 0), 3, .5f, 1.0f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "z:" + std::to_string(camera.position.z), Color(0, 1, 0), 3, .5f, 1.5f);*/
 }
 
 void TScene::Exit()

@@ -1,5 +1,5 @@
-#ifndef TSCENE_H
-#define TSCENE_H
+#ifndef SCENELOADING_H
+#define SCENELOADING_H
 
 #include "Scene.h"
 #include "Camera4.h"
@@ -13,13 +13,13 @@
 #include "UIManager.h"
 #include "Veins.h"
 #include "EnvironmentManager.h"
-#include <fstream>
+#include "Player.h"
 
-class TScene : public Scene
+class Loading : public Scene
 {
 public:
-	TScene();
-	~TScene();
+	Loading();
+	~Loading();
 
 	virtual void Init();
 	virtual void Update(double dt);
@@ -28,15 +28,12 @@ public:
 
 private:
 	bool lightsOn;
-	int stage;
-	int textoffset;
 	Light light[2];
-	float FPS;
-	//daily cycle
-	float dailycycle;
-	void RenderSkybox();
-	//test
-	Characters player;
-	std::vector<string> tutorialtext;
+
+	float loadTime;
+
+	void RenderText(Mesh* mesh, std::string text, Color color);
+	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+
 };
 #endif
