@@ -31,7 +31,7 @@ public:
 
 	void renderTextOnScreen(UI_Text t);
 
-	void renderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
+	void renderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 
 	void renderPlayerDetails();
 private:
