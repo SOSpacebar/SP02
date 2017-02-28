@@ -77,17 +77,18 @@ void UIManager::renderMeshOnScreen(Mesh* mesh,int x, int y, int sizex, int sizey
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
 	scene_->projectionStack.PushMatrix();
-	scene_->projectionStack.LoadMatrix(ortho);
-	scene_->viewStack.PushMatrix();
-	scene_->viewStack.LoadIdentity(); //No need camera for ortho mode
-	scene_->modelStack.PushMatrix();
-	scene_->modelStack.LoadIdentity();
-	scene_->modelStack.Translate(x, y, 0);
-	scene_->modelStack.Scale(sizex, sizey, 1);
-	scene_->modelStack.Rotate(180, 0 , 1 , 0);
-	scene_->RenderMesh(mesh, false); //UI should not have light
-	scene_->projectionStack.PopMatrix();
-	scene_->viewStack.PopMatrix();
+		scene_->projectionStack.LoadMatrix(ortho);
+		scene_->viewStack.PushMatrix();
+			scene_->viewStack.LoadIdentity(); //No need camera for ortho mode
+			scene_->modelStack.PushMatrix();
+				scene_->modelStack.LoadIdentity();
+				scene_->modelStack.Translate(x, y, 0);
+				scene_->modelStack.Scale(sizex, sizey, 1);
+				scene_->modelStack.Rotate(180, 0 , 0 , 1);
+				scene_->modelStack.Rotate(-180, 0, 0, 1);
+				scene_->RenderMesh(mesh, false); //UI should not have light
+		scene_->projectionStack.PopMatrix();
+		scene_->viewStack.PopMatrix();
 	scene_->modelStack.PopMatrix();
 	glEnable(GL_DEPTH_TEST);
 }

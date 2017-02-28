@@ -16,7 +16,7 @@ Bullet::Bullet(Scene* scene, const string &name, Vector3 &pos, Vector3&box) : Ga
 	speed_ = 50;
 	bulletDirection_ = scene->camera.view;
 	startPosition = position_;
-
+	isEnemyBullet = false;
 }
 
 Bullet::Bullet(Scene* scene, const string &name, Vector3 &position, Vector3 rotation, Vector3 direction, Vector3 &box) : GameObject(scene, name, position, box)

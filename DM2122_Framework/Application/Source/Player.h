@@ -35,18 +35,4 @@ private:
 	float recoverStamina;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
