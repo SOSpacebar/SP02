@@ -108,6 +108,9 @@ void SP02::Init()
 	meshList[GEO_STAMINABAR] = MeshBuilder::GenerateQuad("stamina", Color(1, 1, 1), 1, 1);
 	meshList[GEO_STAMINABAR]->textureID = LoadTGA("Image//staminaBar.tga");
 
+	meshList[GEO_CROSSHAIR] = MeshBuilder::GenerateQuad("crosshair", Color(1, 1, 1), 1, 1);
+	meshList[GEO_CROSSHAIR]->textureID = LoadTGA("Image//Crosshair.tga");
+
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
@@ -371,6 +374,7 @@ void SP02::Update(double dt)
 		}
 	}
 
+
 	//if (Application::IsKeyPressed('Z'))
 	//{
 	//	_player.inventory_.push("Iron", 1);//player picks up 1 element iron
@@ -459,13 +463,6 @@ void SP02::Render()
 	RenderMesh(meshList[GEO_CHEST], false);
 	modelStack.PopMatrix();
 
-	//portal
-	/*modelStack.PushMatrix();
-	modelStack.Translate(0, 5, 0);
-	modelStack.Scale(.3, .3, .3);
-	RenderMesh(meshList[GEO_PORTAL], false);
-	modelStack.PopMatrix();*/
-
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Time: " + std::to_string(time), Color(0, 1, 0), 3, .5f, 13));
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
@@ -487,9 +484,11 @@ void SP02::Render()
 
 	//healthStaminaOxygen background
 	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 10, 30, 20);
-	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 10, 30, 23);
-	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 8, 30, 22);
-	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 6, 30, 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 10, _player.getHealthBar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 8, _player.getStaminabar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 6, _player.getOxygenbar(), 22);
+
+	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 28, 15, 10);
 
 	//DebugCamPosition();
 }

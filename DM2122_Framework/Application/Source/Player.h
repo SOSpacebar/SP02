@@ -15,7 +15,6 @@ public:
 
 	void setplayerstat(double, double, double);//health,oxygen,stamina
 
-
 	void updateOxygen(double);
 	void setMaxOxygen(double);
 	int getOxygen();
@@ -25,6 +24,10 @@ public:
 
 	bool isRunning;
 
+	float getOxygenbar();
+	float getHealthBar();
+	float getStaminabar();
+
 private:
 	bool lackOfOxygen;
 
@@ -33,6 +36,7 @@ private:
 	double currentOxygenValue;
 	double maxOxygenValue;
 	float recoverStamina;
+
 };
 
 #endif

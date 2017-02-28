@@ -71,7 +71,7 @@ void UIManager::renderTextOnScreen(UI_Text t)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void UIManager::renderMeshOnScreen(Mesh* mesh,int x, int y, int sizex, int sizey)
+void UIManager::renderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;

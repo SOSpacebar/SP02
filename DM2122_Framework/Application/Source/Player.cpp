@@ -84,3 +84,17 @@ void  Player::setplayerstat(double health, double oxy, double stam)//health,oxy,
 	setMaxOxygen(oxy);
 	setMaxStamina(stam);
 }
+
+float Player::getOxygenbar()
+{
+	return (currentOxygenValue / maxOxygenValue)*30;
+}
+float Player::getHealthBar()
+{
+	return (getCurrentHealth() / 10) * 3;
+}
+
+float Player::getStaminabar()
+{
+	return (getCurrentStamina() / 10) * 6;
+}

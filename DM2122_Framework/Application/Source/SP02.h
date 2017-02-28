@@ -125,6 +125,7 @@ private:
 	double count = 0;
 	float reloadTime = 0;
 	float rotateStimpak;
+	Player player;
 	//test
 	//Characters player;
 };
