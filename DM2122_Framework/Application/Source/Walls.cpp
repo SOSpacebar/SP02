@@ -45,14 +45,12 @@ bool Walls::anyInteraction()
 
 		if (distance_ < 5 && temp->getName()=="door")
 		{
-			scene_->interact = true;
 			scene_->camera.position += Vector3(90, 0, 60);
 			scene_->camera.target = scene_->camera.position + scene_->camera.view;
 			return true;
 
 		}
 	}
-
 	return false;
 }
 

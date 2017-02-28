@@ -34,7 +34,7 @@ bool Vein::anyInteraction()
 		GameObject* temp = it->second;
 		distance_ = (temp->scene_->camera.position - temp->position_).Length();
 
-		if (distance_ < 20 && scene_->interact)
+		if (distance_ < 20 && scene_->interact && temp->getName()=="ore")
 		{
 			scene_->interact = false;
 			scene_->_gameObjectMananger.remove(temp);

@@ -28,8 +28,6 @@ public:
 
 private:
 	bool lightsOn;
-	bool isPaused;
-	bool nextScene;
 	int stage;
 	int textoffset;
 	Light light[2];

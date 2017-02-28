@@ -1,9 +1,9 @@
-"E" Next >
+"Space" Next >
 Stage 1
-hi
+Movement
 Stage 2
-How is life
+Mining
 Stage 3
-its great
+Combat
 Stage 4
-cool
+upgrades
