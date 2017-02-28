@@ -251,6 +251,9 @@ void SP02::Init()
 	}
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 10, 10));
+
+
+	_player.getInstance();
 }
 
 void SP02::Update(double dt)
@@ -361,7 +364,7 @@ void SP02::Update(double dt)
 
 	if (Application::IsKeyPressed(VK_LSHIFT))
 	{
-		_player.isRunning = true;
+		_player.getInstance()->isRunning = true;
 	}
 
 	if (time <= 0)
@@ -478,9 +481,9 @@ void SP02::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
 	//Player
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
 
 	//healthStaminaOxygen background
 	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 10, 30, 20);

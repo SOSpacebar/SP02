@@ -41,7 +41,7 @@ bool Bullet::anyInteraction()
 	{
 		if (getCollider().checkHit(scene_->camera.getCollider()))
 		{
-			Player::getInstance()->updateHealth(-5);
+			Player::getInstance()->updateHealth(-1);
 			scene_->_gameObjectMananger.remove(this);
 			return true;
 		}

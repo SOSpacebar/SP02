@@ -19,82 +19,84 @@ Player::Player() : Characters(), maxOxygenValue(300)
 
 void Player::damagePlayer(double value)
 {
-	if (getCurrentHealth() > 0)
-		updateHealth(value);
+	if (getInstance()->getCurrentHealth() > 0)
+		getInstance()->updateHealth(value);
 }
 
 void Player::updateOxygen(double value)
 {
-	if (currentOxygenValue > maxOxygenValue)
+	if (getInstance()->currentOxygenValue > getInstance()->maxOxygenValue)
 		return;
 
-	if (currentOxygenValue < maxOxygenValue * 0.1)
-		lackOfOxygen = true;
+	if (getInstance()->currentOxygenValue < getInstance()->maxOxygenValue * 0.1)
+		getInstance()->lackOfOxygen = true;
 
-	currentOxygenValue += value;
+	getInstance()->currentOxygenValue += value;
 }
 
 void Player::setMaxOxygen(double value)
 {
-	maxOxygenValue = value;
+	getInstance()->maxOxygenValue = value;
 }
 
 int Player::getOxygen()
 {
-	return (int)currentOxygenValue;
+	return (int)getInstance()->currentOxygenValue;
 }
 
 int Player::getMaxOxygen()
 {
-	return (int)maxOxygenValue;
+	return (int)getInstance()->maxOxygenValue;
 }
 
 void Player::update(double dt)
 {
-	if (currentOxygenValue > 0)
-		updateOxygen(dt);
+	//cout << getInstance()->getCurrentStamina();
+
+	if (getInstance()->currentOxygenValue > 0)
+		getInstance()->updateOxygen(dt);
 
 	if (lackOfOxygen)
-		updateHealth(10 * dt);
+		getInstance()->updateHealth(10 * dt);
 
-	if (isRunning)
+	if (getInstance()->isRunning == true)
 	{
-		updateStamina(dt * 3);
+		getInstance()->updateStamina(3 * dt);
 		scene_->camera.speed_ = 45;
-		recoverStamina = 0;
-		isRunning = false;
+		getInstance()->recoverStamina = 0;
+		getInstance()->isRunning = false;
 	}
 
 	else
 	{
-		if (recoverStamina < 3)
+		if (getInstance()->recoverStamina < 3)
 		{
-			recoverStamina -= dt;
+			getInstance()->recoverStamina -= dt;
 		}
 
 		else
-			updateStamina(-dt);
+			getInstance()->updateStamina(-dt);
 
-		scene_->camera.speed_ = 30;
+		//scene_->camera.speed_ = 30;
 	}
 }
 void  Player::setplayerstat(double health, double oxy, double stam)//health,oxy,stamina
 {
-	setMaxHealth(health);
-	setMaxOxygen(oxy);
-	setMaxStamina(stam);
+	getInstance()->setMaxHealth(health);
+	getInstance()->setMaxOxygen(oxy);
+	getInstance()->setMaxStamina(stam);
 }
 
 float Player::getOxygenbar()
 {
-	return (currentOxygenValue / maxOxygenValue)*30;
+	return (getInstance()->currentOxygenValue / getInstance()->maxOxygenValue) * 30;
 }
 float Player::getHealthBar()
 {
-	return (getCurrentHealth() / 10) * 3;
+	return (getInstance()->getCurrentHealth() / 10) * 3;
 }
 
 float Player::getStaminabar()
 {
-	return (getCurrentStamina() / 10) * 6;
+	return (getInstance()->getCurrentStamina() / 10) * 6;
 }

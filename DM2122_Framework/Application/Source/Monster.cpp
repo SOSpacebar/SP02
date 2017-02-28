@@ -95,10 +95,10 @@ bool Monster::anyInteraction()
 		speed += acceleration_ * scene_->dt_;
 
 	//AI States Checker
-	if (distanceToPlayerLength > 45 && !isIdle) {
+	if (distanceToPlayerLength > 45) {
 		currentState = AI_CHASE;
 	}
-	else if (distanceToPlayerLength <= 45 && !isIdle) {
+	else if (distanceToPlayerLength <= 45) {
 		currentState = AI_ATTACK;
 	}
 	else {
