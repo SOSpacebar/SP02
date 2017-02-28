@@ -317,6 +317,7 @@ void TScene::Update(double dt)
 		Application::cantSpam = true;
 		std::cout << "Clicked" << std::endl;
 	}
+
 	dailycycle += 0.1 * dt;
 
 		camera.Update(dt);
@@ -332,7 +333,7 @@ void TScene::Update(double dt)
 		if (stage == 5)
 		{
 			_gameObjectMananger.removeAll();
-			SceneManager::instance()->SetNextScene(0);
+			SceneManager::instance()->SetNextScene(3);
 		}
 	}
 }

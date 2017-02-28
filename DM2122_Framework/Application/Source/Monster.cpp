@@ -91,8 +91,7 @@ bool Monster::anyInteraction()
 
 		if (distanceToPlayerLength <= attackDistance) {
 			if (timer >= attackTimer) {
-				//scene_->_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this->scene_, "Bullet", position_, Vector3(dirX, rotaY, 0)));
-				std::cout << "enemy pew";
+				scene_->_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMYPROJECTILE, new Bullet(this->scene_, "E_Bullet", position_, Vector3(dirX, rotaY, 0), thisDistance, Vector3(2, 2, 2)));
 				attackTimer = timer + attackInterval;
 			}
 

@@ -84,7 +84,7 @@ void UIManager::renderMeshOnScreen(Mesh* mesh,int x, int y, int sizex, int sizey
 	scene_->modelStack.LoadIdentity();
 	scene_->modelStack.Translate(x, y, 0);
 	scene_->modelStack.Scale(sizex, sizey, 1);
-	scene_->modelStack.Rotate(180, 0, 1, 0);
+	scene_->modelStack.Rotate(180, 0 , 1 , 0);
 	scene_->RenderMesh(mesh, false); //UI should not have light
 	scene_->projectionStack.PopMatrix();
 	scene_->viewStack.PopMatrix();

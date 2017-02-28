@@ -241,10 +241,10 @@ void SceneBase::Update(double dt)
 		lightsOn = true;
 	}
 
-	if (Application::IsKeyPressed(VK_F1))
+	if (Application::IsKeyPressed('F'))
 	{
 		_gameObjectMananger.removeAll();
-		SceneManager::instance()->SetNextScene(3);
+		SceneManager::instance()->SetNextScene(4);
 	}
 
 	dailycycle += 0.1 * dt;
@@ -454,7 +454,10 @@ void SceneBase::Render()
 
 	_gameObjectMananger.renderGameObjects();
 
-
+	if (camera.position.x > -25 && camera.position.x < -15 && camera.position.z <= 0 && camera.position.z >= -10)
+	{
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("PRESS F TO OPEN", Color(1, 0, 0), 2, 6, 2));
+	}
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
