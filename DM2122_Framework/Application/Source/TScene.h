@@ -27,6 +27,8 @@ public:
 	virtual void Exit();
 
 private:
+	float tsmthhappened;
+	bool bsmthhappend;
 	bool lightsOn;
 	int stage;
 	int textoffset;

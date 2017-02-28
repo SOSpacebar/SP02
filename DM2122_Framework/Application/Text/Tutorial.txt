@@ -1,9 +1,9 @@
 "Space" Next >
-Stage 1
-Movement
-Stage 2
-Mining
-Stage 3
-Combat
-Stage 4
-upgrades
+Use your mouse to look around and W,A,S,D to move.
+You can also use LShift to sprint, however that
+decreases your stamina. Head straight to continue.
+You can mine these rocks using 'E' to get materials
+to upgrade your stats, the materials you have is
+show at your left.
+Use the left mouse button to shoot bullets,
+defeat the robots to continue.

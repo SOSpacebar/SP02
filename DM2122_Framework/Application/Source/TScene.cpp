@@ -24,6 +24,9 @@ TScene::~TScene()
 void TScene::Init()
 {
 	//init text file and line
+	tsmthhappened = 0;
+	bsmthhappend = false;
+
 	string line;
 	ifstream myfile("Text/Tutorial.txt");
 	if (myfile.is_open())
@@ -353,9 +356,18 @@ void TScene::Update(double dt)
 	//		SceneManager::instance()->SetNextScene(3);
 	//	}
 	//}
-	if (Application::IsKeyPressed('E'))
+	tsmthhappened += dt;
+
+	if (bsmthhappend == true && tsmthhappened > 0.5)
+	{
+		bsmthhappend = false;
+	}
+
+	if (Application::IsKeyPressed('E') && bsmthhappend == false)
 	{
 		interact = true;
+		bsmthhappend = true;
+		tsmthhappened = 0;
 	}
 	if (camera.position.z < -90) {
 		stage = 1;
@@ -429,45 +441,45 @@ void TScene::Render()
 
 	if (stage == 1) {
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0.5, 1), 3, 1, 3));
 
-		if (textoffset != 2)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
-		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 2)
+		if (textoffset != 3)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0.5, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 3 && !bsmthhappend) {
+			bsmthhappend = true;
+			tsmthhappened = 0;
 			textoffset++;
+		}
 	}
+
 	if (stage == 2) {
-		if (textoffset < 3)
+		if (textoffset < 4)
 			textoffset++;
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
-
-		if (textoffset != 4)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
-		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 4)
-			textoffset++;
-	}
-	if (stage == 3) {
-		if (textoffset < 5)
-			textoffset++;
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0.5, 1), 3, 1, 3));
 
 		if (textoffset != 6)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
-		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 6)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0.5, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 6 && !bsmthhappend) {
+			bsmthhappend = true;
+			tsmthhappened = 0;
 			textoffset++;
+		}
 	}
-	if (stage == 4) {
+
+	if (stage == 3) {
 		if (textoffset < 7)
 			textoffset++;
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0, 1), 3, 1, 3));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0, 0.5, 1), 3, 1, 3));
 
 		if (textoffset != 8)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0, 1), 3, 19, 1));//next
-		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 8)
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0, 0.5, 1), 3, 19, 1));//next
+		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 8 && !bsmthhappend) {
+			bsmthhappend = true;
+			tsmthhappened = 0;
 			textoffset++;
+		}
 	}
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 0, 0), 2, 0.5, 9));
