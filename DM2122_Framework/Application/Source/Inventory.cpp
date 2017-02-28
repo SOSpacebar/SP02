@@ -1,6 +1,6 @@
 
 #include "Inventory.h"
-
+#include <time.h>
 
 Inventory::Inventory()//must initialize all pick up items in a container as 0
 {
@@ -11,7 +11,7 @@ Inventory::Inventory()//must initialize all pick up items in a container as 0
 	container.insert(make_pair("Steel", 0));
 	container.insert(make_pair("Coal", 0));
 	container.insert(make_pair("Cobalt", 0));
-
+	container.insert(make_pair("Scrap", 0));
 
 }
 
@@ -77,6 +77,68 @@ void Inventory::upgrade(string name,unsigned int quantity)
 
 	container.erase(name);
 	container.insert(make_pair(name, getquantity));*/
+}
+void Inventory::trade(string name,string name2, unsigned int quantity, unsigned int quantity2)
+{
+		//update inventory bought,increase
+		getquantity = (container.find(name)->second)+quantity;
+		container.erase(name);
+		container.insert(make_pair(name, getquantity));
+		//update sold
+		getquantity = (container.find(name2)->second) - quantity2;
+		container.erase(name2);
+		container.insert(make_pair(name2, getquantity));
+
+}
+void Inventory::melt(string name,unsigned int quantity,double dt)
+{
+	//update inventory ,decrease
+	getquantity = (container.find(name)->second) - quantity;
+	container.erase(name);
+	container.insert(make_pair(name, getquantity));
+
+	//srand(time(NULL));
+	gettype = rand() % container.size();
+	//container.erase(container(gettype))
+	string name2;
+	if (gettype == 0)
+	{
+		name2 = "Coal";
+		
+	}
+	else if (gettype == 1)
+	{
+		name2 = "Cobalt";
+	}
+	else if (gettype == 2)
+	{
+		name2 = "Copper";
+	}
+	else if (gettype == 3)
+	{
+		name2 = "Gold";
+	}
+	else if (gettype == 4)
+	{
+		name2 = "Iron";
+	}
+	else if (gettype == 6)
+	{
+		name2 = "Silver";
+		
+	}
+	else if (gettype == 7)
+	{
+		name2 = "Steel";
+
+	}
+	else
+	{
+		//recieve nothing
+	}
+	getquantity = (container.find(name2)->second) + quantity*10;
+	container.erase(name2);
+	container.insert(make_pair(name2, getquantity));
 }
 unsigned int Inventory::size()
 {

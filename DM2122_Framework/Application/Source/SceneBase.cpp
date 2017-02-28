@@ -26,14 +26,34 @@ void SceneBase::Init()
 	dailycycle = 0;
 	tsmthhappened = 0;
 	bsmthhappend = false;
+	//upgrade
 	WDcount = 0;
 	WAcount = 0;
 	OxyCount = 0;
 	StaCount = 0;
 	HPCount = 0;
+	//upgrade setter var
 	OX = 0;
 	HP = 0;
 	ST = 0;
+	 //trade
+	 Goldcnt=0;//1
+	 Silvercnt=0;//2
+	 Ironcnt=0;//3
+	 Steelcnt=0;//4
+	 Cobaltcnt=0;//5
+	 Coppercnt=0;//6
+	 Coalcnt=0;//7
+	 //trade cost
+	 SilverCOST=0;//2
+	 IronCOST=0;//3
+	 SteelCOST=0;//4
+	 CobaltCOST=0;//5
+	 CopperCOST=0;//6
+	 GoldCOST=0;//7
+	 //Furnace
+	 Scrapcnt = 0;
+	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_CULL_FACE);
@@ -315,101 +335,491 @@ void SceneBase::Update(double dt)
 							bsmthhappend = true;
 							tsmthhappened = 0;
 						}
+						if (Application::IsKeyPressed('L') && bsmthhappend == false)
+						{
+							_player.inventory_.push("Scrap", 1);
+							bsmthhappend = true;
+							tsmthhappened = 0;
+						}
+									if (WorkStation::Uopen)
+									{
+										Vector3 MousePos(Application::MouseXPos_, Application::MouseYPos_, 0);
+										//DECREASE
+										//bottom left point
+										//top right point
+										//interaction bool
+										//count condition
+										if (Application::mouseClicked &&
+											MousePos.x > 430 && 
+											MousePos.y > 140 && 
+											MousePos.x < 460 &&
+											MousePos.y < 160 &&
+											bsmthhappend == false &&
 
-												Vector3 MousePos(Application::MouseXPos_, Application::MouseYPos_, 0);
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 140 && MousePos.x < 460 && MousePos.y < 160 && bsmthhappend == false && WDcount> 0)
-												{
-													WDcount--;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-												}
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 170 && MousePos.x < 460 && MousePos.y < 190 && bsmthhappend == false && WAcount >0)
-												{
-													WAcount--;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-												}
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 230 && MousePos.x < 460 && MousePos.y < 250 && bsmthhappend == false &&HPCount > 0)
-												{
-													HPCount--;
-													bsmthhappend = true;
-													tsmthhappened = 0;
+											WDcount> 0)
+										{
+											WDcount--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//y+30
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 170 &&
+											MousePos.x < 460 &&
+											MousePos.y < 190 &&
+											bsmthhappend == false &&
+
+											WAcount >0)
+										{
+											WAcount--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 230 &&
+											MousePos.x < 460 &&
+											MousePos.y < 250 &&
+											bsmthhappend == false &&
+
+											HPCount > 0)
+										{
+											HPCount--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 260 &&
+											MousePos.x < 460 && 
+											MousePos.y < 280 && 
+											bsmthhappend == false &&
+
+											OxyCount > 0)
+										{
+											OxyCount--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 430 && 
+											MousePos.y > 290 && 
+											MousePos.x < 460 &&
+											MousePos.y < 310 && 
+											bsmthhappend == false &&
 											
-												}
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 260 && MousePos.x < 460 && MousePos.y < 280 && bsmthhappend == false && OxyCount > 0)
-												{
-													OxyCount--;
-													bsmthhappend = true;
-													tsmthhappened = 0;
+											StaCount>0)
+										{
+											StaCount--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//ADDING
+									    if (Application::mouseClicked 
+											&& MousePos.x > 490 &&
+											MousePos.y > 140 &&
+											MousePos.x < 520 &&
+											MousePos.y < 160 && 
+											bsmthhappend == false &&
+
+											WDcount < 9)
+										{
+											WDcount++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 490 && 
+											MousePos.y > 170 && 
+											MousePos.x < 520 &&
+											MousePos.y < 190 && 
+											bsmthhappend == false && 
 											
-												}
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 290 && MousePos.x < 460 && MousePos.y < 310 && bsmthhappend == false&&StaCount>0)
-												{
-													StaCount--;
-													bsmthhappend = true;
-													tsmthhappened = 0;
+											WAcount < 9)
+										{
+											WAcount++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked && 
+											MousePos.x > 490 && 
+											MousePos.y > 230 &&
+											MousePos.x < 520 &&
+											MousePos.y < 250 && 
+											bsmthhappend == false &&
 											
-												}
-												if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 140 && MousePos.x < 520 && MousePos.y < 160 && bsmthhappend == false&& WDcount<9)
-												{
-													WDcount++;
-													bsmthhappend = true;
-													tsmthhappened = 0;
+											HPCount < 9)
+										{
+											HPCount++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 260 &&
+											MousePos.x < 520 && 
+											MousePos.y < 280 && 
+											bsmthhappend == false && 
 											
-												}
-												if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 170 && MousePos.x < 520 && MousePos.y < 190 && bsmthhappend == false && WAcount<9)
-												{
-													WAcount++;
-													bsmthhappend = true;
-													tsmthhappened = 0;
+											OxyCount < 9)
+										{
+											OxyCount++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked && 
+											MousePos.x > 490 &&
+											MousePos.y > 290 && 
+											MousePos.x < 520 &&
+											MousePos.y < 310 &&
+											bsmthhappend == false &&
 											
-												}
-												if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 230 && MousePos.x < 520 && MousePos.y < 250 && bsmthhappend == false && HPCount<9)
-												{
-													HPCount++;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-											
-												}
-												if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 260 && MousePos.x < 520 && MousePos.y < 280 && bsmthhappend == false&&OxyCount<9)
-												{
-													OxyCount++;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-											
-												}
-												if (Application::mouseClicked && MousePos.x > 490 && MousePos.y > 290 && MousePos.x < 520 && MousePos.y < 310 && bsmthhappend == false&&StaCount<9)
-												{
-													StaCount++;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-												}
+											StaCount < 9)
+										{
+											StaCount++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
 
 
-												//cost update
-												IronCost = WDcount + OxyCount + StaCount;
-												CobaltCost = WAcount + HPCount;
-												OX = (OxyCount * 50) + (_player.getMaxOxygen());
-												HP = (HPCount * 50) + (_player.getMaxHealth());
-												ST = (StaCount * 50) + (_player.getMaxStamina());
+										//cost update
+										IronCost = WDcount + OxyCount + StaCount;
+										CobaltCost = WAcount + HPCount;
+										OX = (OxyCount * 50) + (_player.getMaxOxygen());
+										HP = (HPCount * 50) + (_player.getMaxHealth());
+										ST = (StaCount * 50) + (_player.getMaxStamina());
 
-												if (Application::mouseClicked && MousePos.x > 430 && MousePos.y > 500 && MousePos.x < 550 && MousePos.y < 520 && bsmthhappend == false)
-												{
-													std::cout << "confirm" << std::endl;
-													bsmthhappend = true;
-													tsmthhappened = 0;
-													
-													if ((IronCost <= (_player.inventory_.container.find("Iron")->second)) && (CobaltCost <= (_player.inventory_.container.find("Cobalt")->second)))
-													{
-														_player.inventory_.upgrade("Iron", IronCost);
-														_player.setplayerstat(HP, OX, ST);
-													}
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 500 && 
+											MousePos.x < 550 &&
+											MousePos.y < 520 && 
+											bsmthhappend == false)
+										{
+											std::cout << "confirm" << std::endl;
+											bsmthhappend = true;
+											tsmthhappened = 0;
 
-												}
+											if ((IronCost <= (_player.inventory_.container.find("Iron")->second)) && (CobaltCost <= (_player.inventory_.container.find("Cobalt")->second)))
+											{
+												_player.inventory_.upgrade("Iron", IronCost);
+												_player.inventory_.upgrade("Cobalt", CobaltCost);
+												_player.setplayerstat(HP, OX, ST);
+											}
 
+										}
+									}
+									if (WorkStation::Topen)
+									{
+										Vector3 MousePos(Application::MouseXPos_, Application::MouseYPos_, 0);
+										//DECREASE
+										//bottom left point
+										//top right point
+										//interaction bool
+										//count condition
+										//1
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 140 &&
+											MousePos.x < 460 &&
+											MousePos.y < 160 &&
+											bsmthhappend == false &&
+											
+											Goldcnt> 0)
+										{
+											Goldcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//y+30
+										//2
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 170 &&
+											MousePos.x < 460 &&
+											MousePos.y < 190 &&
+											bsmthhappend == false &&
 
+											Silvercnt >0)
+										{
+											Silvercnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//3
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 200 &&
+											MousePos.x < 460 &&
+											MousePos.y < 220 &&
+											bsmthhappend == false &&
+
+											Ironcnt >0)
+										{
+											Ironcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//4
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 230 &&
+											MousePos.x < 460 &&
+											MousePos.y < 250 &&
+											bsmthhappend == false &&
+
+											Steelcnt > 0)
+										{
+											Steelcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//5
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 260 &&
+											MousePos.x < 460 &&
+											MousePos.y < 280 &&
+											bsmthhappend == false &&
+
+											Cobaltcnt > 0)
+										{
+											Cobaltcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//6
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 290 &&
+											MousePos.x < 460 &&
+											MousePos.y < 310 &&
+											bsmthhappend == false &&
+
+											Coppercnt>0)
+										{
+											Coppercnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//7
+										/*if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 320 &&
+											MousePos.x < 460 &&
+											MousePos.y < 340 &&
+											bsmthhappend == false &&
+
+											Coalcnt>0)
+										{
+											Coalcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}*/
+										//ADDING
+										//x+60
+										//1
+										if (Application::mouseClicked
+											&& MousePos.x > 490 &&
+											MousePos.y > 140 &&
+											MousePos.x < 520 &&
+											MousePos.y < 160 &&
+											bsmthhappend == false &&
+
+											Goldcnt < 9)
+										{
+											Goldcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//2
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 170 &&
+											MousePos.x < 520 &&
+											MousePos.y < 190 &&
+											bsmthhappend == false &&
+
+											Silvercnt < 9)
+										{
+											Silvercnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//3
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 200 &&
+											MousePos.x < 520 &&
+											MousePos.y < 220 &&
+											bsmthhappend == false &&
+
+											Ironcnt < 9)
+										{
+											Ironcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//4
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 230 &&
+											MousePos.x < 520 &&
+											MousePos.y < 250 &&
+											bsmthhappend == false &&
+
+											Steelcnt < 9)
+										{
+											Steelcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//5
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 260 &&
+											MousePos.x < 520 &&
+											MousePos.y < 280 &&
+											bsmthhappend == false &&
+
+											Cobaltcnt < 9)
+										{
+											Cobaltcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										//6
+										if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 290 &&
+											MousePos.x < 520 &&
+											MousePos.y < 310 &&
+											bsmthhappend == false &&
+
+											Coppercnt < 9)
+										{
+											Coppercnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//7
+										/*if (Application::mouseClicked &&
+											MousePos.x > 490 &&
+											MousePos.y > 320 &&
+											MousePos.x < 520 &&
+											MousePos.y < 340 &&
+											bsmthhappend == false &&
+
+											Coalcnt < 9)
+										{
+											Coalcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}*/
+
+										GoldCOST=Goldcnt*200;//1
+										SilverCOST=Silvercnt*100;//2
+										IronCOST=Ironcnt*75;//3
+										SteelCOST=Steelcnt*50;//4
+										CobaltCOST=Cobaltcnt*20;//5
+										CopperCOST=Coppercnt*5;//6
+										
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 500 &&
+											MousePos.x < 550 &&
+											MousePos.y < 520 &&
+											bsmthhappend == false)
+										{
+											std::cout << "confirm" << std::endl;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+											if (GoldCOST <= (_player.inventory_.container.find("Silver")->second) &&
+												SilverCOST <= (_player.inventory_.container.find("Iron")->second) &&
+												IronCOST <= (_player.inventory_.container.find("Steel")->second) &&
+												SteelCOST <= (_player.inventory_.container.find("Cobalt")->second) &&
+												CobaltCOST <= (_player.inventory_.container.find("Copper")->second) &&
+												CopperCOST <= (_player.inventory_.container.find("Coal")->second))
+											{
+												_player.inventory_.trade("Copper", "Coal", Coppercnt, CopperCOST);
+												_player.inventory_.trade("Cobalt", "Copper", Cobaltcnt, CobaltCOST);
+												_player.inventory_.trade("Steel", "Cobalt", Steelcnt, SteelCOST);
+												_player.inventory_.trade("Iron", "Steel", Ironcnt, IronCOST);
+												_player.inventory_.trade("Silver", "Iron", Silvercnt, SilverCOST);
+												_player.inventory_.trade("Gold", "Silver", Goldcnt, GoldCOST);
 												
+											}
+												
+										}
+									}
+									if (WorkStation::Fopen)
+									{
+										Vector3 MousePos(Application::MouseXPos_, Application::MouseYPos_, 0);
+										//DECREASE
+										//bottom left point
+										//top right point
+										//interaction bool
+										//count condition
+										//1
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 140 &&
+											MousePos.x < 460 &&
+											MousePos.y < 160 &&
+											bsmthhappend == false &&
 
+											Scrapcnt> 0)
+										{
+											Scrapcnt--;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+										}
+										//Add
+										if (Application::mouseClicked
+											&& MousePos.x > 490 &&
+											MousePos.y > 140 &&
+											MousePos.x < 520 &&
+											MousePos.y < 160 &&
+											bsmthhappend == false &&
+
+											Scrapcnt < 9)
+										{
+											Scrapcnt++;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+										}
+										if (Application::mouseClicked &&
+											MousePos.x > 430 &&
+											MousePos.y > 500 &&
+											MousePos.x < 550 &&
+											MousePos.y < 520 &&
+											bsmthhappend == false)
+										{
+											std::cout << "confirm" << std::endl;
+											bsmthhappend = true;
+											tsmthhappened = 0;
+
+											if (Scrapcnt <= (_player.inventory_.container.find("Scrap")->second) )
+											{
+												_player.inventory_.melt("Scrap",Scrapcnt,dt);
+											}
+										}
+									}
 }
 
 void SceneBase::Render()
@@ -458,7 +868,7 @@ void SceneBase::Render()
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
@@ -467,6 +877,7 @@ void SceneBase::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 19));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 20));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1,13));
 
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
@@ -483,6 +894,38 @@ void SceneBase::Render()
 		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Trader", Color(0, 0, 0), 3, 7, 17));
 
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold:", Color(0, 0, 0), 3, 7, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver:", Color(0, 0, 0), 3, 7, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron:", Color(0, 0, 0), 3, 7, 13));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel:", Color(0, 0, 0), 3, 7, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt:", Color(0, 0, 0), 3, 7, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper:", Color(0, 0, 0), 3, 7, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal:", Color(0, 0, 0), 3, 7, 9));
+		
+		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
+		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
+
+
+		//buy
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Buy", Color(0, 0, 0), 3, 15, 17));
+		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Goldcnt) + " +", Color(0, 0, 0), 3, 15, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Silvercnt) + " +", Color(0, 0, 0), 3, 15, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Ironcnt) + " +", Color(0, 0, 0), 3, 15, 13));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Steelcnt) + " +", Color(0, 0, 0), 3, 15, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Cobaltcnt) + " +", Color(0, 0, 0), 3, 15, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coppercnt) + " +", Color(0, 0, 0), 3, 15, 10));
+		//_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coalcnt) + " +", Color(0, 0, 0), 3, 15, 9));
+		//cost
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost", Color(0, 0, 0), 3, 19, 17));
+		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(GoldCOST), Color(0, 0, 0), 3, 19, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SilverCOST), Color(0, 0, 0), 3, 19, 13));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCOST), Color(0, 0, 0), 3, 19, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SteelCOST), Color(0, 0, 0), 3, 19, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCOST), Color(0, 0, 0), 3, 19, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CopperCOST), Color(0, 0, 0), 3, 19, 9));
 	}
 
 	if (WorkStation::open && WorkStation::Fopen)
@@ -490,6 +933,36 @@ void SceneBase::Render()
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Furnace", Color(0, 0, 0), 3, 7, 17));
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap:", Color(0, 0, 0), 3, 7, 15));
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("melt scrap to get metals", Color(0, 0, 0), 3, 7, 13));
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold:", Color(0, 0, 0), 3, 7, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver:", Color(0, 0, 0), 3, 7, 9));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron:", Color(0, 0, 0), 3, 7, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel:", Color(0, 0, 0), 3, 7, 7));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt:", Color(0, 0, 0), 3, 7, 6));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper:", Color(0, 0, 0), 3, 7, 5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal:", Color(0, 0, 0), 3, 7, 4));
+
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
+		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
+
+
+		//buy
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("Melt", Color(0, 0, 0), 3, 15, 17));
+
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(0, 0, 0), 3, 15, 15));
+	
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 10));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 9));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 7));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4));
 	}
 
 	if (WorkStation::open && WorkStation::Uopen)
@@ -503,6 +976,7 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Health :", Color(0, 0, 0), 3, 7, 12));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen :", Color(0, 0, 0), 3, 7, 11));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina :", Color(0, 0, 0), 3, 7, 10));
+		
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost :", Color(0, 0, 0), 3, 7, 7));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
 		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
@@ -518,8 +992,9 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron - " + to_string(IronCost), Color(0, 0, 0), 3, 11, 7));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt - " + to_string(CobaltCost), Color(0, 0, 0), 3, 11, 6));
 
-
+		
 	}
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_) + " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 
 }
 

@@ -45,12 +45,32 @@ private:
 	int OxyCount;
 	int StaCount;
 	int HPCount;
-
+	//upgrade cost
 	int IronCost;
 	int CobaltCost;
 	//set upgrade
 	double OX;
 	double HP;
 	double ST;
+
+	//trade
+	int Goldcnt;//1
+	int Silvercnt;//2
+	int Ironcnt;//3
+	int Steelcnt;//4
+	int Cobaltcnt;//5
+	int Coppercnt;//6
+	int Coalcnt;//7
+	//trade cost
+	int GoldCOST;//1
+	int SilverCOST;//2
+	int IronCOST;//3
+	int SteelCOST;//4
+	int CobaltCOST;//5
+	int CopperCOST;//6
+	
+	//Furnace
+	int Scrapcnt;
+	
 };
 #endif
