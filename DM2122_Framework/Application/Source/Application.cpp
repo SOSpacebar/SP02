@@ -142,7 +142,7 @@ void Application::Init()
 
 void Application::Run()
 {
-	SceneManager::instance()->AddScene(new /*MainMenu*/SP02);
+	SceneManager::instance()->AddScene(new MainMenu);
 	SceneManager::instance()->AddScene(new TScene);
 	SceneManager::instance()->AddScene(new Loading);
 	SceneManager::instance()->AddScene(new SceneBase);

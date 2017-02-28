@@ -491,7 +491,7 @@ void SP02::Render()
 	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 8, _player.getStaminabar(), 22);
 	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 6, _player.getOxygenbar(), 22);
 
-	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 28, 15, 10);
+	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 27, 9, 12);
 
 	//DebugCamPosition();
 }

@@ -94,8 +94,12 @@ void SceneBase::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
-	meshList[GEO_UPGRADEUI] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 1), 1, 1);
+	meshList[GEO_UPGRADEUI] = MeshBuilder::GenerateQuad("upgradeui", Color(0.5, 0.5, 1), 1, 1);
 	meshList[GEO_UPGRADEUI]->textureID = LoadTGA("Image//upgraderUI.tga");
+	meshList[GEO_TRADINGUI] = MeshBuilder::GenerateQuad("tradingui", Color(0.5, 0.5, 1), 1, 1);
+	meshList[GEO_TRADINGUI]->textureID = LoadTGA("Image//tradingUI.tga");
+	meshList[GEO_FURNACEUI] = MeshBuilder::GenerateQuad("furnaceui", Color(0.5, 0.5, 1), 1, 1);
+	meshList[GEO_FURNACEUI]->textureID = LoadTGA("Image//furnaceUI.tga");
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
@@ -364,9 +368,9 @@ void SceneBase::Update(double dt)
 				//y+30
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 170 &&
+					MousePos.y > 180 &&
 					MousePos.x < 460 &&
-					MousePos.y < 190 &&
+					MousePos.y < 200 &&
 					bsmthhappend == false &&
 					WAcount >0)
 				{
@@ -391,9 +395,9 @@ void SceneBase::Update(double dt)
 				}
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 260 &&
+					MousePos.y > 290 &&
 					MousePos.x < 460 && 
-					MousePos.y < 280 && 
+					MousePos.y < 310 && 
 					bsmthhappend == false &&
 					OxyCount > 0)
 				{
@@ -404,9 +408,9 @@ void SceneBase::Update(double dt)
 				}
 				if (Application::mouseClicked &&
 					MousePos.x > 430 && 
-					MousePos.y > 290 && 
+					MousePos.y > 330 && 
 					MousePos.x < 460 &&
-					MousePos.y < 310 && 
+					MousePos.y < 350 && 
 					bsmthhappend == false &&
 					StaCount>0)
 				{
@@ -430,9 +434,9 @@ void SceneBase::Update(double dt)
 			
 				if (Application::mouseClicked &&
 					MousePos.x > 490 && 
-					MousePos.y > 170 && 
+					MousePos.y > 180 && 
 					MousePos.x < 520 &&
-					MousePos.y < 190 && 
+					MousePos.y < 200 && 
 					bsmthhappend == false && 
 					
 					WAcount < 9)
@@ -458,9 +462,9 @@ void SceneBase::Update(double dt)
 				}
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 260 &&
+					MousePos.y > 290 &&
 					MousePos.x < 520 && 
-					MousePos.y < 280 && 
+					MousePos.y < 310 && 
 					bsmthhappend == false && 
 					
 					OxyCount < 9)
@@ -472,9 +476,9 @@ void SceneBase::Update(double dt)
 				}
 				if (Application::mouseClicked && 
 					MousePos.x > 490 &&
-					MousePos.y > 290 && 
+					MousePos.y > 330 && 
 					MousePos.x < 520 &&
-					MousePos.y < 310 &&
+					MousePos.y < 350 &&
 					bsmthhappend == false &&
 					
 					StaCount < 9)
@@ -494,9 +498,9 @@ void SceneBase::Update(double dt)
 			
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 500 && 
+					MousePos.y > 480 && 
 					MousePos.x < 550 &&
-					MousePos.y < 520 && 
+					MousePos.y < 500 && 
 					bsmthhappend == false)
 				{
 					std::cout << "confirm" << std::endl;
@@ -523,9 +527,9 @@ void SceneBase::Update(double dt)
 				//1
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 140 &&
+					MousePos.y > 170 &&
 					MousePos.x < 460 &&
-					MousePos.y < 160 &&
+					MousePos.y < 190 &&
 					bsmthhappend == false &&
 					
 					Goldcnt> 0)
@@ -538,9 +542,9 @@ void SceneBase::Update(double dt)
 				//2
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 170 &&
+					MousePos.y > 210 &&
 					MousePos.x < 460 &&
-					MousePos.y < 190 &&
+					MousePos.y < 230 &&
 					bsmthhappend == false &&
 			
 					Silvercnt >0)
@@ -552,9 +556,9 @@ void SceneBase::Update(double dt)
 				//3
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 200 &&
+					MousePos.y > 250 &&
 					MousePos.x < 460 &&
-					MousePos.y < 220 &&
+					MousePos.y < 270 &&
 					bsmthhappend == false &&
 			
 					Ironcnt >0)
@@ -566,9 +570,9 @@ void SceneBase::Update(double dt)
 				//4
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 230 &&
+					MousePos.y > 300 &&
 					MousePos.x < 460 &&
-					MousePos.y < 250 &&
+					MousePos.y < 320 &&
 					bsmthhappend == false &&
 			
 					Steelcnt > 0)
@@ -581,9 +585,9 @@ void SceneBase::Update(double dt)
 				//5
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 260 &&
+					MousePos.y > 340 &&
 					MousePos.x < 460 &&
-					MousePos.y < 280 &&
+					MousePos.y < 360 &&
 					bsmthhappend == false &&
 			
 					Cobaltcnt > 0)
@@ -596,9 +600,9 @@ void SceneBase::Update(double dt)
 				//6
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 290 &&
+					MousePos.y > 390 &&
 					MousePos.x < 460 &&
-					MousePos.y < 310 &&
+					MousePos.y < 410 &&
 					bsmthhappend == false &&
 			
 					Coppercnt>0)
@@ -608,11 +612,11 @@ void SceneBase::Update(double dt)
 					tsmthhappened = 0;
 				}
 				//7
-				/*if (Application::mouseClicked &&
+				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 320 &&
+					MousePos.y > 430 &&
 					MousePos.x < 460 &&
-					MousePos.y < 340 &&
+					MousePos.y < 450 &&
 					bsmthhappend == false &&
 			
 					Coalcnt>0)
@@ -620,15 +624,15 @@ void SceneBase::Update(double dt)
 					Coalcnt--;
 					bsmthhappend = true;
 					tsmthhappened = 0;
-				}*/
+				}
 				//ADDING
 				//x+60
 				//1
 				if (Application::mouseClicked
 					&& MousePos.x > 490 &&
-					MousePos.y > 140 &&
+					MousePos.y > 170 &&
 					MousePos.x < 520 &&
-					MousePos.y < 160 &&
+					MousePos.y < 190 &&
 					bsmthhappend == false &&
 			
 					Goldcnt < 9)
@@ -641,9 +645,9 @@ void SceneBase::Update(double dt)
 				//2
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 170 &&
+					MousePos.y > 210 &&
 					MousePos.x < 520 &&
-					MousePos.y < 190 &&
+					MousePos.y < 230 &&
 					bsmthhappend == false &&
 			
 					Silvercnt < 9)
@@ -656,9 +660,9 @@ void SceneBase::Update(double dt)
 				//3
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 200 &&
+					MousePos.y > 250 &&
 					MousePos.x < 520 &&
-					MousePos.y < 220 &&
+					MousePos.y < 270 &&
 					bsmthhappend == false &&
 			
 					Ironcnt < 9)
@@ -670,9 +674,9 @@ void SceneBase::Update(double dt)
 				//4
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 230 &&
+					MousePos.y > 300 &&
 					MousePos.x < 520 &&
-					MousePos.y < 250 &&
+					MousePos.y < 320 &&
 					bsmthhappend == false &&
 			
 					Steelcnt < 9)
@@ -685,9 +689,9 @@ void SceneBase::Update(double dt)
 				//5
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 260 &&
+					MousePos.y > 340 &&
 					MousePos.x < 520 &&
-					MousePos.y < 280 &&
+					MousePos.y < 360 &&
 					bsmthhappend == false &&
 			
 					Cobaltcnt < 9)
@@ -700,9 +704,9 @@ void SceneBase::Update(double dt)
 				//6
 				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 290 &&
+					MousePos.y > 390 &&
 					MousePos.x < 520 &&
-					MousePos.y < 310 &&
+					MousePos.y < 410 &&
 					bsmthhappend == false &&
 			
 					Coppercnt < 9)
@@ -712,11 +716,11 @@ void SceneBase::Update(double dt)
 					tsmthhappened = 0;
 				}
 				//7
-				/*if (Application::mouseClicked &&
+				if (Application::mouseClicked &&
 					MousePos.x > 490 &&
-					MousePos.y > 320 &&
+					MousePos.y > 430 &&
 					MousePos.x < 520 &&
-					MousePos.y < 340 &&
+					MousePos.y < 450 &&
 					bsmthhappend == false &&
 			
 					Coalcnt < 9)
@@ -724,7 +728,7 @@ void SceneBase::Update(double dt)
 					Coalcnt++;
 					bsmthhappend = true;
 					tsmthhappened = 0;
-				}*/
+				}
 			
 				GoldCOST=Goldcnt*200;//1
 				SilverCOST=Silvercnt*100;//2
@@ -735,9 +739,9 @@ void SceneBase::Update(double dt)
 				
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
-					MousePos.y > 500 &&
+					MousePos.y > 480 &&
 					MousePos.x < 550 &&
-					MousePos.y < 520 &&
+					MousePos.y < 500 &&
 					bsmthhappend == false)
 				{
 					std::cout << "confirm" << std::endl;
@@ -892,112 +896,62 @@ void SceneBase::Render()
 	if (WorkStation::open && WorkStation::Topen)
 	{
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Trader", Color(0, 0, 0), 3, 7, 17));
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold:", Color(0, 0, 0), 3, 7, 15));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver:", Color(0, 0, 0), 3, 7, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron:", Color(0, 0, 0), 3, 7, 13));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel:", Color(0, 0, 0), 3, 7, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt:", Color(0, 0, 0), 3, 7, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper:", Color(0, 0, 0), 3, 7, 10));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal:", Color(0, 0, 0), 3, 7, 9));
 		
-		
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
-		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
-
+		_UIManager.renderMeshOnScreen(meshList[GEO_TRADINGUI], 40, 30, 50, 50);
 
 		//buy
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Buy", Color(0, 0, 0), 3, 15, 17));
-		
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Goldcnt) + " +", Color(0, 0, 0), 3, 15, 15));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Silvercnt) + " +", Color(0, 0, 0), 3, 15, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Ironcnt) + " +", Color(0, 0, 0), 3, 15, 13));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Steelcnt) + " +", Color(0, 0, 0), 3, 15, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Cobaltcnt) + " +", Color(0, 0, 0), 3, 15, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coppercnt) + " +", Color(0, 0, 0), 3, 15, 10));
-		//_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coalcnt) + " +", Color(0, 0, 0), 3, 15, 9));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Goldcnt) + " +", Color(0, 0, 0), 3, 15, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Silvercnt) + " +", Color(0, 0, 0), 3, 15, 12.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Ironcnt) + " +", Color(0, 0, 0), 3, 15, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Steelcnt) + " +", Color(0, 0, 0), 3, 15, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Cobaltcnt) + " +", Color(0, 0, 0), 3, 15, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coppercnt) + " +", Color(0, 0, 0), 3, 15, 6.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coalcnt) + " +", Color(0, 0, 0), 3, 15, 5));
 		//cost
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost", Color(0, 0, 0), 3, 19, 17));
-		
 		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(GoldCOST), Color(0, 0, 0), 3, 19, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SilverCOST), Color(0, 0, 0), 3, 19, 13));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCOST), Color(0, 0, 0), 3, 19, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SteelCOST), Color(0, 0, 0), 3, 19, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCOST), Color(0, 0, 0), 3, 19, 10));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CopperCOST), Color(0, 0, 0), 3, 19, 9));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SilverCOST), Color(0, 0, 0), 3, 19, 12.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCOST), Color(0, 0, 0), 3, 19, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SteelCOST), Color(0, 0, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCOST), Color(0, 0, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CopperCOST), Color(0, 0, 0), 3, 19, 6.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(Coalcnt), Color(0, 0, 0), 3, 19, 5));
 	}
 
 	if (WorkStation::open && WorkStation::Fopen)
 	{
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Furnace", Color(0, 0, 0), 3, 7, 17));
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap:", Color(0, 0, 0), 3, 7, 15));
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("melt scrap to get metals", Color(0, 0, 0), 3, 7, 13));
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold:", Color(0, 0, 0), 3, 7, 10));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver:", Color(0, 0, 0), 3, 7, 9));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron:", Color(0, 0, 0), 3, 7, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel:", Color(0, 0, 0), 3, 7, 7));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt:", Color(0, 0, 0), 3, 7, 6));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper:", Color(0, 0, 0), 3, 7, 5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal:", Color(0, 0, 0), 3, 7, 4));
-
-
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
-		//_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
-
+		
+		_UIManager.renderMeshOnScreen(meshList[GEO_FURNACEUI], 40, 30, 50, 50);
 
 		//buy
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Melt", Color(0, 0, 0), 3, 15, 17));
-
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(0, 0, 0), 3, 15, 15));
 	
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 10));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 9));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 7));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 10.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4.5));
 	}
 
 	if (WorkStation::open && WorkStation::Uopen)
 	{
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-		_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 50, 50);
-		//names
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Upgrader", Color(0, 0, 0), 3, 7, 17));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Weapon damage :", Color(0, 0, 0), 3, 7, 15));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Weapon ammo :", Color(0, 0, 0), 3, 7, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Health :", Color(0, 0, 0), 3, 7, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen :", Color(0, 0, 0), 3, 7, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina :", Color(0, 0, 0), 3, 7, 10));
-		
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Cost :", Color(0, 0, 0), 3, 7, 7));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("Confirm", Color(0, 1, 0), 3, 15, 3));
 		_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
 
-		
 		//count
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(0, 0, 0), 3, 15, 15));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(0, 0, 0), 3, 15, 13.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(0, 0, 0), 3, 15, 11)); // 12
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(0, 0, 0), 3, 15, 10)); // 11 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(0, 0, 0), 3, 15, 9)); // 10
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(0, 0, 0), 3, 15, 11.8)); // 12
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(0, 0, 0), 3, 15, 10.2)); // 11 
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(0, 0, 0), 3, 15, 8.8)); // 10
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(0, 0, 0), 3, 15, 7));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(0, 0, 0), 3, 15, 6));
-
-		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(0, 0, 0), 3, 14, 7.2));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(0, 0, 0), 3, 14, 6.2));		
 	}
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_) + " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
-
 }
 
 
