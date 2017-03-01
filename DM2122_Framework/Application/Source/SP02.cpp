@@ -581,7 +581,7 @@ void SP02::RenderSkybox()
 	//background
 	//front
 	modelStack.PushMatrix();
-	modelStack.Translate(500 , 100, 0 );
+	modelStack.Translate(499 , 100, 0 );
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_FRONT], false);
@@ -589,7 +589,7 @@ void SP02::RenderSkybox()
 
 	//back
 	modelStack.PushMatrix();
-	modelStack.Translate(-500, 100, 0);
+	modelStack.Translate(-499, 100, 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_BACK], false);
@@ -597,7 +597,7 @@ void SP02::RenderSkybox()
 
 	//right
 	modelStack.PushMatrix();
-	modelStack.Translate(0, 100, -500);
+	modelStack.Translate(0, 100, -499);
 	modelStack.Rotate(180, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_RIGHT], false);
@@ -605,7 +605,7 @@ void SP02::RenderSkybox()
 
 	//left
 	modelStack.PushMatrix();
-	modelStack.Translate(0 , 100, 500);
+	modelStack.Translate(0 , 100, 499);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
