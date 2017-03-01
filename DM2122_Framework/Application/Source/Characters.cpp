@@ -72,7 +72,7 @@ void Characters::setMaxStamina(const double newMaxStamina)
 void Characters::updateHealth(double value)
 {
 	if (health_ > maxHealth_)
-		return;
+		health_ = maxHealth_;
 
 	if (health_ <= 0)
 		return;

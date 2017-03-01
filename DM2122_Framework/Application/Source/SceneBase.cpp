@@ -252,7 +252,7 @@ void SceneBase::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, 25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,0,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-25, 10, 0), Walls::WALL_TYPE::T_DOOR, Vector3(0,-90,0), Vector3(50, 20, 50), Vector3(0, 5, 50)));//front
 
-
+	_player.getInstance()->inBase = true;
 }
 
 void SceneBase::Update(double dt)
@@ -1044,5 +1044,6 @@ void SceneBase::Exit()
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
+	_player.getInstance()->inBase = false;
 	_gameObjectMananger.removeAll();
 }

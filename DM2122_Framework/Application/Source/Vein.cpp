@@ -44,15 +44,15 @@ bool Vein::anyInteraction()
 			{
 			case Scene::GEO_COAL:
 				scene_->_player.getInstance()->inventory_.push("Coal", 1);
-				scene_->_player.getInstance()->inventory_.push("Scrape", 2);
+				scene_->_player.getInstance()->inventory_.push("Scrap", 2);
 				break;
 			case Scene::GEO_IRON:
 				scene_->_player.getInstance()->inventory_.push("Iron", 1);
-				scene_->_player.getInstance()->inventory_.push("Scrape", 2);
+				scene_->_player.getInstance()->inventory_.push("Scrap", 2);
 				break;
 			case Scene::GEO_COBALT:
 				scene_->_player.getInstance()->inventory_.push("Cobalt", 1);
-				scene_->_player.getInstance()->inventory_.push("Scrape", 2);
+				scene_->_player.getInstance()->inventory_.push("Scrap", 2);
 				break;
 			}
 			scene_->_gameObjectMananger.remove(temp);

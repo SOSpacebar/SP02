@@ -26,8 +26,8 @@ void Player::damagePlayer(double value)
 
 void Player::updateOxygen(double value)
 {
-	if (getInstance()->currentOxygenValue > getInstance()->maxOxygenValue)
-		return;
+	 if (getInstance()->currentOxygenValue > getInstance()->maxOxygenValue)
+		getInstance()->currentOxygenValue = getInstance()->maxOxygenValue;
 
 	if (getInstance()->currentOxygenValue < getInstance()->maxOxygenValue * 0.1)
 		getInstance()->lackOfOxygen = true;
@@ -52,11 +52,17 @@ int Player::getMaxOxygen()
 
 void Player::update(double dt)
 {
-	if (getInstance()->currentOxygenValue > 0)
+	if (getInstance()->currentOxygenValue > 0 && !inBase)
 		getInstance()->updateOxygen(dt * 3);
+
+	if (getInstance()->currentOxygenValue < getInstance()->maxOxygenValue && inBase)
+		getInstance()->updateOxygen(-dt * 3);
 
 	if (getInstance()->lackOfOxygen)
 		getInstance()->updateHealth(10 * dt);
+
+	if (inBase && getInstance()->getCurrentHealth() < getInstance()->getMaxHealth())
+		updateHealth(-dt * 3);
 
 	if (getInstance()->isRunning == true)
 	{

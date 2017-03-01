@@ -23,6 +23,7 @@ public:
 	void update(double);
 
 	bool isRunning;
+	bool inBase;
 
 	float getOxygenbar();
 	float getHealthBar();
