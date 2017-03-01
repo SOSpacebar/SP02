@@ -145,7 +145,7 @@ void SceneBase::Init()
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
 	Application::cantSpam = true;
-	_player.scene_ = this;
+	_player.getInstance()->scene_ = this;
 
 
 	Mtx44 projection;
@@ -307,7 +307,7 @@ void SceneBase::Update(double dt)
 		glfwSetInputMode(Application::m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		camera.Update(dt);
 		camera.getCollider().updateColliderPos(camera.position);
-		_player.update(-dt);
+		_player.getInstance()->update(-dt);
 	}
 	_gameObjectMananger.update(camera);
 
@@ -321,55 +321,55 @@ void SceneBase::Update(double dt)
 					
 	if (Application::IsKeyPressed(VK_LSHIFT))
 	{
-		_player.isRunning = true;
+		_player.getInstance()->isRunning = true;
 	}
 					
 	if (Application::IsKeyPressed('Z') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Coal", 1);
+		_player.getInstance()->inventory_.push("Coal", 1);
 					
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('X') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Iron", 1);//player picks up 1 element iron
+		_player.getInstance()->inventory_.push("Iron", 1);//player picks up 1 element iron
 							bsmthhappend = true;
 							tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('C') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Cobalt", 1);
+		_player.getInstance()->inventory_.push("Cobalt", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('V') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Gold", 1);
+		_player.getInstance()->inventory_.push("Gold", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('B') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Steel", 1);
+		_player.getInstance()->inventory_.push("Steel", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('N') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Silver", 1);
+		_player.getInstance()->inventory_.push("Silver", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('M') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Copper", 1);
+		_player.getInstance()->inventory_.push("Copper", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('L') && bsmthhappend == false)
 	{
-		_player.inventory_.push("Scrap", 1);
+		_player.getInstance()->inventory_.push("Scrap", 1);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
@@ -521,9 +521,9 @@ void SceneBase::Update(double dt)
 				//cost update
 				IronCost = WDcount + OxyCount + StaCount;
 				CobaltCost = WAcount + HPCount;
-				OX = (OxyCount * 50) + (_player.getMaxOxygen());
-				HP = (HPCount * 50) + (_player.getMaxHealth());
-				ST = (StaCount * 50) + (_player.getMaxStamina());
+				OX = (OxyCount * 50) + (_player.getInstance()->getMaxOxygen());
+				HP = (HPCount * 50) + (_player.getInstance()->getMaxHealth());
+				ST = (StaCount * 50) + (_player.getInstance()->getMaxStamina());
 			
 				if (Application::mouseClicked &&
 					MousePos.x > 430 &&
@@ -536,11 +536,11 @@ void SceneBase::Update(double dt)
 					bsmthhappend = true;
 					tsmthhappened = 0;
 			
-					if ((IronCost <= (_player.inventory_.container.find("Iron")->second)) && (CobaltCost <= (_player.inventory_.container.find("Cobalt")->second)))
+					if ((IronCost <= (_player.getInstance()->inventory_.container.find("Iron")->second)) && (CobaltCost <= (_player.getInstance()->inventory_.container.find("Cobalt")->second)))
 					{
-						_player.inventory_.upgrade("Iron", IronCost);
-						_player.inventory_.upgrade("Cobalt", CobaltCost);
-						_player.setplayerstat(HP, OX, ST);
+						_player.getInstance()->inventory_.upgrade("Iron", IronCost);
+						_player.getInstance()->inventory_.upgrade("Cobalt", CobaltCost);
+						_player.getInstance()->setplayerstat(HP, OX, ST);
 					}
 			
 				}
@@ -777,19 +777,19 @@ void SceneBase::Update(double dt)
 					bsmthhappend = true;
 					tsmthhappened = 0;
 			
-					if (GoldCOST <= (_player.inventory_.container.find("Silver")->second) &&
-						SilverCOST <= (_player.inventory_.container.find("Iron")->second) &&
-						IronCOST <= (_player.inventory_.container.find("Steel")->second) &&
-						SteelCOST <= (_player.inventory_.container.find("Cobalt")->second) &&
-						CobaltCOST <= (_player.inventory_.container.find("Copper")->second) &&
-						CopperCOST <= (_player.inventory_.container.find("Coal")->second))
+					if (GoldCOST <= (_player.getInstance()->inventory_.container.find("Silver")->second) &&
+						SilverCOST <= (_player.getInstance()->inventory_.container.find("Iron")->second) &&
+						IronCOST <= (_player.getInstance()->inventory_.container.find("Steel")->second) &&
+						SteelCOST <= (_player.getInstance()->inventory_.container.find("Cobalt")->second) &&
+						CobaltCOST <= (_player.getInstance()->inventory_.container.find("Copper")->second) &&
+						CopperCOST <= (_player.getInstance()->inventory_.container.find("Coal")->second))
 					{
-						_player.inventory_.trade("Copper", "Coal", Coppercnt, CopperCOST);
-						_player.inventory_.trade("Cobalt", "Copper", Cobaltcnt, CobaltCOST);
-						_player.inventory_.trade("Steel", "Cobalt", Steelcnt, SteelCOST);
-						_player.inventory_.trade("Iron", "Steel", Ironcnt, IronCOST);
-						_player.inventory_.trade("Silver", "Iron", Silvercnt, SilverCOST);
-						_player.inventory_.trade("Gold", "Silver", Goldcnt, GoldCOST);
+						_player.getInstance()->inventory_.trade("Copper", "Coal", Coppercnt, CopperCOST);
+						_player.getInstance()->inventory_.trade("Cobalt", "Copper", Cobaltcnt, CobaltCOST);
+						_player.getInstance()->inventory_.trade("Steel", "Cobalt", Steelcnt, SteelCOST);
+						_player.getInstance()->inventory_.trade("Iron", "Steel", Ironcnt, IronCOST);
+						_player.getInstance()->inventory_.trade("Silver", "Iron", Silvercnt, SilverCOST);
+						_player.getInstance()->inventory_.trade("Gold", "Silver", Goldcnt, GoldCOST);
 						
 					}
 						
@@ -843,9 +843,9 @@ void SceneBase::Update(double dt)
 					bsmthhappend = true;
 					tsmthhappened = 0;
 			
-					if (Scrapcnt <= (_player.inventory_.container.find("Scrap")->second) )
+					if (Scrapcnt <= (_player.getInstance()->inventory_.container.find("Scrap")->second))
 					{
-						_player.inventory_.melt("Scrap",Scrapcnt,dt);
+						_player.getInstance()->inventory_.melt("Scrap", Scrapcnt, dt);
 					}
 				}
 			}
@@ -904,14 +904,14 @@ void SceneBase::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1,13)); //scrap
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.getInstance()->inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
 
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
@@ -923,9 +923,9 @@ void SceneBase::Render()
 
 	//healthStaminaOxygen background
 	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 8, 30, 20);
-	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 8, _player.getHealthBar(), 22);
-	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getStaminabar(), 22);
-	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getOxygenbar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 8, _player.getInstance()->getHealthBar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getInstance()->getStaminabar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getInstance()->getOxygenbar(), 22);
 
 	//machine info
 	if (WorkStation::open && WorkStation::Topen)
@@ -961,13 +961,13 @@ void SceneBase::Render()
 		//buy
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(0, 0, 0), 3, 15, 15));
 	
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 10.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 9.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 10.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4.5));
 	}
 
 	if (WorkStation::open && WorkStation::Uopen)
