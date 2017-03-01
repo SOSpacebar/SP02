@@ -33,6 +33,7 @@ public:
 		GEO_TUTORIALDOOR,
 		GEO_ROOMWINDOW,
 		GEO_TEXT,
+		GEO_TEXTBOX,
 		GEO_SPACE,
 		GEO_SUN,
 		GEO_MOON,
@@ -66,6 +67,7 @@ public:
 
 		GEO_UPGRADER,
 		GEO_TRADER,
+		GEO_FURNACE,
 
 		GEO_UPGRADEUI,
 		GEO_TRADINGUI,
@@ -148,6 +150,8 @@ public:
 	static EnvironmentManager _environmentManager;
 	static monsterManager _monsterManager;
 	static Player _player;
+
+	unsigned monsterCount = 0;
 
 private:
 	

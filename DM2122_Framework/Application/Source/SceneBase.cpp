@@ -122,10 +122,13 @@ void SceneBase::Init()
 	meshList[GEO_FURNACEUI] = MeshBuilder::GenerateQuad("furnaceui", Color(0.5, 0.5, 1), 1, 1);
 	meshList[GEO_FURNACEUI]->textureID = LoadTGA("Image//furnaceUI.tga");
 
-	meshList[GEO_UPGRADER] = MeshBuilder::GenerateOBJ("trader", "OBJ//upgradeRobot.obj");
+	meshList[GEO_UPGRADER] = MeshBuilder::GenerateOBJ("upgrader", "OBJ//upgradeRobot.obj");
 	meshList[GEO_UPGRADER]->textureID = LoadTGA("Image//upgradeRobot.tga");
 	meshList[GEO_TRADER] = MeshBuilder::GenerateOBJ("trader", "OBJ//traderRobot.obj");
 	meshList[GEO_TRADER]->textureID = LoadTGA("Image//traderRobot.tga");
+	meshList[GEO_FURNACE] = MeshBuilder::GenerateOBJ("Furnace", "OBJ//traderRobot.obj");
+	meshList[GEO_FURNACE]->textureID = LoadTGA("Image//furnace.tga");
+
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");

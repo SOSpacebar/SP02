@@ -172,14 +172,14 @@ void Camera4::Update(double dt)
 		view = rotation * view;
 		target = position + view;
 	}
-	if (Application::IsKeyPressed('R'))
-	{
-		Reset();
-		if (GodMode == true)
-			std::cout << "true" << std::endl;
-		else
-			std::cout << "false" << std::endl;
-	}
+	//if (Application::IsKeyPressed('R'))
+	//{
+	//	Reset();
+	//	if (GodMode == true)
+	//		std::cout << "true" << std::endl;
+	//	else
+	//		std::cout << "false" << std::endl;
+	//}
 
 	BoundsCheck(view);
 }

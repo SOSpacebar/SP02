@@ -72,7 +72,8 @@ bool Bullet::anyInteraction()
 
 			if (distance_ < 5)
 			{
-				scene_->_gameObjectMananger.remove(temp);
+				Characters *charac = static_cast<Characters*>(temp);
+				charac->updateHealth(-50);
 				scene_->_gameObjectMananger.remove(this);
 				return true;
 			}
@@ -97,6 +98,4 @@ void Bullet::render()
 	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = false);
 	scene_->modelStack.PopMatrix();
 	scene_->modelStack.PopMatrix();
-
-
 }

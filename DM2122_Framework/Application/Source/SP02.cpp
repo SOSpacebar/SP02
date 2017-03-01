@@ -288,8 +288,11 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 	
-	dt_ = dt;    
-	time -= dt;
+	dt_ = dt;
+
+	if (monsterCount <= 0)
+		time -= dt;
+
 	rotateStimpak += (float)(20 * dt);
 	static const float LSPEED = 10.f; 
 
@@ -356,11 +359,9 @@ void SP02::Update(double dt)
 		Weapon::weaponAmmo_--;
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
 		Application::cantSpam = true;
-		std::cout << "Fire" << std::endl;
 	}
 	if (Weapon::weaponAmmo_ == 0) //reload
 	{
-		std::cout << "no ammo" << std::endl;
 		Application::mouseClicked = false;
 		reloadTime += (float)(1 * dt);
 		if (reloadTime > 2)
@@ -396,8 +397,9 @@ void SP02::Update(double dt)
 
 	if (time <= 0)
 	{
+		std::cout << monsterCount;
 		SceneManager::instance()->SetNextScene(3);
-		time = 30;
+		time = 10;
 		if (count <2)
 		{
 			count++;
@@ -568,7 +570,7 @@ void SP02::RenderSkybox()
 	//background
 	//front
 	modelStack.PushMatrix();
-	modelStack.Translate(500 , 100, 0 );
+	modelStack.Translate(499 , 100, 0 );
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_FRONT], false);
@@ -576,7 +578,7 @@ void SP02::RenderSkybox()
 
 	//back
 	modelStack.PushMatrix();
-	modelStack.Translate(-500, 100, 0);
+	modelStack.Translate(-499, 100, 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_BACK], false);
@@ -584,7 +586,7 @@ void SP02::RenderSkybox()
 
 	//right
 	modelStack.PushMatrix();
-	modelStack.Translate(0, 100, -500);
+	modelStack.Translate(0, 100, -499);
 	modelStack.Rotate(180, 0, 1, 0);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_RIGHT], false);
@@ -592,7 +594,7 @@ void SP02::RenderSkybox()
 
 	//left
 	modelStack.PushMatrix();
-	modelStack.Translate(0 , 100, 500);
+	modelStack.Translate(0 , 100, 499);
 	modelStack.Scale(1000, 200, 1000);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
