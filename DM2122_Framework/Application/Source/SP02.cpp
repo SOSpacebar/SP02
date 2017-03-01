@@ -72,6 +72,18 @@ void SP02::Init()
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
+	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1, 1);
+	meshList[GEO_FRONT]->textureID = LoadTGA("Image//frontDark.tga");
+	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1, 1);
+	meshList[GEO_BACK]->textureID = LoadTGA("Image//backDark.tga");
+	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1, 1);
+	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottomDark.tga");
+	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1, 1);
+	meshList[GEO_TOP]->textureID = LoadTGA("Image//topDark.tga");
+	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1, 1);
+	meshList[GEO_LEFT]->textureID = LoadTGA("Image//leftDark.tga");
+	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1, 1);
+	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//rightDark.tga");
 
 	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
 	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
@@ -564,6 +576,38 @@ void SP02::RenderSkybox()
 	modelStack.Scale(2000, 2000, 2000);
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	//background
+	//front
+	modelStack.PushMatrix();
+	modelStack.Translate(500 , 100, 0 );
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_FRONT], false);
+	modelStack.PopMatrix();
+
+	//back
+	modelStack.PushMatrix();
+	modelStack.Translate(-500, 100, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_BACK], false);
+	modelStack.PopMatrix();
+
+	//right
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 100, -500);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_RIGHT], false);
+	modelStack.PopMatrix();
+
+	//left
+	modelStack.PushMatrix();
+	modelStack.Translate(0 , 100, 500);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 }
 
