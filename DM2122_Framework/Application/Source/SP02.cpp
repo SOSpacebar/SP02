@@ -472,24 +472,24 @@ void SP02::Render()
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 12));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 13));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 16));
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
 	//Player
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 2));
 
 	//healthStaminaOxygen background
-	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 10, 30, 20);
-	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 10, _player.getHealthBar(), 22);
-	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 8, _player.getStaminabar(), 22);
-	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 6, _player.getOxygenbar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 8, 30, 20);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 8, _player.getHealthBar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getStaminabar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getOxygenbar(), 22);
 
 	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 27, 9, 12);
 

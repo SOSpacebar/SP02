@@ -114,6 +114,15 @@ void TScene::Init()
 	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
 	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
 
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND] = MeshBuilder::GenerateQuad("uibackground", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND]->textureID = LoadTGA("Image//uiBackground.tga");
+	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateQuad("health", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHBAR]->textureID = LoadTGA("Image//healthBar.tga");
+	meshList[GEO_OXYGENBAR] = MeshBuilder::GenerateQuad("oxygen", Color(1, 1, 1), 1, 1);
+	meshList[GEO_OXYGENBAR]->textureID = LoadTGA("Image//oxygenBar.tga");
+	meshList[GEO_STAMINABAR] = MeshBuilder::GenerateQuad("stamina", Color(1, 1, 1), 1, 1);
+	meshList[GEO_STAMINABAR]->textureID = LoadTGA("Image//staminaBar.tga");
+
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
 	Scene::_UIManager = _UI;
@@ -490,9 +499,16 @@ void TScene::Render()
 		}
 	}
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getCurrentHealth()) + " / " + std::to_string(_player.getMaxHealth()), Color(1, 0, 0), 2, 0.5, 9));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getCurrentStamina()) + " / " + std::to_string(_player.getCurrentStamina()), Color(1, 0, 0), 2, 0.5, 8));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getOxygen()) + " / " + std::to_string(_player.getMaxOxygen()), Color(1, 0, 0), 2, 0.5, 7));
+	//Player
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 2));
+
+	//healthStaminaOxygen background
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 8, 30, 20);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 8, _player.getHealthBar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getStaminabar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getOxygenbar(), 22);
 
 }
 
