@@ -67,6 +67,7 @@ public:
 
 		GEO_UPGRADER,
 		GEO_TRADER,
+		GEO_FURNACE,
 
 		GEO_UPGRADEUI,
 		GEO_TRADINGUI,
@@ -149,6 +150,8 @@ public:
 	static EnvironmentManager _environmentManager;
 	static monsterManager _monsterManager;
 	static Player _player;
+
+	unsigned monsterCount = 0;
 
 private:
 	

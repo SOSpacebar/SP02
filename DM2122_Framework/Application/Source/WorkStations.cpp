@@ -16,7 +16,7 @@ WorkStation::WorkStation(Scene* scene, const string& name, Vector3& pos, STATION
 	}
 	if (station == T_FURNACE)
 	{
-		g_type = Scene::GEO_CUBE;
+		g_type = Scene::GEO_FURNACE;
 	}
 	if (station == T_UPGRADE)
 	{

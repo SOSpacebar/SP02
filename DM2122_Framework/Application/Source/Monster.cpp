@@ -38,6 +38,8 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
 	this->getCollider().setCollider(pos, boxSize);
 	timer = 0;
+
+	scene_->monsterCount++;
 }
 
 Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE monster, bool idle) : Characters(scene, name, pos)
@@ -70,6 +72,8 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 	timer = 0;
 
 	isIdle = idle;
+
+	scene_->monsterCount++;
 }
 
 bool Monster::anyInteraction()
@@ -154,7 +158,8 @@ bool Monster::anyInteraction()
 	if (getCurrentHealth() <= 0)
 	{
 		scene_->_gameObjectMananger.remove(this);
-		std::cout << "dead";
+		//scene_->monsterCount++;
+		
 		return true;
 	}
 
@@ -167,6 +172,7 @@ Monster::~Monster()
 	//if (nearestMonsterPos == &position_) {
 	//	nearestMonsterPos = &Vector3(0, 0, 0);
 	//}
+	scene_->monsterCount--;
 }
 
 void Monster::setDamage(int att)
