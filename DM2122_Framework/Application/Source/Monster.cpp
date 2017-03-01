@@ -187,6 +187,6 @@ void Monster::render()
 	scene_->modelStack.Rotate(rotaY, 0, 1, 0);
 	scene_->modelStack.Rotate(rotaZ, 0, 0, 1);
 	scene_->modelStack.Scale(scale, scale, scale);
-	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = false);
+	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = true);
 	scene_->modelStack.PopMatrix();
 }
