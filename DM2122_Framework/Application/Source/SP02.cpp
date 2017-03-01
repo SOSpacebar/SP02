@@ -410,8 +410,6 @@ void SP02::Update(double dt)
 	{
 		SceneManager::instance()->SetNextScene(5);
 	}
-
-	std::cout << "base: " << _player.getInstance()->inBase;
 }
 
 void SP02::Render()

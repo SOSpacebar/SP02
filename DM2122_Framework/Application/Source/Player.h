@@ -15,6 +15,8 @@ public:
 
 	void setplayerstat(double, double, double);//health,oxygen,stamina
 
+	virtual void setDefault();
+
 	void updateOxygen(double);
 	void setMaxOxygen(double);
 	int getOxygen();

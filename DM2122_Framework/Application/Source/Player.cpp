@@ -85,7 +85,7 @@ void Player::update(double dt)
 		scene_->camera.speed_ = 30;
 	}
 }
-void  Player::setplayerstat(double health, double oxy, double stam)//health,oxy,stamina
+void Player::setplayerstat(double health, double oxy, double stam)//health,oxy,stamina
 {
 	getInstance()->setMaxHealth(health);
 	getInstance()->setMaxOxygen(oxy);
@@ -104,4 +104,14 @@ float Player::getHealthBar()
 float Player::getStaminabar()
 {
 	return (getInstance()->getCurrentStamina() / getInstance()->maxStamina_) * 30;
+}
+
+void Player::setDefault()
+{
+	this->maxHealth_ = 100;
+	this->maxStamina_ = 50;
+	this->health_ = maxHealth_;
+	this->stamina_ = maxStamina_;
+	this->maxOxygenValue = 300;
+	this->currentOxygenValue = maxOxygenValue;
 }
