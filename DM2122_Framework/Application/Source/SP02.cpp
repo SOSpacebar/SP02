@@ -497,6 +497,7 @@ void SP02::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 3));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen  : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 2));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Ammo :" + std::to_string(Weapon::weaponAmmo_), Color(1, 1, 0), 2, 35, 2));
 
 	//healthStaminaOxygen background
 	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 8, 30, 20);
