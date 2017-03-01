@@ -68,14 +68,14 @@ void TScene::Init()
 
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
 	meshList[GEO_QUAD]->textureID = LoadTGA("Image//Tscene-walls.tga");
-	meshList[GEO_QUAD]->material.kAmbient.Set(.2f, .2f, .2f);
+	meshList[GEO_QUAD]->material.kAmbient.Set(.5f, .5f, .5f);
 	meshList[GEO_QUAD]->material.kDiffuse.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_QUAD]->material.kSpecular.Set(0.2f, 0.2f, 0.2f);
-	meshList[GEO_QUAD]->material.kShininess = 1.f;
+	meshList[GEO_QUAD]->material.kShininess = 3.f;
 
 	meshList[GEO_TUTORIALDOOR] = MeshBuilder::GenerateQuad("door", Color(1, 1, 1), 1, 1);
 	meshList[GEO_TUTORIALDOOR]->textureID = LoadTGA("Image//door.tga");
-	meshList[GEO_TUTORIALDOOR]->material.kAmbient.Set(.2f, .2f, .2f);
+	meshList[GEO_TUTORIALDOOR]->material.kAmbient.Set(.5f, .5f, .5f);
 	meshList[GEO_TUTORIALDOOR]->material.kDiffuse.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_TUTORIALDOOR]->material.kSpecular.Set(0.2f, 0.2f, 0.2f);
 	meshList[GEO_TUTORIALDOOR]->material.kShininess = 1.f;
@@ -124,7 +124,7 @@ void TScene::Init()
 	projectionStack.LoadMatrix(projection);
 
 	light[0].type = Light::LIGHT_POINT;
-	light[0].position.Set(25, 20, -115);
+	light[0].position.Set(25, 19, -115);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 1;
 	light[0].kC = 1.f;
@@ -136,9 +136,9 @@ void TScene::Init()
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[1].type = Light::LIGHT_POINT;
-	light[1].position.Set(-25, 20, -115);
+	light[1].position.Set(-25, 19, -115);
 	light[1].color.Set(1, 1, 1);
-	light[1].power = 1.0f;
+	light[1].power = 1.f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
 	light[1].kQ = 0.001f;
