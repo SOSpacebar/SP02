@@ -400,7 +400,7 @@ void SP02::Update(double dt)
 		std::cout << monsterCount;
 		SceneManager::instance()->SetNextScene(3);
 		time = 10;
-		if (count <2)
+		if (count <5)
 		{
 			count++;
 		}

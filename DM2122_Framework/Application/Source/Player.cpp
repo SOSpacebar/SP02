@@ -59,7 +59,7 @@ void Player::update(double dt)
 		getInstance()->updateOxygen(-dt * 3);
 
 	if (getInstance()->lackOfOxygen)
-		getInstance()->updateHealth(10 * dt);
+		getInstance()->updateHealth(3 * dt);
 
 	if (inBase && getInstance()->getCurrentHealth() < getInstance()->getMaxHealth())
 		updateHealth(-dt * 3);

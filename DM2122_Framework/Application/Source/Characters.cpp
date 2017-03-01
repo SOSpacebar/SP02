@@ -74,9 +74,6 @@ void Characters::updateHealth(double value)
 	if (health_ > maxHealth_)
 		health_ = maxHealth_;
 
-	if (health_ <= 0)
-		return;
-
 	this->health_ += value;
 }
 
