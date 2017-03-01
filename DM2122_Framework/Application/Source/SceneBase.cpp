@@ -938,21 +938,21 @@ void SceneBase::Render()
 		_UIManager.renderMeshOnScreen(meshList[GEO_TRADINGUI], 40, 30, 50, 50);
 
 		//buy
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Goldcnt) + " +", Color(0, 0, 0), 3, 15, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Silvercnt) + " +", Color(0, 0, 0), 3, 15, 12.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Ironcnt) + " +", Color(0, 0, 0), 3, 15, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Steelcnt) + " +", Color(0, 0, 0), 3, 15, 9.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Cobaltcnt) + " +", Color(0, 0, 0), 3, 15, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coppercnt) + " +", Color(0, 0, 0), 3, 15, 6.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coalcnt) + " +", Color(0, 0, 0), 3, 15, 5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Goldcnt) + " +", Color(1, 1, 0), 3, 15, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Silvercnt) + " +", Color(1, 1, 0), 3, 15, 12.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Ironcnt) + " +", Color(1, 1, 0), 3, 15, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Steelcnt) + " +", Color(1, 1, 0), 3, 15, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Cobaltcnt) + " +", Color(1, 1, 0), 3, 15, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coppercnt) + " +", Color(1, 1, 0), 3, 15, 6.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Coalcnt) + " +", Color(1, 1, 0), 3, 15, 5));
 		//cost
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(GoldCOST), Color(0, 0, 0), 3, 19, 14));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SilverCOST), Color(0, 0, 0), 3, 19, 12.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCOST), Color(0, 0, 0), 3, 19, 11));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SteelCOST), Color(0, 0, 0), 3, 19, 9.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCOST), Color(0, 0, 0), 3, 19, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CopperCOST), Color(0, 0, 0), 3, 19, 6.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(Coalcnt), Color(0, 0, 0), 3, 19, 5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(GoldCOST), Color(1, 1, 0), 3, 19, 14));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SilverCOST), Color(1, 1, 0), 3, 19, 12.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCOST), Color(1, 1, 0), 3, 19, 11));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(SteelCOST), Color(1, 1, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCOST), Color(1, 1, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CopperCOST), Color(1, 1, 0), 3, 19, 6.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(Coalcnt), Color(1, 1, 0), 3, 19, 5));
 	}
 
 	if (WorkStation::open && WorkStation::Fopen)
@@ -962,15 +962,15 @@ void SceneBase::Render()
 		_UIManager.renderMeshOnScreen(meshList[GEO_FURNACEUI], 40, 30, 50, 50);
 
 		//buy
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(0, 0, 0), 3, 15, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(1, 1, 0), 3, 15, 15));
 	
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(0, 0, 0), 3, 19, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(0, 0, 0), 3, 19, 10.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(0, 0, 0), 3, 19, 9.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(0, 0, 0), 3, 19, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(0, 0, 0), 3, 19, 6.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(0, 0, 0), 3, 19, 5.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(0, 0, 0), 3, 19, 4.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 3, 19, 12));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 3, 19, 10.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 3, 19, 8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 3, 19, 6.8));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 3, 19, 5.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 3, 19, 4.5));
 	}
 
 	if (WorkStation::open && WorkStation::Uopen)
@@ -980,14 +980,14 @@ void SceneBase::Render()
 		_UIManager.renderMeshOnScreen(meshList[GEO_UPGRADEUI], 40, 30, 50, 50);
 
 		//count
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(0, 0, 0), 3, 15, 15));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(0, 0, 0), 3, 15, 13.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(0, 0, 0), 3, 15, 11.8)); // 12
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(0, 0, 0), 3, 15, 10.2)); // 11 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(0, 0, 0), 3, 15, 8.8)); // 10
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(1, 1, 0), 3, 15, 15));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(1, 1, 0), 3, 15, 13.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(1, 1, 0), 3, 15, 11.8)); // 12
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(1, 1, 0), 3, 15, 10.2)); // 11 
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(1, 1, 0), 3, 15, 8.8)); // 10
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(0, 0, 0), 3, 14, 7.2));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(0, 0, 0), 3, 14, 6.2));		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(1, 1, 0), 3, 14, 7.2));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(1, 1, 0), 3, 14, 6.2));		
 	}
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_) + " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 }
