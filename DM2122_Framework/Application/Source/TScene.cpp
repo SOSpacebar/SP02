@@ -517,6 +517,15 @@ void TScene::Render()
 
 	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 27, 9, 12);
 
+	//inventory
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.getInstance()->inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
 
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
