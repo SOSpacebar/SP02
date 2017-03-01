@@ -375,7 +375,7 @@ void TScene::Update(double dt)
 	camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
-	//_player.update(-dt);
+	_player.update(-dt);
 	tsmthhappened += dt;
 
 	if (bsmthhappend == true && tsmthhappened > 0.25)
