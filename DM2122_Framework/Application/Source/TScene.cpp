@@ -34,7 +34,6 @@ void TScene::Init()
 		while (getline(myfile, line))
 		{
 			tutorialtext.push_back(line);
-			std::cout << line << '\n';
 		}
 		myfile.close();
 	}
@@ -66,24 +65,35 @@ void TScene::Init()
 
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1);
+
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
 	meshList[GEO_QUAD]->textureID = LoadTGA("Image//Tscene-walls.tga");
-	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.545098f, 0, 0), 0.5f, 0.5f, 0.5f);
-	meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("blade", Color(1, 0, 1), 16, 1, 1);
-	meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
-	meshList[GEO_ROOM]->textureID = LoadTGA("Image//room.tga");
-	meshList[GEO_ROOMDOOR] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
-	meshList[GEO_ROOMDOOR]->textureID = LoadTGA("Image//roomdoor.tga");
+	meshList[GEO_QUAD]->material.kAmbient.Set(.2f, .2f, .2f);
+	meshList[GEO_QUAD]->material.kDiffuse.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_QUAD]->material.kSpecular.Set(0.2f, 0.2f, 0.2f);
+	meshList[GEO_QUAD]->material.kShininess = 1.f;
+
 	meshList[GEO_TUTORIALDOOR] = MeshBuilder::GenerateQuad("door", Color(1, 1, 1), 1, 1);
 	meshList[GEO_TUTORIALDOOR]->textureID = LoadTGA("Image//door.tga");
+	meshList[GEO_TUTORIALDOOR]->material.kAmbient.Set(.2f, .2f, .2f);
+	meshList[GEO_TUTORIALDOOR]->material.kDiffuse.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_TUTORIALDOOR]->material.kSpecular.Set(0.2f, 0.2f, 0.2f);
+	meshList[GEO_TUTORIALDOOR]->material.kShininess = 1.f;
+
 	meshList[GEO_SPACE] = MeshBuilder::GenerateQuad("space", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SPACE]->textureID = LoadTGA("Image//Space.tga");
 	meshList[GEO_SUN] = MeshBuilder::GenerateQuad("sun", Color(1, 1, 1), 1, 1);
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
+
 	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
 	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_BLASTER]->material.kAmbient.Set(.5f, .5f, .5f);
+	meshList[GEO_BLASTER]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_BLASTER]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_BLASTER]->material.kShininess = 1.f;
+
 	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
 	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
 
@@ -113,8 +123,8 @@ void TScene::Init()
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
 	projectionStack.LoadMatrix(projection);
 
-	light[0].type = Light::LIGHT_SPOT;
-	light[0].position.Set(0, 20, 0);
+	light[0].type = Light::LIGHT_POINT;
+	light[0].position.Set(25, 20, -115);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 1;
 	light[0].kC = 1.f;
@@ -126,8 +136,8 @@ void TScene::Init()
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[1].type = Light::LIGHT_POINT;
-	light[1].position.Set(0, 0, 0);
-	light[1].color.Set(1, 0, 1);
+	light[1].position.Set(-25, 20, -115);
+	light[1].color.Set(1, 1, 1);
 	light[1].power = 1.0f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
@@ -336,7 +346,6 @@ void TScene::Update(double dt)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_PLAYERPROJECTILE, new Bullet(this, "Bullet", Vector3(camera.position.x, camera.position.y, camera.position.z), Vector3(4, 4, 4)));
 		Application::cantSpam = true;
-		std::cout << "Clicked" << std::endl;
 	}
 
 	dailycycle += 0.1 * dt;
@@ -346,16 +355,6 @@ void TScene::Update(double dt)
 	_gameObjectMananger.update(camera);
 	_player.update(-dt);
 
-	//if (interact == true)
-	//{
-
-	//	interact = false;
-	//	if (stage == 5)
-	//	{
-	//		_gameObjectMananger.removeAll();
-	//		SceneManager::instance()->SetNextScene(3);
-	//	}
-	//}
 	tsmthhappened += dt;
 
 	if (bsmthhappend == true && tsmthhappened > 0.5)
@@ -374,17 +373,21 @@ void TScene::Update(double dt)
 	}
 	else if (camera.position.z < -30) {
 		stage = 2;
+		light[0].position.z = -55;
+		light[1].position.z = -55;
+
 	}
 	else if (camera.position.z < 30) {
 		stage = 3;
+		light[0].position.z = 5;
+		light[1].position.z = 5;
+
 	}
 	else if (camera.position.z < 90) {
 		stage = 4;
 		_gameObjectMananger.removeAll();
 		SceneManager::instance()->SetNextScene(3);
 	}
-	//else if (camera.position.z < 150) {
-
 }
 
 void TScene::Render()
@@ -422,6 +425,11 @@ void TScene::Render()
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PushMatrix();
 	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
 	RenderMesh(meshList[GEO_LIGHTBALL], false);
 	modelStack.PopMatrix();
 

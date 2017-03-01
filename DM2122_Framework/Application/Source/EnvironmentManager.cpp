@@ -61,10 +61,5 @@ void EnvironmentManager::initRandPos(ENVIRONMENT_TYPE oreType, int maxOres, Vect
 
 		}
 	}
-
-	for (int i = 0; i < orePos.size(); i++) //checking if it stores values into vector
-		std::cout << orePos[i] << " ore " <<oreRota[i]<<"rota" << std::endl;
-	std::cout << orePos.size() << std::endl;
-
 }
 

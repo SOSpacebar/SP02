@@ -24,7 +24,7 @@ void Weapon::render()//render this on hand
 	scene_->modelStack.Rotate(90, 1, 0, 0);
 	scene_->modelStack.Scale (0.03, 0.03, 0.03);
 
-	scene_->RenderMesh(scene_->meshList[g_type], lightEnable);
+	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = true);
 	scene_->modelStack.PopMatrix();
 	scene_->modelStack.PopMatrix();
 }
