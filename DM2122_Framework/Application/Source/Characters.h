@@ -31,9 +31,11 @@ public:
 	virtual void render();
 	//add on inventory, combat, movement when done
 	Inventory inventory_;
-private:
 
 	double health_, maxHealth_, stamina_, maxStamina_;
+private:
+
+	
 	
 };
 

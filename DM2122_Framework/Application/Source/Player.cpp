@@ -92,10 +92,10 @@ float Player::getOxygenbar()
 }
 float Player::getHealthBar()
 {
-	return (getInstance()->getCurrentHealth() / 10) * 3;
+	return (getInstance()->getCurrentHealth() / getInstance()->maxHealth_) * 30;
 }
 
 float Player::getStaminabar()
 {
-	return (getInstance()->getCurrentStamina() / 10) * 6;
+	return (getInstance()->getCurrentStamina() / getInstance()->maxStamina_) * 30;
 }
