@@ -52,9 +52,14 @@ void SP02::Init()
 	glBindVertexArray(m_vertexArrayID);
 
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
-	meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1);
-	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1, 1);
-	meshList[GEO_QUAD]->textureID = LoadTGA("Image//snowGround.tga");
+	//meshList[GEO_LIGHTBALL] = MeshBuilder::GenerateSphere("lightball", Color(1, 1, 1), 18, 36, 1);
+	meshList[GEO_QUAD] = MeshBuilder::GenerateMultipleQuad("quad", Color(1, 1, 1), 1, 1,50);
+	meshList[GEO_QUAD]->textureID = LoadTGA("Image//Ground.tga");
+	meshList[GEO_QUAD]->material.kAmbient.Set(.1f, .1f, .1f);
+	meshList[GEO_QUAD]->material.kDiffuse.Set(0.9f, 0.9f, 0.9f);
+	meshList[GEO_QUAD]->material.kSpecular.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_QUAD]->material.kShininess = 1.f;
+
 	meshList[GEO_CUBE] = MeshBuilder::GenerateCube("cube", Color(0.545098f, 0, 0), 0.5f, 0.5f, 0.5f);
 	meshList[GEO_CYLINDER] = MeshBuilder::GenerateCylinder("blade", Color(1, 0, 1), 16, 1, 1);
 	meshList[GEO_ROOM] = MeshBuilder::GenerateQuad("Base", Color(1, 1, 1), 1, 1);
@@ -67,25 +72,6 @@ void SP02::Init()
 	meshList[GEO_SUN]->textureID = LoadTGA("Image//SpaceSun.tga");
 	meshList[GEO_MOON] = MeshBuilder::GenerateQuad("moon", Color(1, 1, 1), 1, 1);
 	meshList[GEO_MOON]->textureID = LoadTGA("Image//SpaceMoon.tga");
-	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
-	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
-	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
-	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
-
-	meshList[GEO_CHEST] = MeshBuilder::GenerateOBJ("chest", "OBJ//Chest.obj");
-	meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
-	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
-	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
-	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
-	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
-	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
-	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
-	//meshList[GEO_PORTAL] = MeshBuilder::GenerateOBJ("portal", "OBJ//Portal.obj");
-	//meshList[GEO_PORTAL]->textureID = LoadTGA("Image//Portal.tga");
-	
-	/*meshList[GEO_GROUND] = MeshBuilder::GenerateQuad("ground,",Color(1, 1, 1),1,1);
-	meshList[GEO_GROUND]->textureID = LoadTGA("Image//rockGround.tga");*/
-
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1, 1);
 	meshList[GEO_FRONT]->textureID = LoadTGA("Image//frontDark.tga");
 	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1, 1);
@@ -98,6 +84,35 @@ void SP02::Init()
 	meshList[GEO_LEFT]->textureID = LoadTGA("Image//leftDark.tga");
 	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1, 1);
 	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//rightDark.tga");
+
+	meshList[GEO_BLASTER] = MeshBuilder::GenerateOBJ("blaster", "OBJ//blaster.obj");
+	meshList[GEO_BLASTER]->textureID = LoadTGA("Image//blasterblue.tga");
+	meshList[GEO_BLASTER]->material.kAmbient.Set(.5f, .5f, .5f);
+	meshList[GEO_BLASTER]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_BLASTER]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_BLASTER]->material.kShininess = 1.f;
+
+	meshList[GEO_LASERPROJ] = MeshBuilder::GenerateOBJ("laserProj", "OBJ//laserProjectile.obj");
+	meshList[GEO_LASERPROJ]->textureID = LoadTGA("Image//laserProjectileRed.tga");
+
+	meshList[GEO_CHEST] = MeshBuilder::GenerateOBJ("chest", "OBJ//Chest.obj");
+	meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
+	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
+	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
+	meshList[GEO_ALIENPROBE]->material.kAmbient.Set(1.f, 1.f, 1.f);
+	meshList[GEO_ALIENPROBE]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_ALIENPROBE]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_ALIENPROBE]->material.kShininess = 1.f;
+
+	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
+	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
+	meshList[GEO_BEHOLDER]->material.kAmbient.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BEHOLDER]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_BEHOLDER]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_BEHOLDER]->material.kShininess = 1.f;
+
+	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
+	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
 
 	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND] = MeshBuilder::GenerateQuad("uibackground", Color(1, 1, 1), 1, 1);
 	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND]->textureID = LoadTGA("Image//uiBackground.tga");
@@ -117,12 +132,24 @@ void SP02::Init()
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
+	meshList[GEO_COAL]->material.kAmbient.Set(.1f, .1f, .1f);
+	meshList[GEO_COAL]->material.kDiffuse.Set(0.9f, 0.9f, 0.9f);
+	meshList[GEO_COAL]->material.kSpecular.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_COAL]->material.kShininess = 1.f;
 
 	meshList[GEO_IRON] = MeshBuilder::GenerateOBJ("iron", "OBJ//iron.obj");
 	meshList[GEO_IRON]->textureID = LoadTGA("Image//iron.tga");
+	meshList[GEO_IRON]->material.kAmbient.Set(.1f, .1f, .1f);
+	meshList[GEO_IRON]->material.kDiffuse.Set(0.9f, 0.9f, 0.9f);
+	meshList[GEO_IRON]->material.kSpecular.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_IRON]->material.kShininess = 1.f;
 
 	meshList[GEO_COBALT] = MeshBuilder::GenerateOBJ("cobalt", "OBJ//cobalt.obj");
 	meshList[GEO_COBALT]->textureID = LoadTGA("Image//cobalt.tga");
+	meshList[GEO_COBALT]->material.kAmbient.Set(.1f, .1f, .1f);
+	meshList[GEO_COBALT]->material.kDiffuse.Set(0.9f, 0.9f, 0.9f);
+	meshList[GEO_COBALT]->material.kSpecular.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_COBALT]->material.kShininess = 1.f;
 
 	//For UI assign(Make sure its after meshList)
 	UIManager _UI(this);
@@ -137,10 +164,10 @@ void SP02::Init()
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
 	projectionStack.LoadMatrix(projection);
 
-	light[0].type = Light::LIGHT_SPOT;
+	light[0].type = Light::LIGHT_DIRECTIONAL;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
-	light[0].power = 1;
+	light[0].power = 0.3;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -150,8 +177,8 @@ void SP02::Init()
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	light[1].type = Light::LIGHT_POINT;
-	light[1].position.Set(0, 0, 0);
-	light[1].color.Set(1, 0, 1);
+	light[1].position.Set(camera.position.x, camera.position.y, camera.position.z);
+	light[1].color.Set(1, 1, 1);
 	light[1].power = 1.0f;
 	light[1].kC = 1.f;
 	light[1].kL = 0.01f;
@@ -240,12 +267,12 @@ void SP02::Init()
 
 	//monsters
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*0; i++)
+	for (int i = 0; i < count * 0; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
 	}
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*5; i++)
+	for (int i = 0; i < count * 5; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
@@ -376,29 +403,6 @@ void SP02::Update(double dt)
 			count++;
 		}
 	}
-
-
-	//if (Application::IsKeyPressed('Z'))
-	//{
-	//	_player.inventory_.push("Iron", 1);//player picks up 1 element iron
-	//}
-	//if (Application::IsKeyPressed('X'))
-	//{
-	//	_player.inventory_.push("Copper", 1);
-	//}
-	//if (Application::IsKeyPressed('C'))
-	//{
-	//	_player.inventory_.push("Silver", 1);
-	//}
-	//if (Application::IsKeyPressed('V'))
-	//{
-	//	_player.inventory_.push("Gold", 1);
-	//}
-	//if (Application::IsKeyPressed('B'))
-	//{
-	//	_player.inventory_.push("Steel", 1);
-	//}
-
 }
 
 void SP02::Render()
@@ -435,9 +439,9 @@ void SP02::Render()
 
 	RenderMesh(meshList[GEO_AXES], false);
 	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();
+	//modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+	//RenderMesh(meshList[GEO_LIGHTBALL], false);
+	//modelStack.PopMatrix();
 
 	RenderSkybox();
 	
@@ -472,11 +476,20 @@ void SP02::Render()
 	//player position
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 12));
+	/*_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 12));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 13));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 14));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 16));*/
+
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 12));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 13));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 14));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 15));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 17));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 18));
+
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
@@ -549,6 +562,38 @@ void SP02::RenderSkybox()
 	modelStack.Scale(2000, 2000, 2000);
 	RenderMesh(meshList[GEO_SPACE], false);
 	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	//background
+	//front
+	modelStack.PushMatrix();
+	modelStack.Translate(500 , 100, 0 );
+	modelStack.Rotate(90, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_FRONT], false);
+	modelStack.PopMatrix();
+
+	//back
+	modelStack.PushMatrix();
+	modelStack.Translate(-500, 100, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_BACK], false);
+	modelStack.PopMatrix();
+
+	//right
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 100, -500);
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_RIGHT], false);
+	modelStack.PopMatrix();
+
+	//left
+	modelStack.PushMatrix();
+	modelStack.Translate(0 , 100, 500);
+	modelStack.Scale(1000, 200, 1000);
+	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 }
 

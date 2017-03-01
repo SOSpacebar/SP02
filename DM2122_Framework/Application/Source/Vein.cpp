@@ -1,17 +1,19 @@
 #include "Veins.h"
 #include <iostream>
 #include "GOManager.h"
-
-
+#include "Player.h"
 
 Vein::Vein(Scene* scene, const string& name, Vector3& pos, ORE_TYPE ore, int rotation) : GameObject(scene, name, pos)
 {
 	if (ore == T_COAL)
 		g_type = Scene::GEO_COAL;
+
 	if (ore == T_IRON)
 		g_type = Scene::GEO_IRON;
+
 	if (ore == T_COBALT)
 		g_type = Scene::GEO_COBALT;
+
 
 	rotaY = rotation;
 	scale = 0.5;
@@ -37,6 +39,19 @@ bool Vein::anyInteraction()
 		if (distance_ < 20 && scene_->interact && temp->getName()=="ore")
 		{
 			scene_->interact = false;
+
+			switch (temp->g_type)
+			{
+			case Scene::GEO_COAL:
+				scene_->_player.getInstance()->inventory_.push("Coal", 1);
+				break;
+			case Scene::GEO_IRON:
+				scene_->_player.getInstance()->inventory_.push("Iron", 1);
+				break;
+			case Scene::GEO_COBALT:
+				scene_->_player.getInstance()->inventory_.push("Cobalt", 1);
+				break;
+			}
 			scene_->_gameObjectMananger.remove(temp);
 			return true;
 		}
@@ -54,6 +69,6 @@ void Vein::render()
 	scene_->modelStack.Rotate(rotaY, 0, 1, 0);
 	scene_->modelStack.Rotate(rotaZ, 0, 0, 1);
 	scene_->modelStack.Scale(scale, scale, scale);
-	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = false);
+	scene_->RenderMesh(scene_->meshList[g_type], lightEnable = true);
 	scene_->modelStack.PopMatrix();
 }
