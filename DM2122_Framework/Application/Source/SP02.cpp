@@ -87,8 +87,18 @@ void SP02::Init()
 	meshList[GEO_CHEST]->textureID = LoadTGA("Image//Chest.tga");
 	meshList[GEO_ALIENPROBE] = MeshBuilder::GenerateOBJ("alienprobe", "OBJ//AlienProbe.obj");
 	meshList[GEO_ALIENPROBE]->textureID = LoadTGA("Image//AlienProbe.tga");
+	meshList[GEO_ALIENPROBE]->material.kAmbient.Set(1.f, 1.f, 1.f);
+	meshList[GEO_ALIENPROBE]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_ALIENPROBE]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_ALIENPROBE]->material.kShininess = 1.f;
+
 	meshList[GEO_BEHOLDER] = MeshBuilder::GenerateOBJ("cylindertank", "OBJ//Beholder.obj");
 	meshList[GEO_BEHOLDER]->textureID = LoadTGA("Image//Beholder.tga");
+	meshList[GEO_BEHOLDER]->material.kAmbient.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BEHOLDER]->material.kDiffuse.Set(0.7f, 0.7f, 0.7f);
+	meshList[GEO_BEHOLDER]->material.kSpecular.Set(0.3f, 0.3f, 0.3f);
+	meshList[GEO_BEHOLDER]->material.kShininess = 1.f;
+
 	meshList[GEO_STIMPAK] = MeshBuilder::GenerateOBJ("stimpak", "OBJ//Stimpak.obj");
 	meshList[GEO_STIMPAK]->textureID = LoadTGA("Image//Stimpak.tga");
 
@@ -245,12 +255,12 @@ void SP02::Init()
 
 	//monsters
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*0; i++)
+	for (int i = 0; i < count * 0; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
 	}
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (int i = 0; i < count*5; i++)
+	for (int i = 0; i < count * 5; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
