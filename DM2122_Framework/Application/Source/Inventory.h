@@ -19,6 +19,7 @@ public:
 	void upgrade(string name, unsigned int);//upgrade the item name,amount to decrease
 	void trade(string name, string name2, unsigned int buy, unsigned int sell);//buying,selling,amount buy,amount sell
 	void melt(string name,unsigned int, double dt);
+	void reset();
 	unsigned int size();//output different TYPES of elements
 	void print();//show container in the interface
 

@@ -140,6 +140,19 @@ void Inventory::melt(string name,unsigned int quantity,double dt)
 	container.erase(name2);
 	container.insert(make_pair(name2, getquantity));
 }
+void Inventory::reset()//must initialize all pick up items in a container as 0
+{
+	container.clear();
+	container.insert(make_pair("Iron", 0));
+	container.insert(make_pair("Copper", 0));
+	container.insert(make_pair("Silver", 0));
+	container.insert(make_pair("Gold", 0));
+	container.insert(make_pair("Steel", 0));
+	container.insert(make_pair("Coal", 0));
+	container.insert(make_pair("Cobalt", 0));
+	container.insert(make_pair("Scrap", 0));
+
+}
 unsigned int Inventory::size()
 {
 	int types = 0;

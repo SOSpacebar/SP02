@@ -23,6 +23,8 @@ End::~End()
 
 void End::Init()
 {
+	_player.getInstance()->setDefault();
+	_player.getInstance()->inventory_.reset();
 	dailycycle = 0;
 
 	// Enable depth test
