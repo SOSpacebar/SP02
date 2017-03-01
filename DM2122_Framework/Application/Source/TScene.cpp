@@ -110,6 +110,8 @@ void TScene::Init()
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
+	meshList[GEO_TEXTBOX] = MeshBuilder::GenerateQuad("textbox", Color(1, 1, 1), 1, 1);
+	meshList[GEO_TEXTBOX]->textureID = LoadTGA("Image//textbox.tga");
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
@@ -377,7 +379,7 @@ void TScene::Update(double dt)
 
 	tsmthhappened += dt;
 
-	if (bsmthhappend == true && tsmthhappened > 0.5)
+	if (bsmthhappend == true && tsmthhappened > 0.25)
 	{
 		bsmthhappend = false;
 	}
@@ -467,12 +469,14 @@ void TScene::Render()
 	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
 	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
+	_UIManager.renderMeshOnScreen(meshList[GEO_TEXTBOX], 40, 54, 79, 10);
+
 	if (stage == 1) {
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0.5, 0.5, 1), 3, 1, 19));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(1, 0, 1), 3, 1, 19));
 
 		if (textoffset != 3)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0.5, 0.5, 1), 3, 19, 17));//next
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0],  Color(1, 0, 1), 3, 19, 17));//next
 		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 3 && !bsmthhappend) {
 			bsmthhappend = true;
 			tsmthhappened = 0;
@@ -484,10 +488,10 @@ void TScene::Render()
 		if (textoffset < 4)
 			textoffset++;
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0.5, 0.5, 1), 3, 1, 19));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset],  Color(1, 0, 1), 3, 1, 19));
 
 		if (textoffset != 6)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0.5, 0.5, 1), 3, 19, 17));//next
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0],  Color(1, 0, 1), 3, 19, 17));//next
 		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 6 && !bsmthhappend) {
 			bsmthhappend = true;
 			tsmthhappened = 0;
@@ -499,10 +503,10 @@ void TScene::Render()
 		if (textoffset < 7)
 			textoffset++;
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset], Color(0.5, 0.5, 1), 3, 1, 19));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[textoffset],  Color(1, 0, 1), 3, 1, 19));
 
 		if (textoffset != 8)
-			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0], Color(0.5, 0.5, 1), 3, 19, 17));//next
+			_UIManager.renderTextOnScreen(UIManager::UI_Text(tutorialtext[0],  Color(1, 0, 1), 3, 19, 17));//next
 		if (Application::IsKeyPressed(VK_SPACE) && textoffset < 8 && !bsmthhappend) {
 			bsmthhappend = true;
 			tsmthhappened = 0;
@@ -512,6 +516,8 @@ void TScene::Render()
 
 
 	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8, 27, 9, 12);
+
+
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 3));
