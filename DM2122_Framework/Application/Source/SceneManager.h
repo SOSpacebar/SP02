@@ -11,6 +11,7 @@
 #include "SceneMainMenu.h"
 #include "TScene.h"
 #include "SceneLoading.h"
+#include "SceneEnd.h"
 
 using std::map;
 

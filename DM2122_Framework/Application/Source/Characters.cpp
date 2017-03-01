@@ -82,10 +82,10 @@ void Characters::updateHealth(double value)
 
 void Characters::updateStamina(double value)
 {
-	if (stamina_ <= 50)
+	if (stamina_ <= maxStamina_)
 		this->stamina_ += value;
 	else
-		this->stamina_ = 50;
+		this->stamina_ = maxStamina_;
 }
 
 

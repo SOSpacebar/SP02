@@ -405,6 +405,11 @@ void SP02::Update(double dt)
 			count++;
 		}
 	}
+//death
+	if (_player.getInstance()->getCurrentHealth() < 1)
+	{
+		SceneManager::instance()->SetNextScene(5);
+	}
 }
 
 void SP02::Render()
