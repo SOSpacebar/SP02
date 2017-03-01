@@ -105,6 +105,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
+    <ClCompile Include="Source\SceneEnd.cpp" />
     <ClCompile Include="Source\SceneLoading.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
+    <ClInclude Include="Source\SceneEnd.h" />
     <ClInclude Include="Source\SceneLoading.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\SceneManager.h" />
