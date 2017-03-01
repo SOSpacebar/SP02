@@ -51,8 +51,6 @@ int Player::getMaxOxygen()
 
 void Player::update(double dt)
 {
-	//cout << getInstance()->getCurrentStamina();
-
 	if (getInstance()->currentOxygenValue > 0)
 		getInstance()->updateOxygen(dt);
 
@@ -77,7 +75,7 @@ void Player::update(double dt)
 		else
 			getInstance()->updateStamina(-dt);
 
-		//scene_->camera.speed_ = 30;
+		scene_->camera.speed_ = 30;
 	}
 }
 void  Player::setplayerstat(double health, double oxy, double stam)//health,oxy,stamina

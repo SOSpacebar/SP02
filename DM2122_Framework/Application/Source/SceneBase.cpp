@@ -106,12 +106,26 @@ void SceneBase::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Courier.tga");
 
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND] = MeshBuilder::GenerateQuad("uibackground", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND]->textureID = LoadTGA("Image//uiBackground.tga");
+	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateQuad("health", Color(1, 1, 1), 1, 1);
+	meshList[GEO_HEALTHBAR]->textureID = LoadTGA("Image//healthBar.tga");
+	meshList[GEO_OXYGENBAR] = MeshBuilder::GenerateQuad("oxygen", Color(1, 1, 1), 1, 1);
+	meshList[GEO_OXYGENBAR]->textureID = LoadTGA("Image//oxygenBar.tga");
+	meshList[GEO_STAMINABAR] = MeshBuilder::GenerateQuad("stamina", Color(1, 1, 1), 1, 1);
+	meshList[GEO_STAMINABAR]->textureID = LoadTGA("Image//staminaBar.tga");
+
 	meshList[GEO_UPGRADEUI] = MeshBuilder::GenerateQuad("upgradeui", Color(0.5, 0.5, 1), 1, 1);
 	meshList[GEO_UPGRADEUI]->textureID = LoadTGA("Image//upgraderUI.tga");
 	meshList[GEO_TRADINGUI] = MeshBuilder::GenerateQuad("tradingui", Color(0.5, 0.5, 1), 1, 1);
 	meshList[GEO_TRADINGUI]->textureID = LoadTGA("Image//tradingUI.tga");
 	meshList[GEO_FURNACEUI] = MeshBuilder::GenerateQuad("furnaceui", Color(0.5, 0.5, 1), 1, 1);
 	meshList[GEO_FURNACEUI]->textureID = LoadTGA("Image//furnaceUI.tga");
+
+	meshList[GEO_UPGRADER] = MeshBuilder::GenerateOBJ("trader", "OBJ//upgradeRobot.obj");
+	meshList[GEO_UPGRADER]->textureID = LoadTGA("Image//upgradeRobot.tga");
+	meshList[GEO_TRADER] = MeshBuilder::GenerateOBJ("trader", "OBJ//traderRobot.obj");
+	meshList[GEO_TRADER]->textureID = LoadTGA("Image//traderRobot.tga");
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
 	meshList[GEO_COAL]->textureID = LoadTGA("Image//coal.tga");
@@ -880,29 +894,35 @@ void SceneBase::Render()
 
 	if (camera.position.x > -25 && camera.position.x < -15 && camera.position.z <= 0 && camera.position.z >= -10)
 	{
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("PRESS F TO OPEN", Color(1, 0, 0), 2, 6, 2));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("PRESS F TO OPEN", Color(1, 0, 0), 2, 30, 2));
 	}
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 19));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 20));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1,13));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1,13)); //scrap
 
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 
 	//Player
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 5));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 4));
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Stamina : " + std::to_string(_player.getInstance()->getCurrentStamina()) + " / " + std::to_string(_player.getInstance()->getMaxStamina()), Color(1, 1, 0), 2, 0.5, 3));
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Oxygen : " + std::to_string(_player.getInstance()->getOxygen()) + " / " + std::to_string(_player.getInstance()->getMaxOxygen()), Color(1, 1, 0), 2, 0.5, 2));
+
+	//healthStaminaOxygen background
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHSTAMINAOXYGENBACKGROUND], 40, 8, 30, 20);
+	_UIManager.renderMeshOnScreen(meshList[GEO_HEALTHBAR], 40, 8, _player.getHealthBar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getStaminabar(), 22);
+	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getOxygenbar(), 22);
 
 	//machine info
 	if (WorkStation::open && WorkStation::Topen)

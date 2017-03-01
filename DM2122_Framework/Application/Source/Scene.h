@@ -64,6 +64,9 @@ public:
 
 		GEO_CROSSHAIR,
 
+		GEO_UPGRADER,
+		GEO_TRADER,
+
 		GEO_UPGRADEUI,
 		GEO_TRADINGUI,
 		GEO_FURNACEUI,
@@ -138,14 +141,13 @@ public:
 	Mesh* meshList[NUM_GEOMETRY];
 	void RenderMesh(Mesh *mesh, bool enableLight);
 
-	static Player _player;
-
 	void RenderText(Mesh* mesh, std::string text, Color color);
 
 	static GameObjectManager _gameObjectMananger;
 	static UIManager _UIManager;
 	static EnvironmentManager _environmentManager;
 	static monsterManager _monsterManager;
+	static Player _player;
 
 private:
 	

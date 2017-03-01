@@ -11,19 +11,23 @@ bool WorkStation::Uopen;
 WorkStation::WorkStation(Scene* scene, const string& name, Vector3& pos, STATION_TYPE station, int rotation) : GameObject(scene, name, pos)
 {
 	if (station == T_TRADE)
-		g_type = Scene::GEO_CUBE;
+	{
+		g_type = Scene::GEO_TRADER;
+	}
 	if (station == T_FURNACE)
+	{
 		g_type = Scene::GEO_CUBE;
+	}
 	if (station == T_UPGRADE)
-		g_type = Scene::GEO_CUBE;
-
+	{
+		g_type = Scene::GEO_UPGRADER;
+	}
 	rotaY = rotation;
-	scale = 10;
+	scale = 2;
 	open = false;
 	const int objSize = 5;
 	Vector3 boxSize(objSize * 1, objSize * 1, objSize * 1);
-	this->getCollider().setCollider(pos, boxSize);
-	
+	this->getCollider().setCollider(pos, boxSize);	
 }
 
 WorkStation::~WorkStation()

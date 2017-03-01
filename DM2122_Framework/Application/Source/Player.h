@@ -7,7 +7,7 @@ class Player : public Characters
 {
 public:
 	Player();
-	~Player(){ delete playerInstance; };
+	//~Player(){ delete playerInstance; };
 
 	static Player* getInstance();
 
