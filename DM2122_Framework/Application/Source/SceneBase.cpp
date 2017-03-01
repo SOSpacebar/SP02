@@ -127,7 +127,7 @@ void SceneBase::Init()
 	meshList[GEO_TRADER] = MeshBuilder::GenerateOBJ("trader", "OBJ//traderRobot.obj");
 	meshList[GEO_TRADER]->textureID = LoadTGA("Image//traderRobot.tga");
 	meshList[GEO_FURNACE] = MeshBuilder::GenerateOBJ("Furnace", "OBJ//traderRobot.obj");
-	meshList[GEO_FURNACE]->textureID = LoadTGA("Image//for-furnace.tga");
+	meshList[GEO_FURNACE]->textureID = LoadTGA("Image//furnace.tga");
 
 
 	meshList[GEO_COAL] = MeshBuilder::GenerateOBJ("Coal", "OBJ//coal.obj");
