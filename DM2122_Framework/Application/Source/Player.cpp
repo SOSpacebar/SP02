@@ -14,6 +14,7 @@ Player::Player() : Characters(), maxOxygenValue(300)
 {
 	currentOxygenValue = maxOxygenValue;
 	recoverStamina = 0;
+	lackOfOxygen = false;
 	setDefault();
 }
 
@@ -52,9 +53,9 @@ int Player::getMaxOxygen()
 void Player::update(double dt)
 {
 	if (getInstance()->currentOxygenValue > 0)
-		getInstance()->updateOxygen(dt);
+		getInstance()->updateOxygen(dt * 3);
 
-	if (lackOfOxygen)
+	if (getInstance()->lackOfOxygen)
 		getInstance()->updateHealth(10 * dt);
 
 	if (getInstance()->isRunning == true)

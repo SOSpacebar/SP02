@@ -149,6 +149,8 @@ public:
 	static monsterManager _monsterManager;
 	static Player _player;
 
+	unsigned monsterCount = 0;
+
 private:
 	
 };
