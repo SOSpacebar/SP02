@@ -4,6 +4,6 @@ You can also use LShift to sprint, however that
 decreases your stamina. Head straight to continue.
 You can mine these rocks using 'E' to get materials
 to upgrade your stats, the materials you have is
-show at your left.
+shown at your left.
 Use the left mouse button to shoot bullets,
 defeat the robots to continue.
