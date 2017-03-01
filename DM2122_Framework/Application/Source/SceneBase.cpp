@@ -902,17 +902,16 @@ void SceneBase::Render()
 
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
-	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
+	
 	//inventory
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt : " + std::to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal : " + std::to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.getInstance()->inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
-
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold		: " + std::to_string(_player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver	: " + std::to_string(_player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron		: " + std::to_string(_player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 18)); //iron
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel		: " + std::to_string(_player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 17)); //steel
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Cobalt	: " + std::to_string(_player.inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 2, 1, 16)); //cobalt
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper	: " + std::to_string(_player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 15)); //copper
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal		: " + std::to_string(_player.inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
+	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap		: " + std::to_string(_player.inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
 
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 
