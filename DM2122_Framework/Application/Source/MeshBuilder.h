@@ -27,6 +27,8 @@ public:
 	static Mesh* GenerateTorus(const std::string &meshName, Color color, unsigned numSlices = 36, unsigned numStacks = 36, float outerR = 1.f, float innerR = 0.5f);
 	static Mesh* GenerateOBJ(const std::string &meshName, const std::string &file_path);
 	static Mesh* GenerateText(const std::string &meshName, unsigned numRow, unsigned numCol);
+	static Mesh* GenerateMultipleQuad(const std::string &meshName, Color color, float lengthX, float lengthY, int number);
+
 };
 
 #endif

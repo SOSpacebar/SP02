@@ -92,6 +92,35 @@ Mesh* MeshBuilder::GenerateQuad(const std::string &meshName, Color color, float 
 	return mesh;
 }
 
+Mesh* MeshBuilder::GenerateMultipleQuad(const std::string &meshName, Color color, float lengthX, float lengthY,int number)
+{
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<unsigned> index_buffer_data;
+
+
+	Mesh *mesh = new Mesh(meshName);
+
+	//Top Normal
+	v.pos.Set(lengthX * .5f, lengthY * .5f, 0); v.color = color; v.normal.Set(0, 0, -1); v.texCoord.Set(number, number);  vertex_buffer_data.push_back(v);
+	v.pos.Set(lengthX * .5f, -lengthY * .5f, 0); v.color = color; v.normal.Set(0, 0, -1); v.texCoord.Set(number, 0); vertex_buffer_data.push_back(v);
+	v.pos.Set(-lengthX * .5f, lengthY * .5f, 0); v.color = color; v.normal.Set(0, 0, -1); v.texCoord.Set(0, number); vertex_buffer_data.push_back(v);
+	v.pos.Set(-lengthX * .5f, -lengthY * .5f, 0); v.color = color; v.normal.Set(0, 0, -1); v.texCoord.Set(0, 0); vertex_buffer_data.push_back(v);
+
+	for (unsigned i = 0; i < 4; ++i)
+		index_buffer_data.push_back(i);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(unsigned), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
+
+	return mesh;
+}
+
 /******************************************************************************/
 /*!
 \brief
