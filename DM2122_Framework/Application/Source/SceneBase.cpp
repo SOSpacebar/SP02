@@ -292,7 +292,7 @@ void SceneBase::Update(double dt)
 					
 	if (Application::IsKeyPressed('Z') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Coal", 1);
+		_player.getInstance()->inventory_.push("Coal", 10);
 					
 		bsmthhappend = true;
 		tsmthhappened = 0;
@@ -883,7 +883,7 @@ void SceneBase::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap : " + std::to_string(_player.getInstance()->inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
 
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
@@ -955,7 +955,6 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(1, 1, 0), 3, 14, 7.2f));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(1, 1, 0), 3, 14, 6.2f));		
 	}
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_) + " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 }
 
 

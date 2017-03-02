@@ -146,7 +146,7 @@ void MainMenu::Render()
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//mouse position
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_ )+ " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_ )+ " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 	//play button
 	_UIManager.renderMeshOnScreen(meshList[GEO_QUAD], 40, 40, 30, 10);
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("PLAY", Color(0, 1, 0), 10, 3.5, 4));

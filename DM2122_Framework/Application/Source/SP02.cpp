@@ -451,7 +451,7 @@ void SP02::Render()
 	//FPS
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
 	//player position
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
 	//inventory
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold		: " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver	: " + std::to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 19)); //silver
@@ -462,7 +462,7 @@ void SP02::Render()
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Coal		: " + std::to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 2, 1, 14)); //coal
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Scrap		: " + std::to_string(_player.getInstance()->inventory_.container.find("Scrap")->second), Color(1, 1, 0), 2, 1, 13)); //scrap
 
-	_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Interact : " + std::to_string(interact), Color(1, 1, 0), 2, 0.5, 27));
 	
 	//Player
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Health  : " + std::to_string(_player.getInstance()->getCurrentHealth()) + " / " + std::to_string(_player.getInstance()->getMaxHealth()), Color(1, 1, 0), 2, 0.5, 4));
