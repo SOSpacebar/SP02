@@ -38,7 +38,7 @@ void Camera4::Update(double dt)
 	static const float CAMERA_SPEED = 100.f;
 	Mtx44 rotateX, rotateY;
 	bool firstMouse = true;
-	float sensitivity = 0.1;
+	float sensitivity = 0.1f;
 
 	float xoffset = Application::MouseXPos_ - lastX;
 	float yoffset = lastY - Application::MouseYPos_;
