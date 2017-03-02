@@ -18,6 +18,11 @@ Player::Player() : Characters(), maxOxygenValue(300)
 	setDefault();
 }
 
+Player::~Player()
+{
+
+}
+
 void Player::damagePlayer(double value)
 {
 	if (getInstance()->getCurrentHealth() > 0)
@@ -76,7 +81,7 @@ void Player::update(double dt)
 	{
 		if (getInstance()->recoverStamina < 3)
 		{
-			getInstance()->recoverStamina -= dt;
+			getInstance()->recoverStamina -= (float)dt;
 		}
 
 		else
@@ -94,16 +99,16 @@ void Player::setplayerstat(double health, double oxy, double stam)//health,oxy,s
 
 float Player::getOxygenbar()
 {
-	return (getInstance()->currentOxygenValue / getInstance()->maxOxygenValue) * 30;
+	return (float)(getInstance()->currentOxygenValue / getInstance()->maxOxygenValue) * 30.f;
 }
 float Player::getHealthBar()
 {
-	return (getInstance()->getCurrentHealth() / getInstance()->maxHealth_) * 30;
+	return (float)(getInstance()->getCurrentHealth() / getInstance()->maxHealth_) * 30.f;
 }
 
 float Player::getStaminabar()
 {
-	return (getInstance()->getCurrentStamina() / getInstance()->maxStamina_) * 30;
+	return (float)(getInstance()->getCurrentStamina() / getInstance()->maxStamina_) * 30.f;
 }
 
 void Player::setDefault()

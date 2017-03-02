@@ -147,7 +147,6 @@ void SceneBase::Init()
 	Application::cantSpam = true;
 	_player.getInstance()->scene_ = this;
 
-
 	Mtx44 projection;
 	projection.SetToPerspective(45.0f, 40.0f / 30.0f, 0.1f, 2000.0f);
 	projectionStack.LoadMatrix(projection);
@@ -163,18 +162,6 @@ void SceneBase::Init()
 	light[0].cosInner = cos(Math::DegreeToRadian(30));
 	light[0].exponent = 3.f;
 	light[0].spotDirection.Set(0.f, 1.f, 0.f);
-
-	//light[1].type = Light::LIGHT_POINT;
-	//light[1].position.Set(0, 0, 0);
-	//light[1].color.Set(1, 0, 1);
-	//light[1].power = 1.0f;
-	//light[1].kC = 1.f;
-	//light[1].kL = 0.01f;
-	//light[1].kQ = 0.001f;
-	//light[1].cosCutoff = cos(Math::DegreeToRadian(45));
-	//light[1].cosInner = cos(Math::DegreeToRadian(30));
-	//light[1].exponent = 3.f;
-	//light[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
@@ -199,18 +186,6 @@ void SceneBase::Init()
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
 
-	//m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
-	//m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
-	//m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
-	//m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
-	//m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
-	//m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
-	//m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
-	//m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
-	//m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
-	//m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
-	//m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
-
 	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
 	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
 
@@ -231,22 +206,13 @@ void SceneBase::Init()
 	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
 	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
 
-	//glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
-	//glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
-	//glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
-	//glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
-	//glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
-	//glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
-	//glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
-	//glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
-	//glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 	//workplace
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "trader", Vector3(20, 5, 0), WorkStation::STATION_TYPE::T_TRADE, 0));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "furnace", Vector3(20, 5, 15), WorkStation::STATION_TYPE::T_FURNACE, 0));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "upgrader", Vector3(20, 5, -15), WorkStation::STATION_TYPE::T_UPGRADE, 0));
 	//room wall
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(0, 20, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(-90,0,0),Vector3(50,50,50), Vector3(0, 0, 0)));//top
-	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(0, 0.1, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(90,0,-90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
+	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallbot", Vector3(0, 0.1f, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(90,0,-90), Vector3(50, 50, 50), Vector3(0, 0, 0)));//bot
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallback", Vector3(25, 10, 0), Walls::WALL_TYPE::T_PLAIN, Vector3(0,-90,0), Vector3(50, 20, 50),Vector3(0,5,50)));//back
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, -25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,180,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(0, 10, 25), Walls::WALL_TYPE::T_WINDOW, Vector3(0,0,0), Vector3(50, 20, 50), Vector3(50, 5, 0)));//other side
@@ -965,12 +931,12 @@ void SceneBase::Render()
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(Scrapcnt) + " +", Color(1, 1, 0), 3, 15, 15));
 	
 		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 3, 19, 12));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 3, 19, 10.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 3, 19, 9.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Silver")->second), Color(1, 1, 0), 3, 19, 10.8f));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Iron")->second), Color(1, 1, 0), 3, 19, 9.5f));
 		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Steel")->second), Color(1, 1, 0), 3, 19, 8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 3, 19, 6.8));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 3, 19, 5.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 3, 19, 4.5));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Cobalt")->second), Color(1, 1, 0), 3, 19, 6.8f));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Copper")->second), Color(1, 1, 0), 3, 19, 5.5f));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(_player.getInstance()->inventory_.container.find("Coal")->second), Color(1, 1, 0), 3, 19, 4.5f));
 	}
 
 	if (WorkStation::open && WorkStation::Uopen)
@@ -981,13 +947,13 @@ void SceneBase::Render()
 
 		//count
 		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WDcount) + " +", Color(1, 1, 0), 3, 15, 15));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(1, 1, 0), 3, 15, 13.5));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(1, 1, 0), 3, 15, 11.8)); // 12
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(1, 1, 0), 3, 15, 10.2)); // 11 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(1, 1, 0), 3, 15, 8.8)); // 10
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(WAcount) + " +", Color(1, 1, 0), 3, 15, 13.5f));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(HPCount) + " +", Color(1, 1, 0), 3, 15, 11.8f)); // 12
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(OxyCount) + " +", Color(1, 1, 0), 3, 15, 10.2f)); // 11 
+		_UIManager.renderTextOnScreen(UIManager::UI_Text("- " + to_string(StaCount) + " +", Color(1, 1, 0), 3, 15, 8.8f)); // 10
 
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(1, 1, 0), 3, 14, 7.2));
-		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(1, 1, 0), 3, 14, 6.2));		
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(IronCost), Color(1, 1, 0), 3, 14, 7.2f));
+		_UIManager.renderTextOnScreen(UIManager::UI_Text(to_string(CobaltCost), Color(1, 1, 0), 3, 14, 6.2f));		
 	}
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Mouse: " + std::to_string(Application::MouseXPos_) + " , " + std::to_string(Application::MouseYPos_), Color(1, 1, 0), 2, 0.5, 26));
 }

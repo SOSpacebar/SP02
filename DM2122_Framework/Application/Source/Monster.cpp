@@ -33,7 +33,7 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		attackTimer = 5;
 	}
 
-	scale = 0.3;
+	scale = 0.3f;
 	const int objSize = 1;
 	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
 	this->getCollider().setCollider(pos, boxSize);
@@ -65,7 +65,7 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		attackTimer = 5;
 	}
 
-	scale = 0.3;
+	scale = 0.3f;
 	const int objSize = 1;
 	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
 	this->getCollider().setCollider(pos, boxSize);
@@ -158,8 +158,6 @@ bool Monster::anyInteraction()
 	if (getCurrentHealth() <= 0)
 	{
 		scene_->_gameObjectMananger.remove(this);
-		//scene_->monsterCount++;
-		
 		return true;
 	}
 
@@ -169,9 +167,6 @@ bool Monster::anyInteraction()
 
 Monster::~Monster()
 {
-	//if (nearestMonsterPos == &position_) {
-	//	nearestMonsterPos = &Vector3(0, 0, 0);
-	//}
 	scene_->monsterCount--;
 }
 

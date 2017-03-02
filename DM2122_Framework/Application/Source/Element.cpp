@@ -2,39 +2,13 @@
 #include "Element.h"
 
 
-
-//void Material::setdamage(const int& damage)
-//{
-//	this->damage = damage;
-//}
-
-//void Material::setsize(const int& size)
-//{
-//	this->size = size;
-//}
-
-//void Material::setdurability(const int& durability)
-//{
-//	this->durability = durability;
-//}
-
-//void Material::setweight(const int& weight)
-//{
-//	this->weight = weight;
-//}
-
-void Element::setProperties(const int& size, const int& durability, const int& weight)//,const int& damage)
+void Element::setProperties(const int& size, const int& durability, const int& weight)
 {
-	//this->damage = damage;
 	this->size = size;
 	this->durability = durability;
 	this->weight = weight;
 }
 
-//const int Material::getDamage()
-//{
-//	return damage;
-//}
 const int Element::getDurability()
 {
 	return durability;

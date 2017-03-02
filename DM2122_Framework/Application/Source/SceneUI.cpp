@@ -89,32 +89,6 @@ void SceneUI::Init()
 	meshList[GEO_BB8DETAILS] = MeshBuilder::GenerateHemisphere("details", Color(1, 0.647f, 0), 18, 36, 2);
 	meshList[GEO_CONE] = MeshBuilder::GenerateCone("cone", Color(0.255f, 0.412f, 0.882f), 18, 3, 3);
 
-	//meshList[GEO_MODEL1] = MeshBuilder::GenerateOBJ("model1", "OBJ//SceneUI//Arc170.obj");
-	//meshList[GEO_MODEL1]->textureID = LoadTGA("Image//SceneUI//Arc170_blinn1.tga");
-
-	//meshList[GEO_MODEL2] = MeshBuilder::GenerateOBJ("model2", "OBJ//SceneUI//LightSaber.obj");
-	//meshList[GEO_MODEL2]->textureID = LoadTGA("Image//SceneUI//metalTexture.tga");
-
-	//meshList[GEO_ROCK1] = MeshBuilder::GenerateOBJ("rock1", "OBJ//SceneUI//stone1.obj");
-	//meshList[GEO_ROCK1]->textureID = LoadTGA("Image//SceneUI//snowRocks.tga");
-	//meshList[GEO_ROCK2] = MeshBuilder::GenerateOBJ("rock2", "OBJ//SceneUI//stone2.obj");
-	//meshList[GEO_ROCK2]->textureID = LoadTGA("Image//SceneUI//snowRocks.tga");
-	//meshList[GEO_ROCK3] = MeshBuilder::GenerateOBJ("rock3", "OBJ//SceneUI//stone3.obj");
-	//meshList[GEO_ROCK3]->textureID = LoadTGA("Image//SceneUI//snowRocks.tga");
-	//meshList[GEO_ROCK4] = MeshBuilder::GenerateOBJ("rock4", "OBJ//SceneUI//stone4.obj");
-	//meshList[GEO_ROCK4]->textureID = LoadTGA("Image//SceneUI//snowRocks.tga");
-	//meshList[GEO_ROCK5] = MeshBuilder::GenerateOBJ("rock5", "OBJ//SceneUI//stone5.obj");
-	//meshList[GEO_ROCK5]->textureID = LoadTGA("Image//SceneUI//snowRocks.tga");
-
-	//meshList[GEO_BASE] = MeshBuilder::GenerateOBJ("base", "OBJ//SceneUI//Base.obj");
-	//meshList[GEO_BASE]->textureID = LoadTGA("Image//SceneUI//SciFi_Tex.tga");
-
-	//meshList[GEO_DOOR_L] = MeshBuilder::GenerateOBJ("doorL", "OBJ//SceneUI//GateDoorLeft_OBJ.obj");
-	//meshList[GEO_DOOR_L]->textureID = LoadTGA("Image//SceneUI//SciFi_Tex.tga");
-
-	//meshList[GEO_DOOR_R] = MeshBuilder::GenerateOBJ("doorR", "OBJ//SceneUI//GateDoorRight_OBJ.obj");
-	//meshList[GEO_DOOR_R]->textureID = LoadTGA("Image//SceneUI//SciFi_Tex.tga");
-
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//CandaraFont.tga");
 
@@ -910,8 +884,8 @@ void SceneUI::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey)
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity();
-	modelStack.Translate(x, y, 0);
-	modelStack.Scale(sizex, sizey, 1);
+	modelStack.Translate((float)x, (float)y, 0);
+	modelStack.Scale((float)sizex, (float)sizey, 1);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(mesh, false); //UI should not have light
 	projectionStack.PopMatrix();

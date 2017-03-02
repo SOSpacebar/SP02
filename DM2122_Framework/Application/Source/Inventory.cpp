@@ -65,18 +65,6 @@ void Inventory::upgrade(string name,unsigned int quantity)
 		container.insert(make_pair(name, getquantity));
 
 	}
-	/*if (getquantity <= 0)
-	{
-		getquantity = 0;
-	}
-	else
-	{
-		--getquantity;
-	}
-
-
-	container.erase(name);
-	container.insert(make_pair(name, getquantity));*/
 }
 void Inventory::trade(string name,string name2, unsigned int quantity, unsigned int quantity2)
 {
