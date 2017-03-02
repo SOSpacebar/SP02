@@ -232,34 +232,6 @@ void SceneBase::Update(double dt)
 		bsmthhappend = false;
 	}
 
-	if (Application::IsKeyPressed('1'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	if (Application::IsKeyPressed('8'))
-	{
-		lightsOn = false;
-	}
-
-	if (Application::IsKeyPressed('9'))
-	{
-		lightsOn = true;
-	}
-
 	if (Application::IsKeyPressed('F'))
 	{
 		_gameObjectMananger.removeAll();
@@ -853,12 +825,6 @@ void SceneBase::Render()
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
-
-	/*RenderMesh(meshList[GEO_AXES], false);
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL], false);
-	modelStack.PopMatrix();*/
 
 	RenderSkybox();
 

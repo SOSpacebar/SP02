@@ -96,24 +96,6 @@ void MainMenu::Update(double dt)
 
 	static const float LSPEED = 10.f;
 
-	if (Application::IsKeyPressed('1'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
 	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_<=500 && Application::MouseYPos_ >= 175 && Application::MouseYPos_ <= 230)
 		SceneManager::instance()->SetNextScene(1);
 	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_ <= 500 && Application::MouseYPos_ >= 375 && Application::MouseYPos_ <= 430)

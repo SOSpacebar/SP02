@@ -296,50 +296,6 @@ void SP02::Update(double dt)
 	rotateStimpak += (float)(20 * dt);
 	static const float LSPEED = 10.f; 
 
-	if (Application::IsKeyPressed('1'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-
-	if (Application::IsKeyPressed('8'))
-	{
-		lightsOn = false;
-	}
-
-	if (Application::IsKeyPressed('9'))
-	{
-		lightsOn = true;
-	}
-
 	if (Application::mouseClicked && Weapon::weaponAmmo_ !=0)
 	{
 		Weapon::weaponAmmo_--;
@@ -429,12 +385,6 @@ void SP02::Render()
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
-
-	//RenderMesh(meshList[GEO_AXES], false);
-	//modelStack.PushMatrix();
-	//modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	//RenderMesh(meshList[GEO_LIGHTBALL], false);
-	//modelStack.PopMatrix();
 
 	RenderSkybox();
 	

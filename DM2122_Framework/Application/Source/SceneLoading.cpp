@@ -98,24 +98,6 @@ void Loading::Update(double dt)
 
 	static const float LSPEED = 10.f;
 
-	if (Application::IsKeyPressed('1'))
-	{
-		glEnable(GL_CULL_FACE);
-	}
-	if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-
-	if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-	if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
 	if (loadTime > 3)
 	{
 		SceneManager::instance()->SetNextScene(2);
