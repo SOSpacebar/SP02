@@ -236,13 +236,13 @@ void TScene::Init()
 
 	//ore
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COAL, EnvironmentManager::oreRota[i]));
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON, EnvironmentManager::oreRota[i]));
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT, 10, camera.position, Vector3(-40, 0, -80), Vector3(0, 0, -30));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
 
 
@@ -257,7 +257,7 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -140), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -140), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, -115), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9f, 5, -115), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, -115), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
 
 	 //room wall stage 2
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
@@ -270,7 +270,7 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -80), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -80), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, -55), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9f, 5, -55), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, -55), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
 	//room wall stage 3
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
@@ -282,7 +282,7 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, -20), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, -20), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, 5), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9f, 5, 5), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, 5), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
 	//room wall stage 4
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(25, 20, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walltop", Vector3(-25, 20, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(-90, 0, 0), Vector3(50, 50, 50), Vector3(0, 0, 0)));//top
@@ -294,7 +294,7 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(25, 10, 40), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "wallside", Vector3(-25, 10, 40), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, 0, 0), Vector3(50, 20, 50), Vector3(25, 5, 0)));//other side
 	_gameObjectMananger.add(GameObjectManager::objectType::T_WALL, new Walls(this, "walldoor", Vector3(-50, 10, 65), Walls::WALL_TYPE::T_TUTORIAL, Vector3(0, -90, 0), Vector3(50, 20, 50), Vector3(0, 5, 25)));//front
-	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9f, 5, 65), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
+	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Walls(this, "door", Vector3(-49.9, 5, 65), Walls::WALL_TYPE::T_TUTORIALDOOR, Vector3(0, -90, 0), Vector3(7, 10, 7), Vector3(1, 5, 1)));
 
 
 	//monster
@@ -302,6 +302,9 @@ void TScene::Init()
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", Vector3(-25, 5,20), Monster::MONSTER_TYPE::T_ENEMYPROBE, true));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(-30, 5, -10), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER, true));
 	_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", Vector3(-25, 5, 20), Monster::MONSTER_TYPE::T_ENEMYBEHOLDER, true));
+
+	//upgrades
+	//_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new WorkStation(this, "upgrader", Vector3(20, 5, -15), WorkStation::STATION_TYPE::T_UPGRADE, 0));
 
 	_gameObjectMananger.add(GameObjectManager::objectType::T_INTERACTABLE, new Weapon(this, "blaster", 999, 999));
 
@@ -312,7 +315,7 @@ void TScene::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 
-	dt_ = (float)dt;
+	dt_ = dt;
 	if (Application::IsKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
@@ -367,13 +370,13 @@ void TScene::Update(double dt)
 		Application::cantSpam = true;
 	}
 
-	dailycycle += 0.1f * (float)dt;
+	dailycycle += 0.1 * dt;
 
 	camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
 	_gameObjectMananger.update(camera);
 	_player.update(-dt);
-	tsmthhappened += (float)dt;
+	tsmthhappened += dt;
 
 	if (bsmthhappend == true && tsmthhappened > 0.25)
 	{
@@ -386,6 +389,13 @@ void TScene::Update(double dt)
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
+
+	//death go to mainmenu 
+	if (_player.getInstance()->getCurrentHealth() < 1)
+	{
+		SceneManager::instance()->SetNextScene(7);
+	}
+
 	if (camera.position.z < -90) {
 		stage = 1;
 	}
@@ -406,6 +416,7 @@ void TScene::Update(double dt)
 		_gameObjectMananger.removeAll();
 		SceneManager::instance()->SetNextScene(3);
 	}
+
 }
 
 void TScene::Render()
@@ -441,9 +452,29 @@ void TScene::Render()
 	modelStack.LoadIdentity();
 
 	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.PushMatrix();
+	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(light[1].position.x, light[1].position.y, light[1].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL], false);
+	modelStack.PopMatrix();
 
 	RenderSkybox();	
 	_gameObjectMananger.renderGameObjects();
+
+	//FPS
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("FPS: " + std::to_string(FPS), Color(0, 1, 0), 3, .5f, 19));
+	//player position
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Position: " + std::to_string(camera.position.x) + " , " + std::to_string(camera.position.z), Color(1, 1, 0), 2, 0.5, 26));
+	//inventory
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Steel : " + std::to_string(player.inventory_.container.find("Steel")->second), Color(1, 1, 0), 2, 1, 14));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Iron : " + std::to_string(player.inventory_.container.find("Iron")->second), Color(1, 1, 0), 2, 1, 15));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Copper : " + std::to_string(player.inventory_.container.find("Copper")->second), Color(1, 1, 0), 2, 1, 16));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Silver : " + std::to_string(player.inventory_.container.find("Silver")->second), Color(1, 1, 0), 2, 1, 17));
+	//_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(player.inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 18));
 
 	_UIManager.renderMeshOnScreen(meshList[GEO_TEXTBOX], 40, 54, 79, 10);
 
@@ -491,7 +522,7 @@ void TScene::Render()
 	}
 
 
-	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8f, 27, 9, 12);
+	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.5, 27, 9, 10);
 
 	//inventory
 	_UIManager.renderTextOnScreen(UIManager::UI_Text("Gold : " + std::to_string(_player.getInstance()->inventory_.container.find("Gold")->second), Color(1, 1, 0), 2, 1, 20)); //gold

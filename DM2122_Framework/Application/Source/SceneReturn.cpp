@@ -116,7 +116,7 @@ void Return::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 
-	if (loadTime > 1)
+	if (loadTime > 3)
 	{
 		SceneManager::instance()->SetNextScene(4);
 		loadTime = 0;

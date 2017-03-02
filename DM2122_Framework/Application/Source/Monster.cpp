@@ -21,6 +21,11 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		setDamage(5);
 		setMaxHealth(100);
 		attackTimer = 3;
+		scale = 0.3f;
+		const int objSize = 1;
+		Vector3 boxSize(objSize * 2, objSize * 10, objSize * 2);
+		this->getCollider().setCollider(pos, boxSize);
+		timer = 0;
 	}
 	if (monster == T_ENEMYBEHOLDER)
 	{
@@ -31,13 +36,12 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		setDamage(10);
 		setMaxHealth(200);
 		attackTimer = 5;
+		scale = 0.3f;
+		const int objSize = 1;
+		Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2);
+		this->getCollider().setCollider(pos, boxSize);
+		timer = 0;
 	}
-
-	scale = 0.3f;
-	const int objSize = 1;
-	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
-	this->getCollider().setCollider(pos, boxSize);
-	timer = 0;
 
 	scene_->monsterCount++;
 }
@@ -53,6 +57,11 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		setDamage(5);
 		setMaxHealth(100);
 		attackTimer = 3;
+		scale = 0.3f;
+		const int objSize = 1;
+		Vector3 boxSize(objSize * 2, objSize * 10, objSize * 2); 
+		this->getCollider().setCollider(pos, boxSize);
+		timer = 0;
 	}
 	if (monster == T_ENEMYBEHOLDER)
 	{
@@ -63,13 +72,12 @@ Monster::Monster(Scene* scene, const string& name, Vector3& pos, MONSTER_TYPE mo
 		setDamage(10);
 		setMaxHealth(200);
 		attackTimer = 5;
+		scale = 0.3f;
+		const int objSize = 1;
+		Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2);
+		this->getCollider().setCollider(pos, boxSize);
+		timer = 0;
 	}
-
-	scale = 0.3f;
-	const int objSize = 1;
-	Vector3 boxSize(objSize * 2, objSize * 5, objSize * 2); //2,5,2
-	this->getCollider().setCollider(pos, boxSize);
-	timer = 0;
 
 	isIdle = idle;
 

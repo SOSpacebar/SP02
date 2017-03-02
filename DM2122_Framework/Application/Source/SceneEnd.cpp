@@ -117,7 +117,7 @@ void End::Update(double dt)
 	}
 
 	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_ <= 500 && Application::MouseYPos_ >= 175 && Application::MouseYPos_ <= 230)
-		SceneManager::instance()->SetNextScene(2);
+		SceneManager::instance()->SetNextScene(0);
 	if (Application::mouseClicked == true && Application::MouseXPos_ >= 300 && Application::MouseXPos_ <= 500 && Application::MouseYPos_ >= 375 && Application::MouseYPos_ <= 430)
 	{
 		Application::quitGame = true;

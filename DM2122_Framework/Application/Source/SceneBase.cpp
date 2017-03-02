@@ -299,43 +299,43 @@ void SceneBase::Update(double dt)
 	}
 	if (Application::IsKeyPressed('X') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Iron", 1);//player picks up 1 element iron
+		_player.getInstance()->inventory_.push("Iron", 10);//player picks up 1 element iron
 							bsmthhappend = true;
 							tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('C') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Cobalt", 1);
+		_player.getInstance()->inventory_.push("Cobalt", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('V') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Gold", 1);
+		_player.getInstance()->inventory_.push("Gold", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('B') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Steel", 1);
+		_player.getInstance()->inventory_.push("Steel", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('N') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Silver", 1);
+		_player.getInstance()->inventory_.push("Silver", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('M') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Copper", 1);
+		_player.getInstance()->inventory_.push("Copper", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
 	if (Application::IsKeyPressed('L') && bsmthhappend == false)
 	{
-		_player.getInstance()->inventory_.push("Scrap", 1);
+		_player.getInstance()->inventory_.push("Scrap", 10);
 		bsmthhappend = true;
 		tsmthhappened = 0;
 	}
@@ -816,9 +816,9 @@ void SceneBase::Update(double dt)
 				}
 			}
 			
-			if ((_player.getInstance()->inventory_.container.find("Gold")->second) >= 500)
+			if ((_player.getInstance()->inventory_.container.find("Gold")->second) >= 200)
 			{
-				SceneManager::instance()->SetNextScene(5);
+				SceneManager::instance()->SetNextScene(7);
 			}
 }
 

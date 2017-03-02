@@ -28,6 +28,7 @@ SP02::~SP02()
 
 void SP02::Init()
 {
+	//Player* player = Player::getInstance();
 	dailycycle = 0;
 
 	// Enable depth test
@@ -166,7 +167,7 @@ void SP02::Init()
 	light[0].type = Light::LIGHT_DIRECTIONAL;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
-	light[0].power = 0.3f;
+	light[0].power = 0.3;
 	light[0].kC = 1.f;
 	light[0].kL = 0.01f;
 	light[0].kQ = 0.001f;
@@ -253,25 +254,25 @@ void SP02::Init()
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COAL,30, camera.position,Vector3(-75,0,-75),Vector3(75,0,75));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i],Vein::ORE_TYPE::T_COAL, EnvironmentManager::oreRota[i]));
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_IRON,20, camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_IRON, EnvironmentManager::oreRota[i]));
 
 	_environmentManager.initRandPos(EnvironmentManager::ENVIRONMENT_TYPE::T_COBALT,10,camera.position, Vector3(-75, 0, -75), Vector3(75, 0, 75));
-	for (unsigned i = 0; i < EnvironmentManager::orePos.size(); i++)
+	for (int i = 0; i < EnvironmentManager::orePos.size(); i++)
 		_gameObjectMananger.add(GameObjectManager::objectType::T_MINEABLE, new Vein(this, "ore", EnvironmentManager::orePos[i], Vein::ORE_TYPE::T_COBALT, EnvironmentManager::oreRota[i]));
 
 	//monsters
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (unsigned i = 0; i < count * 2; i++)
+	for (int i = 0; i < count * 2; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "AlienProbe", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYPROBE));
 	}
 	_monsterManager.initRandPos(monsterManager::MONSTER_TYPE::T_ENEMYPROBE, 100, camera.position, Vector3(-150, 0, 150), Vector3(150, 0, 0));
-	for (unsigned i = 0; i < count * 3; i++)
+	for (int i = 0; i < count * 5; i++)
 	{
 		_gameObjectMananger.add(GameObjectManager::objectType::T_ENEMY, new Monster(this, "Beholder", monsterManager::monsterPos[i], Monster::MONSTER_TYPE::T_ENEMYBEHOLDER));
 	}
@@ -287,10 +288,10 @@ void SP02::Update(double dt)
 	Math::InitRNG();
 	FPS = (float)(1.0f / dt);
 	
-	dt_ = (float)dt;
+	dt_ = dt;
 
 	if (monsterCount <= 0)
-		time -= (float)dt;
+		time -= dt;
 
 	rotateStimpak += (float)(20 * dt);
 	static const float LSPEED = 10.f; 
@@ -362,7 +363,7 @@ void SP02::Update(double dt)
 		SceneManager::instance()->SetNextScene(0);
 	}
 
-	dailycycle += 0.1f * (float)dt;
+	dailycycle += 0.1 * dt;
 
 	camera.Update(dt);
 	camera.getCollider().updateColliderPos(camera.position);
@@ -390,7 +391,7 @@ void SP02::Update(double dt)
 			count++;
 		}
 	}
-	//death
+//death go to end 
 	if (_player.getInstance()->getCurrentHealth() < 1)
 	{
 		SceneManager::instance()->SetNextScene(7);
@@ -430,6 +431,10 @@ void SP02::Render()
 	modelStack.LoadIdentity();
 
 	RenderMesh(meshList[GEO_AXES], false);
+	modelStack.PushMatrix();
+	//modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
+	//RenderMesh(meshList[GEO_LIGHTBALL], false);
+	//modelStack.PopMatrix();
 
 	RenderSkybox();
 	
@@ -471,7 +476,7 @@ void SP02::Render()
 	_UIManager.renderMeshOnScreen(meshList[GEO_STAMINABAR], 40, 6, _player.getInstance()->getStaminabar(), 22);
 	_UIManager.renderMeshOnScreen(meshList[GEO_OXYGENBAR], 40, 4, _player.getInstance()->getOxygenbar(), 22);
 
-	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.8f, 27, 9, 12);
+	_UIManager.renderMeshOnScreen(meshList[GEO_CROSSHAIR], 39.5, 27, 9, 10);
 
 	//DebugCamPosition();
 }
