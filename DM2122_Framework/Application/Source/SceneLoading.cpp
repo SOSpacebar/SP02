@@ -118,7 +118,7 @@ void Loading::Update(double dt)
 
 	if (loadTime > 3)
 	{
-		SceneManager::instance()->SetNextScene(1);
+		SceneManager::instance()->SetNextScene(2);
 		loadTime = 0;
 	}
 	camera.getCollider().updateColliderPos(camera.position);

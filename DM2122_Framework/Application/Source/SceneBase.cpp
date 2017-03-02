@@ -297,7 +297,7 @@ void SceneBase::Update(double dt)
 	if (Application::IsKeyPressed('F'))
 	{
 		_gameObjectMananger.removeAll();
-		SceneManager::instance()->SetNextScene(4);
+		SceneManager::instance()->SetNextScene(5);
 	}
 
 	dailycycle += 0.1 * dt;
@@ -529,7 +529,7 @@ void SceneBase::Update(double dt)
 					MousePos.x > 430 &&
 					MousePos.y > 480 && 
 					MousePos.x < 550 &&
-					MousePos.y < 500 && 
+					MousePos.y < 510 && 
 					bsmthhappend == false)
 				{
 					std::cout << "confirm" << std::endl;

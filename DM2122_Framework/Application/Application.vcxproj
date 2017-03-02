@@ -109,6 +109,8 @@
     <ClCompile Include="Source\SceneLoading.cpp" />
     <ClCompile Include="Source\SceneMainMenu.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
+    <ClCompile Include="Source\SceneReturn.cpp" />
+    <ClCompile Include="Source\SceneTransport.cpp" />
     <ClCompile Include="Source\SceneUI.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SP02.cpp" />
@@ -151,6 +153,8 @@
     <ClInclude Include="Source\SceneLoading.h" />
     <ClInclude Include="Source\SceneMainMenu.h" />
     <ClInclude Include="Source\SceneManager.h" />
+    <ClInclude Include="Source\SceneReturn.h" />
+    <ClInclude Include="Source\SceneTransport.h" />
     <ClInclude Include="Source\SceneUI.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SP02.h" />

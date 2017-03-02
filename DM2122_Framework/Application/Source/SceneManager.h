@@ -12,6 +12,8 @@
 #include "TScene.h"
 #include "SceneLoading.h"
 #include "SceneEnd.h"
+#include "SceneReturn.h"
+#include "SceneTransport.h"
 
 using std::map;
 

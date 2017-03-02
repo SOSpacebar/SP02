@@ -398,7 +398,7 @@ void SP02::Update(double dt)
 	if (time <= 0)
 	{
 		std::cout << monsterCount;
-		SceneManager::instance()->SetNextScene(3);
+		SceneManager::instance()->SetNextScene(6);
 		time = 10;
 		if (count <5)
 		{
@@ -408,7 +408,7 @@ void SP02::Update(double dt)
 //death
 	if (_player.getInstance()->getCurrentHealth() < 1)
 	{
-		SceneManager::instance()->SetNextScene(5);
+		SceneManager::instance()->SetNextScene(7);
 	}
 }
 

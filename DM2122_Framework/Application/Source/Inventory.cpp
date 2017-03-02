@@ -98,7 +98,7 @@ void Inventory::melt(string name,unsigned int quantity,double dt)
 	container.insert(make_pair(name, getquantity));
 
 	//srand(time(NULL));
-	gettype = rand() % container.size();
+	gettype = rand() % (container.size()-1);
 	//container.erase(container(gettype))
 	string name2;
 	if (gettype == 0)
@@ -122,12 +122,12 @@ void Inventory::melt(string name,unsigned int quantity,double dt)
 	{
 		name2 = "Iron";
 	}
-	else if (gettype == 6)
+	else if (gettype == 5)
 	{
 		name2 = "Silver";
 		
 	}
-	else if (gettype == 7)
+	else if (gettype == 6)
 	{
 		name2 = "Steel";
 
